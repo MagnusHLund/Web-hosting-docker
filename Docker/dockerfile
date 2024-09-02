@@ -40,9 +40,3 @@ WORKDIR /app
 
 # Copy the current directory contents into the container at /app
 COPY . /app
-
-# Expose port 80
-EXPOSE 80
-
-# Define the command to run the application
-CMD envsubst < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf && nginx -g 'daemon off;'
