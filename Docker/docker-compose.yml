@@ -1,10 +1,8 @@
 services:
-  nginx:
+  web_hoster:
     build: .
-    ports:
-      - '80:80'
-    environment:
-      - SERVICE_HOST=service1
-      - SERVICE_PORT=3000
+    network_mode: host
     volumes:
-      - .:/app
+      - ./config:/config
+      - ./src:/src
+    command: tail -f /dev/null

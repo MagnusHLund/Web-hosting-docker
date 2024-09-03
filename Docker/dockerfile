@@ -6,31 +6,26 @@ FROM alpine:latest
 RUN apk update
 
 # Install dotnet
-#! add later
+RUN apk add --no-cache bash icu-libs krb5-libs libgcc libintl libssl3 libstdc++ zlib \
+    && wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh \
+    && chmod +x dotnet-install.sh \
+    && ./dotnet-install.sh --channel 7.0 --install-dir /usr/share/dotnet \
+    && ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet
 
 # Install PHP
 RUN apk add --no-cache php
 
 # Install Python
-RUN apk add --no-cache python3
+RUN apk add --no-cache python3 py3-pip
 
 # Install Node.js
-RUN apk add --no-cache nodejs
-
-# Install npm
-RUN apk add --no-cache npm
+RUN apk add --no-cache nodejs npm
 
 # Install Git
 RUN apk add --no-cache git
 
-# Install Nginx
-RUN apk add --no-cache nginx
-
 # Install gettext
 RUN apk add --no-cache gettext
-
-# Copy the Nginx configuration template
-COPY nginx.conf.template /etc/nginx/nginx.conf.template
 
 # Create directories
 RUN mkdir -p /app/src /app/config
