@@ -3,6 +3,6 @@ services:
     build: .
     network_mode: host
     volumes:
-      - ./config:/config
-      - ./src:/src
-    command: tail -f /dev/null
+      - ./config:/app/config
+      - ./src:/app/src
+    command: python /app/config/host.py

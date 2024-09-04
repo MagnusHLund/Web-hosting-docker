@@ -7,7 +7,7 @@ import netifaces as ni
 def load_projects():
     """Load the project details from the JSON file."""
     # Open the JSON file in read mode
-    with open('Projects.json', 'r') as json_file:
+    with open('/app/config/Projects.json', 'r') as json_file:
         # Parse the JSON file and return the result
         return json.load(json_file)
 
@@ -83,7 +83,7 @@ def log_error(message):
     # Get the current date and time
     timestamp = datetime.datetime.now().strftime("%d-%m-%Y %H-%M-%S")
     # Open the log file in write mode
-    with open(f"./Logs/{timestamp} log.txt", 'w') as log_file:
+    with open(f"/app/config/Logs/{timestamp} log.txt", 'w') as log_file:
         # Write the error message to the log file
         log_file.write(message)
     # Print the error message

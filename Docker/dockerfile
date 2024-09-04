@@ -16,7 +16,7 @@ RUN apk add --no-cache bash icu-libs krb5-libs libgcc libintl libssl3 libstdc++ 
 RUN apk add --no-cache php
 
 # Install Python
-RUN apk add --no-cache python3 py3-pip
+RUN apk add --no-cache python3 py3-netifaces
 
 # Install Node.js
 RUN apk add --no-cache nodejs npm
@@ -33,5 +33,3 @@ RUN mkdir -p /app/src /app/config
 # Set the working directory
 WORKDIR /app
 
-# Copy the current directory contents into the container at /app
-COPY . /app
