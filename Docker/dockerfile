@@ -16,8 +16,7 @@ RUN apk add --no-cache bash icu-libs krb5-libs libgcc libintl libssl3 libstdc++ 
 RUN apk add --no-cache php
 
 # Install Python
-RUN apk add --no-cache python3 py3-netifaces
-
+RUN apk add --no-cache python3
 # Install Node.js
 RUN apk add --no-cache nodejs npm
 
@@ -27,9 +26,11 @@ RUN apk add --no-cache git
 # Install gettext
 RUN apk add --no-cache gettext
 
-# Create directories
-RUN mkdir -p /app/src /app/config
+RUN apk add --no-cache bash
 
 # Set the working directory
 WORKDIR /app
 
+COPY ./config/python-dependencies.sh /app/config/python-dependencies.sh
+
+ENTRYPOINT ["sh", "/app/config/python-dependencies.sh"]
