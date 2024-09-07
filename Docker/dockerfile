@@ -1,0 +1,37 @@
+# Use the official Alpine Linux as a parent image
+FROM alpine:latest
+
+# Install dependencies
+# Update the package list
+RUN apk update
+
+# Install dotnet
+RUN apk add --no-cache bash icu-libs krb5-libs libgcc libintl libssl3 libstdc++ zlib \
+    && wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh \
+    && chmod +x dotnet-install.sh \
+    && ./dotnet-install.sh --channel 7.0 --install-dir /usr/share/dotnet \
+    && ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet
+
+# Install PHP
+RUN apk add --no-cache php
+
+# Install Python
+RUN apk add --no-cache python3 py3-netifaces
+
+# Install Node.js
+RUN apk add --no-cache nodejs npm
+
+# Install curl
+RUN apk add --no-cache curl
+
+# Install Git
+RUN apk add --no-cache git
+
+# Install gettext
+RUN apk add --no-cache gettext
+
+# Create directories
+RUN mkdir -p /app/src /app/config
+
+# Set the working directory
+WORKDIR /app

@@ -1,6 +1,6 @@
 services:
   main:
-    image: alpine:latest
+    build: .
     networks:
       macvlan_net:
         ipv4_address: 192.168.50.111
