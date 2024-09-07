@@ -1,0 +1,7 @@
+{
+"scripts": {
+    "api": "cd.. && npm run api",
+    "web": "cd.. && npm run web",
+    "docker": "cd.. && npm run docker"
+    }
+}

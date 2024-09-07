@@ -1,0 +1,22 @@
+{
+  "name": "magzilla/api",
+  "type": "project",
+  "require": {
+    "php": "^8.3",
+    "ext-pdo_mysql": "*",
+    "vlucas/phpdotenv": "^5.6",
+    "firebase/php-jwt": "^6.10",
+    "illuminate/database": "^11.22"
+  },
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Magzilla\\Api\\": "src/",
+      "Magzilla\\Api\\Controllers\\": "src/controllers",
+      "Magzilla\\Api\\Middleware\\": "src/middleware",
+      "Magzilla\\Api\\Models\\": "src/models",
+      "Magzilla\\Api\\Models\\Orm\\": "src/models/orm",
+      "Magzilla\\Api\\Utils\\": "src/utils"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "magzilla",
+  "private": true,
+  "workspaces": [
+    "magzilla_api",
+    "magzilla_web"
+  ],
+  "description": "Simple way to host web services.",
+  "version": "1.0.0",
+  "scripts": {
+    "api": "cd api/src/ && php -S localhost:3080",
+    "web": "cd web && npm run dev",
+    "docker": "cd docker/ && docker-compose up --build"
+  },
+  "author": "",
+  "license": "MIT"
+}
