@@ -18,5 +18,15 @@
       "Magzilla\\Api\\Models\\Orm\\": "src/models/orm",
       "Magzilla\\Api\\Utils\\": "src/utils"
     }
-  }
+  },
+  "authors": [
+    {
+      "name": "Magnus Lund",
+      "homepage": "https://magnuslund.com/"
+    },
+    {
+      "name": "Shazil Shahid",
+      "homepage": "https://portfolio.techtonic.dk/"
+    }
+  ]
 }
