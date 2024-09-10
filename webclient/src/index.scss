@@ -1,0 +1,20 @@
+:root {
+  --primary-color: #007bff; /* Blue or any color you prefer */
+  --background-color: #ffffff; /* White or any color you prefer */
+  --text-color: #333333; /* Dark color for text */
+}
+
+/* Dark Theme Variables */
+.dark-theme {
+  --primary-color: #004085; /* Darker blue */
+  --background-color: #343a40; /* Dark background */
+  --text-color: #e9ecef; /* Light text color */
+}
+
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}

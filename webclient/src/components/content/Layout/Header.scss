@@ -1,0 +1,64 @@
+/* Import the global styles from index.scss */
+@import "../../../index.scss";
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  // box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  max-width: 100%; /* Ensure header does not overflow */
+  box-sizing: border-box; /* Include padding in width calculation */
+
+  &__logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  &__user-info {
+    display: flex;
+    align-items: center;
+
+    &__role {
+      display: flex;
+
+      &__box {
+        margin-left: 15px;
+        padding: 10px 15px;
+        background-color: var(--background-color);
+        border: 1px solid var(--text-color);
+        border-radius: 5px;
+        box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
+        font-weight: bold;
+        transition: background-color 0.3s ease, color 0.3s ease;
+
+        &:hover {
+          background-color: var(--text-color);
+          color: var(--background-color);
+          box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+          transform: translateY(-2px);
+        }
+      }
+    }
+  }
+}
+
+.dark-theme .header {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.dark-theme .header__user-info__role__box {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .header__user-info__role {
+    display: block;
+  }
+}
