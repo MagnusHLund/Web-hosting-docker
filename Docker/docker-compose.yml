@@ -1,38 +1,9 @@
 services:
   main:
     build: .
-    networks:
-      macvlan_net:
-        ipv4_address: 192.168.50.111
-    command: tail -f /dev/null
-
-  project1:
-    image: nginx:latest
-    networks:
-      customnet:
     ports:
-      - '100:80'
-      - '101:80'
-
-  project2:
-    image: nginx:latest
-    networks:
-      customnet:
-    ports:
-      - '102:80'
-
-networks:
-  macvlan_net:
-    driver: macvlan
-    driver_opts:
-      parent: eth0
-    ipam:
-      config:
-        - subnet: 192.168.50.0/24
-          gateway: 192.168.50.1
-
-  customnet:
-    driver: bridge
-    ipam:
-      config:
-        - subnet: 192.168.50.0/24
+      - '0.0.0.0:3000-4000:3000-4000'
+    volumes:
+      - ./config:/app/config
+      - ./src:/app/src
+    command: python /app/config/host.py
