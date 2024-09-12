@@ -1,16 +1,26 @@
+// Define Sass variables
+$primary-color: #007bff; // Blue or any color you prefer
+$background-color: #ffffff; // White or any color you prefer
+$text-color: #333333; // Dark color for text
+
+// Dark Theme Variables
+$dark-primary-color: #004085; // Darker blue
+$dark-background-color: #343a40; // Dark background
+$dark-text-color: #e9ecef; // Light text color
+
+// Use CSS variables for root
 :root {
-  --primary-color: #007bff; /* Blue or any color you prefer */
-  --background-color: #ffffff; /* White or any color you prefer */
-  --text-color: #333333; /* Dark color for text */
+  --primary-color: #{$primary-color};
+  --background-color: #{$background-color};
+  --text-color: #{$text-color};
 }
 
-/* Dark Theme Variables */
+// Dark Theme Variables
 .dark-theme {
-  --primary-color: #004085; /* Darker blue */
-  --background-color: #343a40; /* Dark background */
-  --text-color: #e9ecef; /* Light text color */
+  --primary-color: #{$dark-primary-color};
+  --background-color: #{$dark-background-color};
+  --text-color: #{$dark-text-color};
 }
-
 
 body {
   margin: 0;

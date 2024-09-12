@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useTheme } from "./Hooks/ThemeContext";
 import "./App.scss";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Navbar from "./components/content/Layout/Navbar";
@@ -7,9 +9,20 @@ import ServicesRoute from "./components/routes/ServicesRoute";
 import SettingsRoute from "./components/routes/SettingsRoute";
 import UserRoute from "./components/routes/UsersRoute";
 import Header from "./components/content/Layout/Header";
-import Settings from "./components/routes/SettingsRoute";
 
 const App: React.FC = () => {
+
+  const { isDarkTheme } = useTheme();
+
+  useEffect(() => {
+    if (isDarkTheme) {
+      document.body.classList.add("dark-theme");
+    } else {
+      document.body.classList.remove("dark-theme");
+    }
+  }, [isDarkTheme]);
+
+
   const routes = [
     { path: "/login", name: "Login", element: <LoginRoute /> },
     { path: "/services", name: "Services", element: <ServicesRoute /> },
