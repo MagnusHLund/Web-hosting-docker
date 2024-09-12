@@ -1,0 +1,11 @@
+PUT /api/users/addUser HTTP/1.1
+Host: localhost:3000
+Content-Type: application/json
+Origin: http://localhost:3000
+
+{
+    "name": "Shazil",
+    "email": "shazil@email.com",
+    "password": "verySecure",
+    "isAdmin": false,
+}

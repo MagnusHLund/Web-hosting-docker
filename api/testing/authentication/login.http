@@ -1,0 +1,9 @@
+POST /api/authentication/updatePassword HTTP/1.1
+Host: localhost:3000
+Content-Type: application/json
+Origin: http://localhost:3000
+
+{
+    "email": "magnus@email.com",
+    "password": "password"
+}
