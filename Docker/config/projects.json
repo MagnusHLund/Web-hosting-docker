@@ -3,5 +3,10 @@
     "path": "/app/src/root/MagZilla/web/",
     "type": "react",
     "port": "3000"
+  },
+  {
+    "path": "/app/src/root/MagZilla/src/",
+    "type": "php",
+    "port": "3001"
   }
 ]

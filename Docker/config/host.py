@@ -41,6 +41,7 @@ def run_project(project, processes):
         # Define the path to the npm and PHP commands
         npm_path = '/usr/bin/npm'
         php_path = '/usr/bin/php'
+        composer_path = '/usr/bin/composer'
 
         # Check if the project path exists
         if not os.path.exists(project['path']):
@@ -67,6 +68,10 @@ def run_project(project, processes):
         if project['type'].lower() in ['node', 'react']:
             print(f"Running npm install for {project['path']}")
             subprocess.run([npm_path, 'install'], cwd=project['path'], check=True)
+
+        if project['type'].lower() in ['php']:
+            print(f"Running composer install for {project['path']}")
+            subprocess.run([composer_path, "install"], cwd=project['path'], check=True)
 
         process = subprocess.Popen(command, cwd=project['path']) 
 
