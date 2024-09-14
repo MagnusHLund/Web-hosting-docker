@@ -39,9 +39,9 @@ def run_project(project, processes):
     """Run the appropriate command for the project based on its type."""
     try:
         # Define the path to the npm and PHP commands
-        npm_path = '/usr/bin/npm'
-        php_path = '/usr/bin/php'
-        composer_path = '/usr/bin/composer'
+        npm_path = 'npm'
+        php_path = 'php'
+        composer_path = 'composer'
 
         # Check if the project path exists
         if not os.path.exists(project['path']):
