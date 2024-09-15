@@ -27,6 +27,7 @@ RUN apk add --no-cache curl
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 ENV PATH="$PATH:/usr/local/bin"
+ENV PHP_INI_SCAN_DIR=/app/config/
 
 # Install Git
 RUN apk add --no-cache git
