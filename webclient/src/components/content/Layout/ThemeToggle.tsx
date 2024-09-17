@@ -1,21 +1,21 @@
-// ThemeToggle.tsx
-import { useTheme } from "../../../Hooks/ThemeContext";
-import "./ThemeToggle.scss";
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleTheme } from '../../../redux/Slices/themeSlice';
+import { RootState } from '../../../redux/Store'; 
+import './ThemeToggle.scss';
 
-const ThemeToggle: React.FC = () => {
-  const { isDarkTheme, toggleTheme } = useTheme();
+function ThemeToggle() {
+  const dispatch = useDispatch();
+  const theme = useSelector((state: RootState) => state.theme.theme);
+
+  const handleThemeToggle = () => {
+    dispatch(toggleTheme());
+  };
 
   return (
-    <label className="theme-toggle">
-      <input
-        type="checkbox"
-        checked={isDarkTheme}
-        onChange={toggleTheme}
-        className="theme-toggle__checkbox"
-      />
-      <span className="theme-toggle__slider"></span>
-    </label>
+    <button className="theme-toggle" onClick={handleThemeToggle}>
+      {theme === 'light' ? 'Switch to Dark' : 'Switch to Light'}
+    </button>
   );
-};
+}
 
 export default ThemeToggle;

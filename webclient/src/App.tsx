@@ -1,6 +1,5 @@
-import { useEffect } from "react";
-import { useTheme } from "./Hooks/ThemeContext";
 import "./App.scss";
+import { useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Navbar from "./components/content/Layout/Navbar";
 import LoginRoute from "./components/routes/LoginRoute";
@@ -9,19 +8,15 @@ import ServicesRoute from "./components/routes/ServicesRoute";
 import SettingsRoute from "./components/routes/SettingsRoute";
 import UserRoute from "./components/routes/UsersRoute";
 import Header from "./components/content/Layout/Header";
+import { useSelector } from "react-redux";
+import { RootState } from './redux/Store';
 
 const App: React.FC = () => {
-
-  const { isDarkTheme } = useTheme();
+  const theme = useSelector((state: RootState) => state.theme.theme);
 
   useEffect(() => {
-    if (isDarkTheme) {
-      document.body.classList.add("dark-theme");
-    } else {
-      document.body.classList.remove("dark-theme");
-    }
-  }, [isDarkTheme]);
-
+    document.body.className = theme === "dark" ? "dark-theme" : "";
+  }, [theme]);
 
   const routes = [
     { path: "/login", name: "Login", element: <LoginRoute /> },
