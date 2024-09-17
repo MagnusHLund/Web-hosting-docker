@@ -2,9 +2,42 @@
 
 namespace MagZilla\Managers;
 
+use MagZilla\Controllers\AuthenticationController;
+use MagZilla\Controllers\ServiceController;
+use MagZilla\Controllers\UserController;
+
 class ApiRouter
 {
     private $routes = array();
+
+    public function __construct()
+    {
+        $authenticationController = new AuthenticationController;
+        $serviceController = new ServiceController;
+        $userController = new UserController;
+
+        $this->routes = [
+            ["POST", "/api/auth/changePassword", [$authenticationController, "changePassword"]],
+            ["POST", "/api/auth/login", [$authenticationController, "login"]],
+            ["POST", "/api/auth/logout", [$authenticationController, "logout"]],
+
+            ["POST", "/api/services/addService", [$serviceController, "addService"]],
+            ["DELETE", "/api/services/deleteService", [$serviceController, "deleteService"]],
+            ["GET", "/api/services/getServiceDetails", [$serviceController, "getServiceDetails"]],
+            ["GET", "/api/services/getServices", [$serviceController, "getServices"]],
+            ["GET", "/api/services/searchServices", [$serviceController, "searchServices"]],
+            ["PUT", "/api/services/updateService", [$serviceController, "updateService"]],
+            ["PUT", "/api/services/updateServiceSource", [$serviceController, "updateServiceSource"]],
+
+            ["POST", "/api/users/addUser", [$userController, "addUser"]],
+            ["DELETE", "/api/users/deleteUser", [$userController, "addUser"]],
+            ["GET", "/api/users/getSettings", [$userController, "getSettings"]],
+            ["GET", "/api/users/getUserDetails", [$userController, "getUserDetails"]],
+            ["GET", "/api/users/getUsers", [$userController, "getUsers"]],
+            ["PUT", "/api/users/updateSettings", [$userController, "updateSettings"]],
+            ["PUT", "/api/users/updateUser", [$userController, "updateUser"]],
+        ];
+    }
 
     public function handleRequest($method, $path, $requestBody)
     {
@@ -23,14 +56,5 @@ class ApiRouter
         http_response_code(404);
         echo json_encode(["error" => "This route does not exist!"]);
         exit;
-    }
-
-    public function registerRoute($type, $route, $callback)
-    {
-        $this->routes = array_push($this->routes, array(
-            "type" => $type,
-            "route" => $route,
-            "callback" => array()
-        ));
     }
 }
