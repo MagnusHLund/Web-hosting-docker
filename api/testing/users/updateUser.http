@@ -4,5 +4,8 @@ Content-Type: application/json
 Origin: http://localhost:3000
 
 {
-    "add": "later"
+    "userId": 1,
+    "name": "Shazil",
+    "email": "shazil@email.com",
+    "isAdmin": false,
 }
