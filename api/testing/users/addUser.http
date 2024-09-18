@@ -7,5 +7,5 @@ Origin: http://localhost:3000
     "name": "Shazil",
     "email": "shazil@email.com",
     "password": "verySecure",
-    "isAdmin": false,
+    "isAdmin": true,
 }

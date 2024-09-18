@@ -4,8 +4,7 @@ Content-Type: application/json
 Origin: http://localhost:3000
 
 {
-    "serviceOwner": "owner",
-    "serviceName": "name",
+    "serviceId": 1,
     "file": "project.zip",
     "gitUrl": "url"
 }

@@ -4,5 +4,22 @@ Content-Type: application/json
 Origin: http://localhost:3000
 
 {
-    "add": "later"
+    "serviceId": 1,
+    "serviceTypes": 
+    [
+        {
+            "type": "react",
+            "startupPath": "web/",
+            "dotEnvPath": "web/",
+            "dotEnvFile": "file",
+            "port": 1234
+        }, 
+        {
+            "type": "php",
+            "startupPath": "api/",
+            "dotEnvPath": "api/",
+            "dotEnvFile": "file",
+            "port": 4321
+        }
+    ]
 }
