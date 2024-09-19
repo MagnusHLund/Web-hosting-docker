@@ -11,15 +11,16 @@
   "license": "MIT",
   "autoload": {
     "psr-4": {
-      "Magzilla\\Api\\": "src/",
-      "Magzilla\\Api\\Controllers\\": "src/controllers/",
-      "Magzilla\\Api\\Handlers\\": "src/handlers/",
-      "Magzilla\\Api\\Helpers\\": "src/helpers/",
-      "Magzilla\\Api\\Managers\\": "src/managers/",
-      "Magzilla\\Api\\Middleware\\": "src/middleware/",
-      "Magzilla\\Api\\Models\\": "src/models/",
-      "Magzilla\\Api\\Models\\Orm\\": "src/models/orm/",
-      "Magzilla\\Api\\Utils\\": "src/utils/"
+      "MagZilla\\Api\\": "src/",
+      "MagZilla\\Api\\Controllers\\": "src/controllers/",
+      "MagZilla\\Api\\Handlers\\": "src/handlers/",
+      "MagZilla\\Api\\Helpers\\": "src/helpers/",
+      "MagZilla\\Api\\Managers\\": "src/managers/",
+      "MagZilla\\Api\\Middleware\\": "src/middleware/",
+      "MagZilla\\Api\\Models\\": "src/models/",
+      "MagZilla\\Api\\Models\\ORM\\": "src/models/orm/",
+      "MagZilla\\Api\\Services\\": "src/services/",
+      "MagZilla\\Api\\Utils\\": "src/utils/"
     }
   },
   "authors": [

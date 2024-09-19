@@ -1,20 +1,10 @@
 <?php
 
-namespace MagZilla\Helpers;
+namespace MagZilla\Api\Helpers;
 
 class GitHelper
 {
-    private static $instance = null;
-
-    private function __construct() {}
-
-    public static function getInstance()
-    {
-        if (self::$instance == null) {
-            self::$instance = new GitHelper();
-        }
-        return self::$instance;
-    }
+    public function __construct() {}
 
     public function GitClone($url, $repoLocation) {}
 

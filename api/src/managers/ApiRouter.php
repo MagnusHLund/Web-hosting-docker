@@ -1,10 +1,10 @@
 <?php
 
-namespace MagZilla\Managers;
+namespace MagZilla\Api\Managers;
 
-use MagZilla\Controllers\AuthenticationController;
-use MagZilla\Controllers\ServiceController;
-use MagZilla\Controllers\UserController;
+use MagZilla\Api\Controllers\AuthenticationController;
+use MagZilla\Api\Controllers\ServiceController;
+use MagZilla\Api\Controllers\UserController;
 
 class ApiRouter
 {
@@ -22,20 +22,20 @@ class ApiRouter
             ["POST", "/api/auth/logout", [$authenticationController, "logout"]],
 
             ["POST", "/api/services/addService", [$serviceController, "addService"]],
-            ["DELETE", "/api/services/deleteService", [$serviceController, "deleteService"]],
             ["GET", "/api/services/getServiceDetails", [$serviceController, "getServiceDetails"]],
             ["GET", "/api/services/getServices", [$serviceController, "getServices"]],
             ["GET", "/api/services/searchServices", [$serviceController, "searchServices"]],
             ["PUT", "/api/services/updateService", [$serviceController, "updateService"]],
             ["PUT", "/api/services/updateServiceSource", [$serviceController, "updateServiceSource"]],
+            ["DELETE", "/api/services/deleteService", [$serviceController, "deleteService"]],
 
             ["POST", "/api/users/addUser", [$userController, "addUser"]],
-            ["DELETE", "/api/users/deleteUser", [$userController, "addUser"]],
             ["GET", "/api/users/getSettings", [$userController, "getSettings"]],
             ["GET", "/api/users/getUserDetails", [$userController, "getUserDetails"]],
             ["GET", "/api/users/getUsers", [$userController, "getUsers"]],
             ["PUT", "/api/users/updateSettings", [$userController, "updateSettings"]],
             ["PUT", "/api/users/updateUser", [$userController, "updateUser"]],
+            ["DELETE", "/api/users/deleteUser", [$userController, "addUser"]],
         ];
     }
 

@@ -2,7 +2,7 @@
 
 namespace MagZilla\Api\Models;
 
-class Service
+class ServiceType
 {
     public function __construct() {}
 }

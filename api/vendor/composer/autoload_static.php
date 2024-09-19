@@ -41,7 +41,16 @@ class ComposerStaticInitf292eb22a1a5fbcbdeb4f78b4125f85a
         ),
         'M' => 
         array (
-            'Magzilla\\Api\\' => 13,
+            'MagZilla\\Api\\Utils\\' => 19,
+            'MagZilla\\Api\\Services\\' => 22,
+            'MagZilla\\Api\\Models\\ORM\\' => 24,
+            'MagZilla\\Api\\Models\\' => 20,
+            'MagZilla\\Api\\Middleware\\' => 24,
+            'MagZilla\\Api\\Managers\\' => 22,
+            'MagZilla\\Api\\Helpers\\' => 21,
+            'MagZilla\\Api\\Handlers\\' => 22,
+            'MagZilla\\Api\\Controllers\\' => 25,
+            'MagZilla\\Api\\' => 13,
         ),
         'I' => 
         array (
@@ -123,15 +132,51 @@ class ComposerStaticInitf292eb22a1a5fbcbdeb4f78b4125f85a
         array (
             0 => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption',
         ),
-        'Magzilla\\Api\\' => 
+        'MagZilla\\Api\\Utils\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/utils',
+        ),
+        'MagZilla\\Api\\Services\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/services',
+        ),
+        'MagZilla\\Api\\Models\\ORM\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/models/orm',
+        ),
+        'MagZilla\\Api\\Models\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/models',
+        ),
+        'MagZilla\\Api\\Middleware\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/middleware',
+        ),
+        'MagZilla\\Api\\Managers\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/managers',
+        ),
+        'MagZilla\\Api\\Helpers\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/helpers',
+        ),
+        'MagZilla\\Api\\Handlers\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/handlers',
+        ),
+        'MagZilla\\Api\\Controllers\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/controllers',
+        ),
+        'MagZilla\\Api\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),
         'Illuminate\\Support\\' => 
         array (
-            0 => __DIR__ . '/..' . '/illuminate/macroable',
+            0 => __DIR__ . '/..' . '/illuminate/collections',
             1 => __DIR__ . '/..' . '/illuminate/conditionable',
-            2 => __DIR__ . '/..' . '/illuminate/collections',
+            2 => __DIR__ . '/..' . '/illuminate/macroable',
             3 => __DIR__ . '/..' . '/illuminate/support',
         ),
         'Illuminate\\Database\\' => 

@@ -1,6 +1,6 @@
 <?php
 
-namespace MagZilla\Handlers;
+namespace MagZilla\Api\Handlers;
 
 class CookieManager
 {
@@ -16,14 +16,11 @@ class CookieManager
         return self::$instance;
     }
 
-    public function setJwtCookie($jwt)
+    public function setCookie($name, $value, $expirationTime = 8600)
     {
-        $cookieName = "jwt";
+        $expirationDate = time() + $expirationTime;
 
-        $oneDay = 86400;
-        $expirationDate = time() + $oneDay;
-
-        setcookie($cookieName, $jwt, $expirationDate, "/", "", false, true);
+        setcookie($name, $value, $expirationDate, "/", "", false, true);
     }
 
     public function unsetCookie($cookieName)

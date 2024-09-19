@@ -1,25 +1,10 @@
 <?php
 
-namespace MagZilla\Utils;
+namespace MagZilla\Api\Utils;
 
 class Constants
 {
-    private static $instance = null;
-
-    private function __construct()
-    {
-        // Private constructor, due to using singleton pattern. Prevents creating new instances of the class.
-    }
-
-    public static function getInstance()
-    {
-        if (self::$instance == null) {
-            self::$instance = new Constants();
-        }
-        return self::$instance;
-    }
-
-    public function getDatabaseInfo()
+    public static function getDatabaseInfo()
     {
         return array(
             "DB_HOST" => $_ENV['DB_HOST'],
@@ -29,18 +14,33 @@ class Constants
         );
     }
 
-    public function getKid()
+    public static function getKid()
     {
         return $_ENV['KID'];
     }
 
-    public function getAllowedOrigins()
+    public static function getAllowedOrigins()
     {
         return explode(', ', $_ENV['ALLOWED_HOSTS']);
     }
 
-    public function getEncryptionKey()
+    public static function getEncryptionKey()
     {
         return $_ENV['ENCRYPTION_KEY'];
+    }
+
+    public static function getPepper()
+    {
+        return $_ENV['PEPPER'];
+    }
+
+    public static function getJwtSecretKey()
+    {
+        return $_ENV['JWT_SECRET_KEY'];
+    }
+
+    public static function getAllowedCorsOrigins()
+    {
+        return $_ENV['ALLOWED_CORS_ORIGINS'];
     }
 }

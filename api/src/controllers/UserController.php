@@ -1,6 +1,6 @@
 <?php
 
-namespace MagZilla\Controllers;
+namespace MagZilla\Api\Controllers;
 
 class UserController
 {
