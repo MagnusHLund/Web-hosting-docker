@@ -8,6 +8,7 @@ Origin: http://localhost:3001
     "serviceTypes": 
     [
         {
+            "serviceTypeId": 1,
             "type": "react",
             "startupPath": "web/",
             "dotEnvPath": "web/",
@@ -15,6 +16,7 @@ Origin: http://localhost:3001
             "port": 1234
         }, 
         {
+            "serviceTypeId" : 2,
             "type": "php",
             "startupPath": "api/",
             "dotEnvPath": "api/",
