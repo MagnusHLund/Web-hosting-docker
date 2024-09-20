@@ -2,15 +2,11 @@
 
 namespace MagZilla\Api\Controllers;
 
-class AuthenticationController
+class AuthenticationController extends BaseController
 {
-    private $database;
-
-    public function __construct() {}
-
     public function changePassword() {}
 
-    public function login() {}
+    public function login($request) {}
 
     public function logout() {}
 }

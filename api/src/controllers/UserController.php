@@ -2,12 +2,8 @@
 
 namespace MagZilla\Api\Controllers;
 
-class UserController
+class UserController extends BaseController
 {
-    private $database;
-
-    public function __construct() {}
-
     public function addUser() {}
 
     public function deleteUser() {}

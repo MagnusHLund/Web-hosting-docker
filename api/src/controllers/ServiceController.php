@@ -2,12 +2,8 @@
 
 namespace MagZilla\Api\Controllers;
 
-class ServiceController
+class ServiceController extends BaseController
 {
-    private $database;
-
-    public function __construct() {}
-
     public function addService() {}
 
     public function deleteService() {}

@@ -6,7 +6,8 @@
     "ext-pdo_mysql": "*",
     "vlucas/phpdotenv": "^5.6",
     "firebase/php-jwt": "^6.10",
-    "illuminate/database": "^11.22"
+    "illuminate/database": "^11.22",
+    "php-di/php-di": "^7.0"
   },
   "license": "MIT",
   "autoload": {
@@ -18,6 +19,7 @@
       "MagZilla\\Api\\Managers\\": "src/managers/",
       "MagZilla\\Api\\Middleware\\": "src/middleware/",
       "MagZilla\\Api\\Models\\": "src/models/",
+      "magzilla\\Api\\Models\\DTOs\\": "src/models/dtos/",
       "MagZilla\\Api\\Models\\ORM\\": "src/models/orm/",
       "MagZilla\\Api\\Services\\": "src/services/",
       "MagZilla\\Api\\Utils\\": "src/utils/"

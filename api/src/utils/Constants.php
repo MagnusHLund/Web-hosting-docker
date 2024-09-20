@@ -8,9 +8,9 @@ class Constants
     {
         return array(
             "DB_HOST" => $_ENV['DB_HOST'],
+            "DB_NAME" => $_ENV['DB_NAME'],
             "DB_USER" => $_ENV['DB_USER'],
-            "DB_PASSWORD" => $_ENV['DB_PASSWORD'],
-            "DB_DATABASE" => $_ENV['DB_DATABASE'],
+            "DB_PASS" => $_ENV['DB_PASS'],
         );
     }
 
@@ -19,9 +19,9 @@ class Constants
         return $_ENV['KID'];
     }
 
-    public static function getAllowedOrigins()
+    public static function getAllowedCorsOrigins()
     {
-        return explode(', ', $_ENV['ALLOWED_HOSTS']);
+        return explode(', ', $_ENV['ALLOWED_CORS_ORIGINS']);
     }
 
     public static function getEncryptionKey()
@@ -37,10 +37,5 @@ class Constants
     public static function getJwtSecretKey()
     {
         return $_ENV['JWT_SECRET_KEY'];
-    }
-
-    public static function getAllowedCorsOrigins()
-    {
-        return $_ENV['ALLOWED_CORS_ORIGINS'];
     }
 }

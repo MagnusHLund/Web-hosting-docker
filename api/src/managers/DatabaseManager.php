@@ -5,7 +5,7 @@ namespace MagZilla\Api\Managers;
 use MagZilla\Api\Utils\Constants;
 use Illuminate\Database\Capsule\Manager as Capsule;
 
-class Database
+class DatabaseManager
 {
     private static $instance = null;
     private $capsule;
@@ -19,9 +19,9 @@ class Database
         $this->capsule->addConnection([
             'driver'    => 'mysql',
             'host'      => $databaseInfo["DB_HOST"],
-            'database'  => $databaseInfo["DB_DATABASE"],
+            'database'  => $databaseInfo["DB_NAME"],
             'username'  => $databaseInfo["DB_USER"],
-            'password'  => $databaseInfo["DB_PASSWORD"],
+            'password'  => $databaseInfo["DB_PASS"],
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix'    => '',
@@ -34,7 +34,7 @@ class Database
     public static function getInstance()
     {
         if (self::$instance == null) {
-            self::$instance = new Database();
+            self::$instance = new DatabaseManager();
         }
         return self::$instance;
     }
