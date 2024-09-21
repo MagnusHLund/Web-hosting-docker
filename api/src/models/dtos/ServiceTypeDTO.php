@@ -13,6 +13,8 @@ class ServiceTypeDTO extends BaseDTO
 
     public function __construct(array $data)
     {
+        parent::__construct();
+
         $this->ServiceTypeId = $data['ServiceTypeId'];
         $this->ServiceType   = $data['ServiceType'];
         $this->startupPath   = $data['startupPath'];

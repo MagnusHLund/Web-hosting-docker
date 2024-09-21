@@ -9,6 +9,8 @@ class SettingsDTO extends BaseDTO
 
     public function __construct(array $data)
     {
+        parent::__construct();
+
         $this->setting = $data['setting'];
         $this->value   = $data['value'];
 

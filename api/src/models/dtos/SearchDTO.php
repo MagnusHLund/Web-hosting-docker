@@ -8,6 +8,8 @@ class SearchDTO extends BaseDTO
 
     public function __construct(array $data)
     {
+        parent::__construct();
+
         $this->search = $data['search'];
 
         $this->validate($this->toArray());

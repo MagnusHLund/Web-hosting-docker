@@ -9,6 +9,8 @@ class ServiceDTO extends BaseDTO
 
     public function __construct(array $data)
     {
+        parent::__construct();
+
         $this->serviceId    = $data['serviceId'];
         $this->serviceTypes = array_map(function ($serviceTypeData) {
             return new ServiceTypeDTO($serviceTypeData);

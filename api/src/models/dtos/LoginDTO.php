@@ -4,11 +4,13 @@ namespace MagZilla\Api\Models\DTOs;
 
 class LoginDTO extends BaseDTO
 {
-    public readonly string $email;
+    public readonly string|null $email;
     public readonly string $password;
 
     public function __construct(array $data)
     {
+        parent::__construct();
+
         $this->email    = $data['email'];
         $this->password = $data['password'];
 

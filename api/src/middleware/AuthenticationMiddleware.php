@@ -9,7 +9,7 @@ class AuthenticationMiddleware
     public static function validateAuthentication($path)
     {
         try {
-            if ($path != "/Api/auth/login") {
+            if ($path != "/api/auth/login") {
                 if (!isset($_COOKIE['jwt'])) {
                     throw new \Exception("User is not logged in!");
                 }

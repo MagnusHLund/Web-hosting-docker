@@ -9,6 +9,8 @@ class PasswordDTO extends BaseDTO
 
     public function __construct(array $data)
     {
+        parent::__construct();
+
         $this->userId   = $data['userId'];
         $this->password = $data['password'];
 

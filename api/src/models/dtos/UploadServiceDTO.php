@@ -10,6 +10,8 @@ class UploadServiceDTO extends BaseDTO
 
     public function __construct(array $data)
     {
+        parent::__construct();
+
         $this->serviceId = $data['serviceId'];
         $this->gitUrl    = $data['gitUrl'];
 

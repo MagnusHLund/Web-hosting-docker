@@ -12,6 +12,8 @@ class UserDTO extends BaseDTO
 
     public function __construct(array $data)
     {
+        parent::__construct();
+
         $this->userId   = $data['userId'];
         $this->name     = $data['name'];
         $this->email    = $data['email'];

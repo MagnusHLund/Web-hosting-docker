@@ -18,25 +18,25 @@ class ApiRouter
         $userController = $container->get(UserController::class);
 
         $this->routes = [
-            ["POST",   "/api/auth/changePassword", [$authenticationController, "changePassword"]],
-            ["POST",   "/api/auth/login", [$authenticationController, "login"]],
-            ["POST",   "/api/auth/logout", [$authenticationController, "logout"]],
+            ["POST",   "/api/auth/changePassword",          [$authenticationController, "changePassword"]],
+            ["POST",   "/api/auth/login",                   [$authenticationController, "login"]],
+            ["POST",   "/api/auth/logout",                  [$authenticationController, "logout"]],
 
-            ["POST",   "/api/services/addService", [$serviceController, "addService"]],
-            ["GET",    "/api/services/getServiceDetails", [$serviceController, "getServiceDetails"]],
-            ["GET",    "/api/services/getServices", [$serviceController, "getServices"]],
-            ["GET",    "/api/services/searchServices", [$serviceController, "searchServices"]],
-            ["PUT",    "/api/services/updateService", [$serviceController, "updateService"]],
+            ["POST",   "/api/services/addService",          [$serviceController, "addService"]],
+            ["GET",    "/api/services/getServiceDetails",   [$serviceController, "getServiceDetails"]],
+            ["GET",    "/api/services/getServices",         [$serviceController, "getServices"]],
+            ["GET",    "/api/services/searchServices",      [$serviceController, "searchServices"]],
+            ["PUT",    "/api/services/updateService",       [$serviceController, "updateService"]],
             ["PUT",    "/api/services/updateServiceSource", [$serviceController, "updateServiceSource"]],
-            ["DELETE", "/api/services/deleteService", [$serviceController, "deleteService"]],
+            ["DELETE", "/api/services/deleteService",       [$serviceController, "deleteService"]],
 
-            ["POST",   "/api/users/addUser", [$userController, "addUser"]],
-            ["GET",    "/api/users/getSettings", [$userController, "getSettings"]],
-            ["GET",    "/api/users/getUserDetails", [$userController, "getUserDetails"]],
-            ["GET",    "/api/users/getUsers", [$userController, "getUsers"]],
-            ["PUT",    "/api/users/updateSettings", [$userController, "updateSettings"]],
-            ["PUT",    "/api/users/updateUser", [$userController, "updateUser"]],
-            ["DELETE", "/api/users/deleteUser", [$userController, "addUser"]],
+            ["POST",   "/api/users/addUser",                [$userController, "addUser"]],
+            ["GET",    "/api/users/getSettings",            [$userController, "getSettings"]],
+            ["GET",    "/api/users/getUserDetails",         [$userController, "getUserDetails"]],
+            ["GET",    "/api/users/getUsers",               [$userController, "getUsers"]],
+            ["PUT",    "/api/users/updateSettings",         [$userController, "updateSettings"]],
+            ["PUT",    "/api/users/updateUser",             [$userController, "updateUser"]],
+            ["DELETE", "/api/users/deleteUser",             [$userController, "addUser"]],
         ];
     }
 
@@ -49,7 +49,7 @@ class ApiRouter
             $params = $route[3] ?? [];
 
             if ($method === $routeMethod && $path === $routePath) {
-                call_user_func_array([$handler[0], $handler[1]], [[$requestBody], $params]); // TODO: Can this be improved?
+                call_user_func_array([$handler[0], $handler[1]], [$requestBody, $params]); // TODO: Can this be improved?
                 return;
             }
         }
