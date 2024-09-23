@@ -2,7 +2,7 @@
 
 namespace MagZilla\Api\Models;
 
-class User
+class Service
 {
     public function __construct() {}
 }
