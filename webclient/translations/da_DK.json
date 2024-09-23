@@ -1,0 +1,104 @@
+{
+  "common": {
+    "general": {
+      "services": "Tjenester",
+      "settings": "Indstillinger",
+      "users": "Brugere"
+    },
+    "dashboard": {
+      "search": "Søg",
+      "status": "Status",
+      "active": "Aktiv",
+      "inactive": "Inaktiv"
+    },
+    "edit": {
+      "save": "Gem"
+    },
+    "user": {
+      "change password": "Skift adgangskode",
+      "log out": "Log ud"
+    }
+  },
+  "footer": {
+    "docs": "Dokumentation",
+    "github": "Github"
+  },
+  "services": {
+    "common": {
+      "add service": "Tilføj tjeneste",
+      "edit service": "Rediger tjeneste",
+      "port": "Port",
+      "type": "Type",
+      "email": "Email",
+      "name": "Navn"
+    },
+    "dashboard": {
+      "user": "Bruger"
+    },
+    "menu": {
+      "git pull": "Git pull",
+      "edit": "Rediger",
+      "disable": "Deaktiver",
+      "delete": "Fjern"
+    },
+    "edit": {
+      "common": {
+        "upload project": "Upload projekt",
+        "configure type": "konfigurer type"
+      },
+      "placeholder": {
+        "name": "Tjeneste navn",
+        "type": "Vælg type",
+        "startup path": "Mappen som du starter din tjeneste type fra, via konsollen",
+        "dotenv location": "Mappen der indeholder din tjeneste type .env fil"
+      },
+      "upload project": {
+        "add type": "Tilføj type",
+        "git url": "Git HTTPS url",
+        "or": "eller",
+        "upload zip file": "Upload zip fil",
+        "select zip file": "Vælg zip fil"
+      },
+      "configure type": {
+        "startup path": "Start sti",
+        "dotenv location": ".env lokation",
+        "upload dotenv file": "Upload .env fil"
+      }
+    }
+  },
+  "users": {
+    "common": {
+      "add user": "Tilføj bruger",
+      "name": "Navn",
+      "admin": "Admin"
+    },
+    "dashboard": {
+      "role": "Rolle"
+    },
+    "edit": {
+      "roles": "Roller",
+      "delete": "Fjern bruger"
+    },
+    "change password": {
+      "new password": "Ny adgangskode",
+      "repeat password": "Gentag adgangskode"
+    }
+  },
+  "settings": {
+    "general": {
+      "dark mode": "Mørkt tema",
+      "language": "Sprog"
+    },
+    "language": {
+      "english": "Engelsk",
+      "danish": "Dansk"
+    }
+  },
+  "login": {
+    "password": "Adgangskode",
+    "forgot password": "Glemt adgangskode?",
+    "login": "Login",
+    "send code": "Send kode",
+    "code": "Kode"
+  }
+}

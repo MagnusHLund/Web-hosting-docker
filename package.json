@@ -9,7 +9,7 @@
   "version": "1.0.0",
   "scripts": {
     "api": "cd api/src/ && php -S localhost:3001",
-    "web": "cd web && npm run dev",
+    "web": "cd webclient && npm run dev",
     "docker": "cd docker/ && docker-compose up --build"
   },
   "author": "",
