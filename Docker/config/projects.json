@@ -1,0 +1,12 @@
+[
+  {
+    "path": "/app/src/root/MagZilla/web/",
+    "type": "react",
+    "port": "3000"
+  },
+  {
+    "path": "/app/src/root/MagZilla/api/",
+    "type": "php",
+    "port": "3001"
+  }
+]

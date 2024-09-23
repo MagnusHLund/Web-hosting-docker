@@ -1,0 +1,27 @@
+PUT /api/services/updateService HTTP/1.1
+Host: localhost:3001
+Content-Type: application/json
+Origin: http://localhost:3001
+
+{
+    "serviceId": 1,
+    "serviceTypes": 
+    [
+        {
+            "serviceTypeId": 1,
+            "type": "react",
+            "startupPath": "web/",
+            "dotEnvPath": "web/",
+            "dotEnvFile": "file",
+            "port": 1234
+        }, 
+        {
+            "serviceTypeId" : 2,
+            "type": "php",
+            "startupPath": "api/",
+            "dotEnvPath": "api/",
+            "dotEnvFile": "file",
+            "port": 4321
+        }
+    ]
+}

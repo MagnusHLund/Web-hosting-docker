@@ -1,0 +1,4 @@
+GET /api/settings/getSetting HTTP/1.1
+Host: localhost:3001
+Content-Type: application/json
+Origin: http://localhost:3001

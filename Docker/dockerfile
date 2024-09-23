@@ -13,7 +13,7 @@ RUN apk add --no-cache bash icu-libs krb5-libs libgcc libintl libssl3 libstdc++ 
     && ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet
 
 # Install PHP
-RUN apk add --no-cache php
+RUN apk add --no-cache php php-phar php-iconv php-mbstring php-openssl php-mysqli
 
 # Install Python
 RUN apk add --no-cache python3 py3-netifaces
@@ -23,6 +23,11 @@ RUN apk add --no-cache nodejs npm
 
 # Install curl
 RUN apk add --no-cache curl
+
+# Install composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+ENV PATH="$PATH:/usr/local/bin"
+ENV PHP_INI_SCAN_DIR=/app/config/
 
 # Install Git
 RUN apk add --no-cache git

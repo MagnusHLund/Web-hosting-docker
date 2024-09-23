@@ -15,12 +15,17 @@ class ComposerStaticInitf292eb22a1a5fbcbdeb4f78b4125f85a
         '72579e7bd17821bb1321b87411366eae' => __DIR__ . '/..' . '/illuminate/support/helpers.php',
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
+        'b33e3d135e5d9e47d845c576147bda89' => __DIR__ . '/..' . '/php-di/php-di/src/functions.php',
     );
 
     public static $prefixLengthsPsr4 = array (
         'v' => 
         array (
             'voku\\' => 5,
+        ),
+        'm' => 
+        array (
+            'magzilla\\Api\\DTOs\\' => 18,
         ),
         'S' => 
         array (
@@ -41,10 +46,24 @@ class ComposerStaticInitf292eb22a1a5fbcbdeb4f78b4125f85a
         ),
         'M' => 
         array (
-            'Magzilla\\Api\\' => 13,
+            'MagZilla\\Api\\Utils\\' => 19,
+            'MagZilla\\Api\\Services\\' => 22,
+            'MagZilla\\Api\\Models\\ORM\\' => 24,
+            'MagZilla\\Api\\Models\\' => 20,
+            'MagZilla\\Api\\Middleware\\' => 24,
+            'MagZilla\\Api\\Managers\\' => 22,
+            'MagZilla\\Api\\Helpers\\' => 21,
+            'MagZilla\\Api\\Handlers\\' => 22,
+            'MagZilla\\Api\\Controllers\\' => 25,
+            'MagZilla\\Api\\' => 13,
+        ),
+        'L' => 
+        array (
+            'Laravel\\SerializableClosure\\' => 28,
         ),
         'I' => 
         array (
+            'Invoker\\' => 8,
             'Illuminate\\Support\\' => 19,
             'Illuminate\\Database\\' => 20,
             'Illuminate\\Contracts\\' => 21,
@@ -62,6 +81,7 @@ class ComposerStaticInitf292eb22a1a5fbcbdeb4f78b4125f85a
         array (
             'Dotenv\\' => 7,
             'Doctrine\\Inflector\\' => 19,
+            'DI\\' => 3,
         ),
         'C' => 
         array (
@@ -78,6 +98,10 @@ class ComposerStaticInitf292eb22a1a5fbcbdeb4f78b4125f85a
         'voku\\' => 
         array (
             0 => __DIR__ . '/..' . '/voku/portable-ascii/src/voku',
+        ),
+        'magzilla\\Api\\DTOs\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/dtos',
         ),
         'Symfony\\Polyfill\\Php83\\' => 
         array (
@@ -123,15 +147,59 @@ class ComposerStaticInitf292eb22a1a5fbcbdeb4f78b4125f85a
         array (
             0 => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption',
         ),
-        'Magzilla\\Api\\' => 
+        'MagZilla\\Api\\Utils\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/utils',
+        ),
+        'MagZilla\\Api\\Services\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/services',
+        ),
+        'MagZilla\\Api\\Models\\ORM\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/models/orm',
+        ),
+        'MagZilla\\Api\\Models\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/models',
+        ),
+        'MagZilla\\Api\\Middleware\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/middleware',
+        ),
+        'MagZilla\\Api\\Managers\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/managers',
+        ),
+        'MagZilla\\Api\\Helpers\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/helpers',
+        ),
+        'MagZilla\\Api\\Handlers\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/handlers',
+        ),
+        'MagZilla\\Api\\Controllers\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/controllers',
+        ),
+        'MagZilla\\Api\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),
+        'Laravel\\SerializableClosure\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/laravel/serializable-closure/src',
+        ),
+        'Invoker\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/php-di/invoker/src',
+        ),
         'Illuminate\\Support\\' => 
         array (
-            0 => __DIR__ . '/..' . '/illuminate/macroable',
+            0 => __DIR__ . '/..' . '/illuminate/collections',
             1 => __DIR__ . '/..' . '/illuminate/conditionable',
-            2 => __DIR__ . '/..' . '/illuminate/collections',
+            2 => __DIR__ . '/..' . '/illuminate/macroable',
             3 => __DIR__ . '/..' . '/illuminate/support',
         ),
         'Illuminate\\Database\\' => 
@@ -161,6 +229,10 @@ class ComposerStaticInitf292eb22a1a5fbcbdeb4f78b4125f85a
         'Doctrine\\Inflector\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector',
+        ),
+        'DI\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/php-di/php-di/src',
         ),
         'Carbon\\Doctrine\\' => 
         array (
