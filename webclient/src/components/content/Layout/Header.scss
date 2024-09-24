@@ -9,8 +9,8 @@
   background-color: var(--background-color);
   color: var(--text-color);
   border-radius: 10px;
-  max-width: 100%; /* Ensure header does not overflow */
-  box-sizing: border-box; /* Include padding in width calculation */
+  max-width: 100%;
+  box-sizing: border-box;
 
   &__logo {
     font-size: 1.5rem;
@@ -18,12 +18,12 @@
   }
 
   &__Options {
-    display: flex; 
+    display: flex;
     justify-content: center;
     align-items: center;
+    gap: 10px;
+
     &__box {
-      box-sizing: border-box;
-      margin-left: 15px;
       padding: 10px 15px;
       background-color: var(--background-color);
       border: 1px solid var(--text-color);
@@ -42,12 +42,13 @@
   }
 }
 
+/* Dark theme */
 .dark-theme .header {
   background-color: var(--background-color);
   color: var(--text-color);
 }
 
-.dark-theme .header__user-info__role__box {
+.dark-theme .header__Options__box {
   background-color: var(--background-color);
   color: var(--text-color);
 }
@@ -55,16 +56,13 @@
 /* Responsive Design */
 @media (max-width: 768px) {
   .header {
-    display: block;
-  
-    &__Options{
+    flex-direction: column; /* Stack items vertically */
+    padding: 15px;
+
+    &__Options {
       margin-top: 10px;
-      box-sizing: border-box;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      justify-content: space-between;
+      justify-content: space-around; /* Space elements evenly */
+      width: 100%; /* Full width for mobile */
     }
   }
 }

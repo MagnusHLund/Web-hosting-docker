@@ -1,0 +1,28 @@
+@import "../../index.scss"; // Import global styles for the theme
+
+.toggle {
+  background-color: var(--text-color);
+  border: 0;
+  width: 50px;
+  height: 30px;
+  border-radius: 999px;
+  padding: 4px;
+  position: relative;
+  cursor: pointer;
+
+  &__circle {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    background-color: var(--background-color);
+    width: 22px;
+    height: 22px;
+    border-radius: 100%;
+  }
+  &.active {
+    .toggle__circle {
+      left: calc(100% - 4px);
+      transform: translateX(-100%);
+    }
+  }
+}
