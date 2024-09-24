@@ -1,0 +1,72 @@
+@import '../../index.scss'; // Import your variables
+
+.settings-container {
+  max-width: 600px; // Set a maximum width for the container
+  margin: 0 auto; // Center the container
+  padding: 20px;
+  border: 1px solid var(--text-color); // Border around the container
+  border-radius: 8px; // Rounded corners
+  background-color: var(--background-color); // Background color of the container
+
+  .settings-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+
+    .settings-title {
+      font-size: 24px;
+      color: var(--text-color);
+    }
+  }
+
+  .settings-options {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--text-color); // Border on top of options
+    padding-top: 15px; // Padding for options section
+
+    .theme-section,
+    .language-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      padding: 10px; // Padding inside each section
+      border: 1px solid var(--text-color); // Border for each section
+      border-radius: 5px; // Rounded corners for each section
+      background-color: var(--background-color); // Background for sections
+
+      .theme-label,
+      .language-label {
+        color: var(--text-color);
+        font-size: 18px;
+      }
+
+      .language-select {
+        padding: 5px;
+        border: 1px solid var(--text-color);
+        border-radius: 5px;
+        background-color: var(--background-color);
+        color: var(--text-color);
+        font-size: 16px;
+
+        &:focus {
+          border-color: var(--text-color);
+          outline: none;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 600px) {
+    .settings-header {
+      flex-direction: column;
+      align-items: flex-start;
+
+      .settings-title {
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
