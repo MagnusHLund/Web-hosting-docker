@@ -33,10 +33,10 @@ class SecurityManager
         }
     }
 
-    public function verifyHashedPassword($password, $hashedPassword, $salt): bool
+    public function verifyHashedPassword($loginPassword, $storedPassword, $salt): bool
     {
         try {
-            return password_verify($password . $salt . Constants::getPepper(), $hashedPassword);
+            return password_verify($loginPassword . $salt . Constants::getPepper(), $storedPassword);
         } catch (\Exception $e) {
             // TODO
         }

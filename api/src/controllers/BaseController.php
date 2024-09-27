@@ -2,32 +2,34 @@
 
 namespace MagZilla\Api\Controllers;
 
+use MagZilla\Api\Handlers\ResponseHandler;
 use MagZilla\Api\Managers\DatabaseManager;
-use MagZilla\Api\Utils\PayloadValidator;
+use MagZilla\Api\Managers\SecurityManager;
+use MagZilla\Api\Models\DTOs\ResponseDTO;
 
 abstract class BaseController
 {
     protected readonly DatabaseManager $database;
+    protected readonly SecurityManager $securityManager;
+
+    private readonly ResponseHandler $responseHandler;
 
     public function __construct()
     {
         $this->database = DatabaseManager::getInstance();
+        $this->securityManager = SecurityManager::getInstance();
+        $this->responseHandler = ResponseHandler::getInstance();
     }
 
-    protected function sendResponse($response, $statusCode = 200)
+    protected function handleSuccess(ResponseDTO $response = null, $statusCode = 200)
     {
-        $success = true;
-
-        if ($statusCode > 400) {
-            $success = false;
-        }
-
-        http_response_code($statusCode);
-        echo json_encode(["success" => $success, "result" => $response]);
+        $this->responseHandler->sendResponse($response, $statusCode);
     }
 
-    protected function handleError(\Exception $e)
+    protected function handleError(\Exception $e, $response, $statusCode = 500)
     {
-        // TODO
+        // TODO: Add a log, related to the exception
+
+        $this->responseHandler->sendResponse($response, $statusCode);
     }
 }

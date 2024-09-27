@@ -5,7 +5,7 @@ namespace MagZilla\Api\Models\DTOs;
 use ReflectionClass;
 use InvalidArgumentException;
 
-abstract class BaseDTO
+abstract class RequestDTO
 {
     private readonly ReflectionClass $reflection;
 
@@ -13,8 +13,6 @@ abstract class BaseDTO
     {
         $this->reflection = new \ReflectionClass($this);
     }
-
-    abstract protected function toArray();
 
     protected function validate(array $data)
     {
@@ -34,10 +32,9 @@ abstract class BaseDTO
 
     private function isValidType($value, \ReflectionNamedType $propertyType): bool
     {
-        $typeName = $propertyType->getName();
         $allowsNull = $propertyType->allowsNull();
 
-        if ($allowsNull && is_null($value)) {
+        if ($allowsNull) {
             return true;
         }
 

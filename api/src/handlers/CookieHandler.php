@@ -2,7 +2,7 @@
 
 namespace MagZilla\Api\Handlers;
 
-class CookieManager
+class CookieHandler
 {
     private static $instance = null;
 
@@ -11,22 +11,24 @@ class CookieManager
     public static function getInstance()
     {
         if (self::$instance == null) {
-            self::$instance = new CookieManager();
+            self::$instance = new CookieHandler();
         }
         return self::$instance;
     }
 
-    public function setCookie($name, $value, $expirationTime = 8600)
+    public function setCookie($name, $value, $expirationTime = 86400, $httpOnly = true)
     {
         $expirationDate = time() + $expirationTime;
 
-        setcookie($name, $value, $expirationDate, "/", "", false, true);
+        setcookie($name, $value, $expirationDate, "/", "", false, $httpOnly);
     }
 
-    public function unsetCookie($cookieName)
+    /**
+     * Expires a cookie, by setting $expirationTime to the start of UNIX time (1970)
+     */
+    public function removeCookie($cookieName)
     {
-        $oneHour = 3600;
-        $expirationTime = time() - $oneHour;
+        $expirationTime = 0;
 
         setcookie($cookieName, "", $expirationTime);
     }
