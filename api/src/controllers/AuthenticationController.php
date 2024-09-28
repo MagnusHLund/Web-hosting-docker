@@ -5,7 +5,8 @@ namespace MagZilla\Api\Controllers;
 use MagZilla\Api\Handlers\CookieHandler;
 use MagZilla\Api\Models\DTOs\Auth\LoginRequest;
 use MagZilla\Api\Models\OrmModelMapper;
-use MagZilla\Api\Models\DTOs\Auth\ChangePasswordRequest;
+use MagZilla\Api\Models\DTOs\Auth\UpdatePasswordRequest;
+use MagZilla\Api\Models\User;
 
 class AuthenticationController extends BaseController
 {
@@ -20,7 +21,34 @@ class AuthenticationController extends BaseController
 
     public function updatePassword($request)
     {
-        $updatePasswordRequest = new updatePasswordRequest($request);
+        try {
+            $updatePasswordRequest = new UpdatePasswordRequest($request);
+
+            $user = new User;
+            $userId = $user->getUserIdFromJwt(
+                $this->cookieHandler,
+                $this->securityManager
+            );
+
+            $salt = $this->securityManager->generateSalt();
+            $hashedPassword = $this->securityManager->hashPassword(
+                $updatePasswordRequest->newPassword,
+                $salt
+            );
+
+            $this->database->update(
+                OrmModelMapper::UsersTable->getModel(),
+                ["user_id" => $userId],
+                [
+                    "password" => $hashedPassword,
+                    "salt" => $salt
+                ]
+            );
+
+            $this->handleSuccess(null, 204);
+        } catch (\Exception $e) {
+            // TODO
+        }
     }
 
     public function login($request)
@@ -45,7 +73,7 @@ class AuthenticationController extends BaseController
             $jwt = $this->securityManager->encodeJwt($userAuthData['user_id']);
             $this->cookieHandler->setCookie("jwt", $jwt);
 
-            $this->handleSuccess();
+            $this->handleSuccess(null, 204);
         }
     }
 

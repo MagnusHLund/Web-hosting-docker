@@ -2,6 +2,7 @@
 
 namespace MagZilla\Api\Middleware;
 
+use MagZilla\Api\Handlers\CookieHandler;
 use MagZilla\Api\Managers\SecurityManager;
 
 class AuthenticationMiddleware
@@ -14,7 +15,7 @@ class AuthenticationMiddleware
                     throw new \Exception("User is not logged in!");
                 }
 
-                if (!(bool) securityManager::getInstance()->decodeJwt($_COOKIE['jwt'])) {
+                if (SecurityManager::getInstance()->decodeJwt(CookieHandler::getInstance()->readCookie("jwt")) !== null) {
                     throw new \Exception("User is not real");
                 }
             }

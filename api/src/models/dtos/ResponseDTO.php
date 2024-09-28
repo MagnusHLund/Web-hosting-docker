@@ -2,7 +2,9 @@
 
 namespace MagZilla\Api\Models\DTOs;
 
-abstract class ResponseDTO
+use MagZilla\Api\Interfaces\DTOs\IDTO;
+
+abstract class ResponseDTO implements IDTO
 {
-    abstract protected function toArray();
+    abstract public function toArray();
 }

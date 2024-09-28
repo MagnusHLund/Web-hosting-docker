@@ -4,8 +4,9 @@ namespace MagZilla\Api\Models\DTOs;
 
 use ReflectionClass;
 use InvalidArgumentException;
+use MagZilla\Api\Interfaces\DTOs\IDTO;
 
-abstract class RequestDTO
+abstract class RequestDTO implements IDTO
 {
     private readonly ReflectionClass $reflection;
 
@@ -13,6 +14,8 @@ abstract class RequestDTO
     {
         $this->reflection = new \ReflectionClass($this);
     }
+
+    abstract public function toArray();
 
     protected function validate(array $data)
     {
