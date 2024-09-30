@@ -2,21 +2,16 @@
 
 namespace MagZilla\Api\Controllers;
 
-use MagZilla\Api\Handlers\CookieHandler;
-use MagZilla\Api\Models\DTOs\Auth\LoginRequest;
-use MagZilla\Api\Models\OrmModelMapper;
-use MagZilla\Api\Models\DTOs\Auth\UpdatePasswordRequest;
 use MagZilla\Api\Models\User;
+use MagZilla\Api\Models\OrmModelMapper;
+use MagZilla\Api\Models\DTOs\Auth\LoginRequest;
+use MagZilla\Api\Models\DTOs\Auth\UpdatePasswordRequest;
 
 class AuthenticationController extends BaseController
 {
-    private readonly CookieHandler $cookieHandler;
-
     public function __construct()
     {
         parent::__construct();
-
-        $this->cookieHandler = CookieHandler::getInstance();
     }
 
     public function updatePassword($request)
@@ -24,8 +19,7 @@ class AuthenticationController extends BaseController
         try {
             $updatePasswordRequest = new UpdatePasswordRequest($request);
 
-            $user = new User;
-            $userId = $user->getUserIdFromJwt(
+            $user = User::getUserFromJwt(
                 $this->cookieHandler,
                 $this->securityManager
             );
@@ -38,7 +32,7 @@ class AuthenticationController extends BaseController
 
             $this->database->update(
                 OrmModelMapper::UsersTable->getModel(),
-                ["user_id" => $userId],
+                ["user_id" => $user->id],
                 [
                     "password" => $hashedPassword,
                     "salt" => $salt

@@ -8,7 +8,7 @@ use MagZilla\Api\Interfaces\DTOs\IDTO;
 
 abstract class RequestDTO implements IDTO
 {
-    private readonly ReflectionClass $reflection;
+    protected readonly ReflectionClass $reflection;
 
     public function __construct()
     {
@@ -33,7 +33,7 @@ abstract class RequestDTO implements IDTO
         }
     }
 
-    private function isValidType($value, \ReflectionNamedType $propertyType): bool
+    protected function isValidType($value, \ReflectionNamedType $propertyType): bool
     {
         $allowsNull = $propertyType->allowsNull();
 

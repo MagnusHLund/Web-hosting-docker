@@ -39,7 +39,7 @@ class DatabaseManager
         return self::$instance;
     }
 
-    public function create($model, $data)
+    public function create($model, $data, $returnColumnsFromCreatedRows = [])
     {
         try {
         } catch (\PDOException $e) {

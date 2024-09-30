@@ -3,15 +3,17 @@
 namespace MagZilla\Api\Controllers;
 
 use MagZilla\Api\Handlers\LogHandler;
+use MagZilla\Api\Handlers\CookieHandler;
+use MagZilla\Api\Models\DTOs\ResponseDTO;
 use MagZilla\Api\Handlers\ResponseHandler;
 use MagZilla\Api\Managers\DatabaseManager;
 use MagZilla\Api\Managers\SecurityManager;
-use MagZilla\Api\Models\DTOs\ResponseDTO;
 
 abstract class BaseController
 {
     protected readonly LogHandler $logHandler;
     protected readonly DatabaseManager $database;
+    protected readonly CookieHandler $cookieHandler;
     protected readonly SecurityManager $securityManager;
 
     private readonly ResponseHandler $responseHandler;
@@ -20,6 +22,7 @@ abstract class BaseController
     {
         $this->logHandler = LogHandler::getInstance();
         $this->database = DatabaseManager::getInstance();
+        $this->cookieHandler = CookieHandler::getInstance();
         $this->securityManager = SecurityManager::getInstance();
         $this->responseHandler = ResponseHandler::getInstance();
     }
