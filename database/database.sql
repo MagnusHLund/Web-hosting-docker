@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS `Services` (
   `service_owner_user_id` int(10) unsigned NOT NULL,
   `service_name` varchar(60) NOT NULL,
   `git_clone_url` varchar(163) DEFAULT NULL,
-  `is_active` tinyint(1) NOT NULL CHECK (`is_active` BETWEEN 0 AND 1),
+  `is_active` tinyint(1) NOT NULL DEFAULT 1 CHECK (`is_active` BETWEEN 0 AND 1),
   PRIMARY KEY (`service_id`),
   UNIQUE KEY `Unique_service_name` (`service_name`,`service_owner_user_id`),
   KEY `FK_Services_Users` (`service_owner_user_id`),
