@@ -21,8 +21,8 @@ const App: React.FC = () => {
   const routes = [
     { path: "/user", name: "User", element: <UserRoute /> },
     { path: "/services", name: "Services", element: <ServicesRoute /> },
-    { path: "/login", name: "Login", element: <LoginRoute /> },
     { path: "/settings", name: "Settings", element: <SettingsRoute /> },
+    { path: "/login", name: "Login", element: <LoginRoute /> },
   ];
   return (
     <>

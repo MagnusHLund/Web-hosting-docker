@@ -1,6 +1,7 @@
 import { FaEllipsisV } from "react-icons/fa";
 import { useState } from "react";
 import "./Menu.scss";
+import Button from "../input/Button";
 
 const Menu = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,10 +18,39 @@ const Menu = () => {
           <FaEllipsisV className="table__action-icon" />
           {isOpen && (
             <ul className="menu__list">
-              <li className="menu__item">Git pull</li>
-              <li className="menu__item">Edit</li>
-              <li className="menu__item">Disable</li>
-              <li className="menu__item menu__item--delete">Delete</li>
+              <li className="menu__item">
+                <Button
+                  text="Git pull"
+                  onClick={() => {
+                    /* Handle Git pull action */
+                  }}
+                />
+              </li>
+              <li className="menu__item">
+                <Button
+                  text="Edit"
+                  onClick={() => {
+                    /* Handle Edit action */
+                  }}
+                />
+              </li>
+              <li className="menu__item">
+                <Button
+                  text="Disable"
+                  onClick={() => {
+                    /* Handle Disable action */
+                  }}
+                />
+              </li>
+              <li className="menu__item menu__item--delete">
+                <Button
+                  text="Delete"
+                  onClick={() => {
+                    /* Handle Delete action */
+                  }}
+                  backgroundColor="red"
+                />
+              </li>
             </ul>
           )}
         </div>

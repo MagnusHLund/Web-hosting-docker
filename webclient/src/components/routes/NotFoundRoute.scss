@@ -1,0 +1,10 @@
+// Import the main SCSS file where your color variables are defined
+@import '../../index.scss'; // Adjust the path based on your file structure
+
+.not-found {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid black;
+}

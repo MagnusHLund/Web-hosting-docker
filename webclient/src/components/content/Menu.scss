@@ -17,7 +17,11 @@
 
   &__list {
     position: absolute;
-    transform: translate(102%, -22%);
+    transform: translate(-115%, -22%);
+
+    @media (max-width: 768px) {
+      transform: translate(-70%, 0); // or any other value that suits your design
+    }
     background-color: var(--background-color);
     border: 1px solid var(--primary-color);
     border-radius: 4px;
@@ -33,18 +37,8 @@
     color: var(--text-color);
     white-space: nowrap;
 
-    &:hover {
-      background-color: var(--primary-color);
-      color: #fff;
-    }
-
     &--delete {
       color: red;
-
-      &:hover {
-        background-color: red;
-        color: #fff;
-      }
     }
   }
 }

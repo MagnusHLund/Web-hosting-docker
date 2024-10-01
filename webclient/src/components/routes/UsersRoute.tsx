@@ -1,6 +1,7 @@
 import SearchBar from "../input/SearchBar";
 import "./UsersRoute.scss";
 import Table from "../content/Table"; // Import the new Table component
+import Button from "../input/Button";
 
 const UsersRoute: React.FC = () => {
   // Example users data
@@ -34,6 +35,7 @@ const UsersRoute: React.FC = () => {
         <h2 className="users-route-title">Users</h2>
         <div className="users-route-header__actions">
           <SearchBar />
+          <Button text="Search"/>
         </div>
       </div>
       <Table users={users} />
