@@ -1,9 +1,5 @@
-import React from 'react'
-
 function LoginRoute() {
-  return (
-    <div>LoginRoute</div>
-  )
+  return <div></div>;
 }
 
-export default LoginRoute
+export default LoginRoute;

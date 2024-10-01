@@ -1,0 +1,20 @@
+@import "../../index.scss";
+
+.table__body-row {
+  background-color: transparent;
+
+  &:hover {
+    background-color: var(--light-background); // Customize hover effect
+  }
+}
+
+.table__body-cell {
+  padding: 10px;
+  border: 1px solid var(--primary-color);
+  color: var(--text-color);
+
+  .menu {
+    display: inline-block;
+    cursor: pointer;
+  }
+}

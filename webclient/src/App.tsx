@@ -19,10 +19,10 @@ const App: React.FC = () => {
   }, [theme]);
 
   const routes = [
-    { path: "/login", name: "Login", element: <LoginRoute /> },
-    { path: "/services", name: "Services", element: <ServicesRoute /> },
-    { path: "/settings", name: "Settings", element: <SettingsRoute /> },
     { path: "/user", name: "User", element: <UserRoute /> },
+    { path: "/services", name: "Services", element: <ServicesRoute /> },
+    { path: "/login", name: "Login", element: <LoginRoute /> },
+    { path: "/settings", name: "Settings", element: <SettingsRoute /> },
   ];
   return (
     <>

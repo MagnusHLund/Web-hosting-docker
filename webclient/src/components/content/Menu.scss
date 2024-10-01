@@ -1,0 +1,50 @@
+@import "../../index.scss";
+
+.backgroundDiv {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.menu {
+  &__icon {
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--primary-color);
+  }
+
+  &__list {
+    position: absolute;
+    transform: translate(102%, -22%);
+    background-color: var(--background-color);
+    border: 1px solid var(--primary-color);
+    border-radius: 4px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  }
+
+  &__item {
+    padding: 10px 15px;
+    cursor: pointer;
+    color: var(--text-color);
+    white-space: nowrap;
+
+    &:hover {
+      background-color: var(--primary-color);
+      color: #fff;
+    }
+
+    &--delete {
+      color: red;
+
+      &:hover {
+        background-color: red;
+        color: #fff;
+      }
+    }
+  }
+}

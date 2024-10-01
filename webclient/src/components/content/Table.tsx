@@ -1,11 +1,17 @@
-import { FaEllipsisV } from "react-icons/fa";
 import "./Table.scss";
+import User from "./User";
 
 interface TableProps {
-  handleOpenModal: () => void;
+  users: Array<{
+    id: number;
+    name: string;
+    email: string;
+    role: string;
+    status: string;
+  }>;
 }
 
-const Table: React.FC<TableProps> = ({ handleOpenModal }) => {
+const Table: React.FC<TableProps> = ({ users }) => {
   return (
     <div className="table-container">
       <table className="table">
@@ -19,18 +25,9 @@ const Table: React.FC<TableProps> = ({ handleOpenModal }) => {
           </tr>
         </thead>
         <tbody className="table__body">
-          <tr className="table__body-row">
-            <td className="table__body-cell">John Doe</td>
-            <td className="table__body-cell">john.doe@example.com</td>
-            <td className="table__body-cell">Admin</td>
-            <td className="table__body-cell">Active</td>
-            <td className="table__body-cell">
-              <FaEllipsisV
-                className="table__action-icon"
-                onClick={handleOpenModal}
-              />
-            </td>
-          </tr>
+          {users.map((user) => (
+            <User key={user.id} user={user} />
+          ))}
         </tbody>
       </table>
     </div>
