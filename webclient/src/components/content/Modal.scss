@@ -16,7 +16,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: min-content; // Set to auto width
+  width: max-content; // Set to auto width
   max-width: 500px; // Max width to prevent overflow
   background-color: var(--background-color);
   color: var(--text-color);
@@ -47,5 +47,8 @@
 
   &__body {
     padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }

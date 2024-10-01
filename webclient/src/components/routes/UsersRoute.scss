@@ -11,12 +11,12 @@
     align-items: center;
     margin-bottom: 20px;
 
-    .users-route-title {
+    &__title {
       font-size: 24px;
       color: var(--text-color);
     }
 
-    .header-actions {
+    &__actions {
       display: flex;
       align-items: center;
       margin-left: 20px;
@@ -27,55 +27,13 @@
     }
   }
 
-  .users-table-container {
-    overflow-x: auto; // Allow horizontal scrolling on small screens
-
-    .users-table {
-      width: 100%;
-      border-collapse: collapse; // Collapse borders
-
-      th, td {
-        padding: 10px;
-        border: 1px solid var(--primary-color); // Border for each cell
-        text-align: left;
-        color: var(--text-color); // Ensure text color is readable
-
-        // Responsive styles
-        @media (max-width: 600px) {
-          font-size: 14px; // Adjust font size for smaller screens
-        }
-      }
-
-      th {
-        background-color: var(--dark-primary-color); // Darker color for header
-        color: var(--dark-text-color); // Light text color for header
-      }
-
-      tr {
-        background-color: transparent; // Remove background color from rows
-
-        &:hover {
-          background-color: transparent; // Remove hover effect
-        }
-      }
-
-      .action-icon {
-        cursor: pointer; // Show pointer on hover
-        color: var(--text-color); // Use text color for icon
-
-        &:hover {
-          color: var(--primary-color); // Change color on hover
-        }
-      }
-    }
-  }
-
+  // Responsive styling
   @media (max-width: 600px) {
     .users-route-header {
       flex-direction: column;
       align-items: flex-start;
 
-      .users-route-title {
+      &__title {
         margin-bottom: 10px;
       }
     }
