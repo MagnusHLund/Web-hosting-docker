@@ -9,7 +9,7 @@ import SettingsRoute from "./components/routes/SettingsRoute";
 import UserRoute from "./components/routes/UsersRoute";
 import Header from "./components/content/Layout/Header";
 import { useSelector } from "react-redux";
-import { RootState } from './redux/Store';
+import { RootState } from "./redux/Store";
 
 const App: React.FC = () => {
   const theme = useSelector((state: RootState) => state.theme.theme);
@@ -19,7 +19,7 @@ const App: React.FC = () => {
   }, [theme]);
 
   const routes = [
-    { path: "/user", name: "User", element: <UserRoute /> },
+    { path: "/", name: "User", element: <UserRoute /> },
     { path: "/services", name: "Services", element: <ServicesRoute /> },
     { path: "/settings", name: "Settings", element: <SettingsRoute /> },
     { path: "/login", name: "Login", element: <LoginRoute /> },
