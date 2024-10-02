@@ -55,7 +55,10 @@ class ServiceController extends BaseController
 
             // TODO: Upload project via zip or git
 
-            $projectDirectory = "";
+            $projectDirectory = $this->projectUploadService->getServiceDirectory(
+                $user->getName($this->database),
+                $addServiceRequest->serviceName
+            );
 
             if ($isGitProject) {
                 $this->projectUploadService->extractGitClone(

@@ -38,4 +38,9 @@ class Constants
     {
         return $_ENV['JWT_SECRET_KEY'];
     }
+
+    public static function getBaseServicePath()
+    {
+        return $_ENV['BASE_SERVICE_PATH'];
+    }
 }

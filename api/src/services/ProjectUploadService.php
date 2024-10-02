@@ -2,6 +2,8 @@
 
 namespace MagZilla\Api\Services;
 
+use MagZilla\Api\Utils\Constants;
+
 class ProjectUploadService
 {
     private static $instance = null;
@@ -21,4 +23,10 @@ class ProjectUploadService
     public function extractDotEnv($directory) {}
 
     public function extractGitClone($directory, $gitUrl) {}
+
+    public function getServiceDirectory($serviceOwner, $serviceName, $additionalPath = null)
+    {
+        $basePath = Constants::getBaseServicePath();
+        return "$basePath/$serviceOwner/$serviceName/$additionalPath";
+    }
 }
