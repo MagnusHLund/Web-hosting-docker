@@ -23,9 +23,14 @@ class ResponseHandler
         http_response_code($statusCode);
 
         if ((isset($response))) {
-            echo json_encode(["success" => $success, "result" => $response->toArray()]);
+            echo json_encode([
+                "success" => $success,
+                "result"  => $response->toArray()
+            ]);
         } else {
             echo json_encode(["success" => $success]);
         }
+
+        exit;
     }
 }

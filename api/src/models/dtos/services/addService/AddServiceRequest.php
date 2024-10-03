@@ -2,7 +2,6 @@
 
 namespace MagZilla\Api\Models\DTOs\Services;
 
-use ArrayObject;
 use InvalidArgumentException;
 use MagZilla\Api\Models\DTOs\RequestDTO;
 use MagZilla\Api\Models\ServiceType;

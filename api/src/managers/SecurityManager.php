@@ -23,7 +23,7 @@ class SecurityManager
         return self::$instance;
     }
 
-    public function hashPassword($passwordToHash, $salt)
+    private function hashPassword($passwordToHash, $salt)
     {
         try {
             $options = ['memory_cost' => 1024, 'time_cost' => 2, 'threads' => 2];
@@ -42,7 +42,7 @@ class SecurityManager
         }
     }
 
-    public function verifyNewPassword($password): bool
+    private function verifyNewPassword($password): bool
     {
         $minimumLength = 6;
         $minimumNumbers = 2;
@@ -66,10 +66,23 @@ class SecurityManager
         return true;
     }
 
-    public function generateSalt()
+    private function generateSalt()
     {
         $randomBytes = random_bytes(32);
         return bin2hex($randomBytes);
+    }
+
+    public function generateHashedPassword($password)
+    {
+        $this->verifyNewPassword($password);
+
+        $salt = $this->generateSalt();
+        $hashedPassword = $this->hashPassword($password, $salt);
+
+        return [
+            "salt" => $salt,
+            "password" => $hashedPassword
+        ];
     }
 
     public function encodeJwt($userId)

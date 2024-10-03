@@ -7,7 +7,6 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'voku\\' => array($vendorDir . '/voku/portable-ascii/src/voku'),
-    'magzilla\\Api\\Models\\DTOs\\' => array($baseDir . '/src/models/dtos'),
     'Symfony\\Polyfill\\Php83\\' => array($vendorDir . '/symfony/polyfill-php83'),
     'Symfony\\Polyfill\\Php80\\' => array($vendorDir . '/symfony/polyfill-php80'),
     'Symfony\\Polyfill\\Mbstring\\' => array($vendorDir . '/symfony/polyfill-mbstring'),
@@ -24,6 +23,8 @@ return array(
     'MagZilla\\Api\\Utils\\' => array($baseDir . '/src/utils'),
     'MagZilla\\Api\\Services\\' => array($baseDir . '/src/services'),
     'MagZilla\\Api\\Models\\ORM\\' => array($baseDir . '/src/models/orm'),
+    'MagZilla\\Api\\Models\\Exceptions\\' => array($baseDir . '/src/models/exceptions'),
+    'MagZilla\\Api\\Models\\DTOs\\' => array($baseDir . '/src/models/dtos'),
     'MagZilla\\Api\\Models\\' => array($baseDir . '/src/models'),
     'MagZilla\\Api\\Middleware\\' => array($baseDir . '/src/middleware'),
     'MagZilla\\Api\\Managers\\' => array($baseDir . '/src/managers'),
@@ -35,7 +36,7 @@ return array(
     'MagZilla\\Api\\' => array($baseDir . '/src'),
     'Laravel\\SerializableClosure\\' => array($vendorDir . '/laravel/serializable-closure/src'),
     'Invoker\\' => array($vendorDir . '/php-di/invoker/src'),
-    'Illuminate\\Support\\' => array($vendorDir . '/illuminate/macroable', $vendorDir . '/illuminate/conditionable', $vendorDir . '/illuminate/collections', $vendorDir . '/illuminate/support'),
+    'Illuminate\\Support\\' => array($vendorDir . '/illuminate/collections', $vendorDir . '/illuminate/conditionable', $vendorDir . '/illuminate/macroable', $vendorDir . '/illuminate/support'),
     'Illuminate\\Database\\' => array($vendorDir . '/illuminate/database'),
     'Illuminate\\Contracts\\' => array($vendorDir . '/illuminate/contracts'),
     'Illuminate\\Container\\' => array($vendorDir . '/illuminate/container'),

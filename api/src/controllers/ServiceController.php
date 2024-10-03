@@ -6,6 +6,7 @@ use MagZilla\Api\Models\User;
 use MagZilla\Api\Models\ServiceType;
 use MagZilla\Api\Models\OrmModelMapper;
 use MagZilla\Api\Services\ProjectUploadService;
+use MagZilla\Api\Models\Exceptions\ControllerException;
 use MagZilla\Api\Models\DTOs\Services\AddServiceRequest;
 
 class ServiceController extends BaseController
@@ -79,19 +80,56 @@ class ServiceController extends BaseController
 
             // TODO: Send response, which includes all data related to the new service and service types
             $this->handleSuccess();
-        } catch (\exception $e) {
+        } catch (ControllerException $e) {
+            $this->handleError($e, $e->getMessage(), $e->getHttpErrorCode());
         }
     }
 
-    public function deleteService() {}
+    public function deleteService($request)
+    {
+        try {
+        } catch (ControllerException $e) {
+            $this->handleError($e, $e->getMessage(), $e->getHttpErrorCode());
+        }
+    }
 
-    public function getServiceDetails() {}
+    public function getServiceDetails($request)
+    {
+        try {
+        } catch (ControllerException $e) {
+            $this->handleError($e, $e->getMessage(), $e->getHttpErrorCode());
+        }
+    }
 
-    public function getServices() {}
+    public function getServices()
+    {
+        try {
+        } catch (ControllerException $e) {
+            $this->handleError($e, $e->getMessage(), $e->getHttpErrorCode());
+        }
+    }
 
-    public function searchServices() {}
+    public function searchServices($request)
+    {
+        try {
+        } catch (ControllerException $e) {
+            $this->handleError($e, $e->getMessage(), $e->getHttpErrorCode());
+        }
+    }
 
-    public function updateService() {}
+    public function updateService($request)
+    {
+        try {
+        } catch (ControllerException $e) {
+            $this->handleError($e, $e->getMessage(), $e->getHttpErrorCode());
+        }
+    }
 
-    public function updateServiceSource() {}
+    public function updateServiceSource($request)
+    {
+        try {
+        } catch (ControllerException $e) {
+            $this->handleError($e, $e->getMessage(), $e->getHttpErrorCode());
+        }
+    }
 }

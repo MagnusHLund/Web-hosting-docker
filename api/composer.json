@@ -22,7 +22,8 @@
       "MagZilla\\Api\\Managers\\": "src/managers/",
       "MagZilla\\Api\\Middleware\\": "src/middleware/",
       "MagZilla\\Api\\Models\\": "src/models/",
-      "magzilla\\Api\\Models\\DTOs\\": "src/models/dtos/",
+      "MagZilla\\Api\\Models\\DTOs\\": "src/models/dtos/",
+      "MagZilla\\Api\\Models\\Exceptions\\": "src/models/exceptions/",
       "MagZilla\\Api\\Models\\ORM\\": "src/models/orm/",
       "MagZilla\\Api\\Services\\": "src/services/",
       "MagZilla\\Api\\Utils\\": "src/utils/"

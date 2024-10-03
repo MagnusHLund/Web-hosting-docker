@@ -25,9 +25,27 @@ class User
         return new User($userId);
     }
 
-    public function isAdmin() {}
+    public function isAdmin(DatabaseManager $database)
+    {
+        $queryLimit = 1;
+        return (bool) $database->read(
+            OrmModelMapper::UserRolesTable->getModel(),
+            ["user_id" => $this->id],
+            ["is_admin"],
+            $queryLimit
+        );
+    }
 
-    public function isEnabled() {}
+    public function isEnabled(DatabaseManager $database)
+    {
+        $queryLimit = 1;
+        return (bool) $database->read(
+            OrmModelMapper::UserRolesTable->getModel(),
+            ["user_id" => $this->id],
+            ["is_active"],
+            $queryLimit
+        );
+    }
 
     public function getName(DatabaseManager $database)
     {

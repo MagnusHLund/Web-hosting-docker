@@ -27,10 +27,6 @@ class ComposerStaticInitf292eb22a1a5fbcbdeb4f78b4125f85a
         array (
             'voku\\' => 5,
         ),
-        'm' => 
-        array (
-            'magzilla\\Api\\Models\\DTOs\\' => 25,
-        ),
         'S' => 
         array (
             'Symfony\\Polyfill\\Php83\\' => 23,
@@ -55,6 +51,8 @@ class ComposerStaticInitf292eb22a1a5fbcbdeb4f78b4125f85a
             'MagZilla\\Api\\Utils\\' => 19,
             'MagZilla\\Api\\Services\\' => 22,
             'MagZilla\\Api\\Models\\ORM\\' => 24,
+            'MagZilla\\Api\\Models\\Exceptions\\' => 31,
+            'MagZilla\\Api\\Models\\DTOs\\' => 25,
             'MagZilla\\Api\\Models\\' => 20,
             'MagZilla\\Api\\Middleware\\' => 24,
             'MagZilla\\Api\\Managers\\' => 22,
@@ -109,10 +107,6 @@ class ComposerStaticInitf292eb22a1a5fbcbdeb4f78b4125f85a
         'voku\\' => 
         array (
             0 => __DIR__ . '/..' . '/voku/portable-ascii/src/voku',
-        ),
-        'magzilla\\Api\\Models\\DTOs\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/src/models/dtos',
         ),
         'Symfony\\Polyfill\\Php83\\' => 
         array (
@@ -179,6 +173,14 @@ class ComposerStaticInitf292eb22a1a5fbcbdeb4f78b4125f85a
         array (
             0 => __DIR__ . '/../..' . '/src/models/orm',
         ),
+        'MagZilla\\Api\\Models\\Exceptions\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/models/exceptions',
+        ),
+        'MagZilla\\Api\\Models\\DTOs\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/models/dtos',
+        ),
         'MagZilla\\Api\\Models\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src/models',
@@ -225,9 +227,9 @@ class ComposerStaticInitf292eb22a1a5fbcbdeb4f78b4125f85a
         ),
         'Illuminate\\Support\\' => 
         array (
-            0 => __DIR__ . '/..' . '/illuminate/macroable',
+            0 => __DIR__ . '/..' . '/illuminate/collections',
             1 => __DIR__ . '/..' . '/illuminate/conditionable',
-            2 => __DIR__ . '/..' . '/illuminate/collections',
+            2 => __DIR__ . '/..' . '/illuminate/macroable',
             3 => __DIR__ . '/..' . '/illuminate/support',
         ),
         'Illuminate\\Database\\' => 

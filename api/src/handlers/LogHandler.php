@@ -19,12 +19,14 @@ class LogHandler
     public function writeLog($message)
     {
         $logDirectory = __DIR__ . "./../../logs/";
-        $fileName = "exception.log";
+
+        $date = date("Y-m-d");
+        $fileName = "exception-$date.log";
         $logFile = $logDirectory . $fileName;
 
-        $timeStamp = date("Y-m-d H-i-s");
+        $timeStamp = date("H-i-s");
 
-        $output = "[$timeStamp] $message";
+        $output = "[$timeStamp]: $message";
 
         error_log($output, 3, $logFile);
     }
