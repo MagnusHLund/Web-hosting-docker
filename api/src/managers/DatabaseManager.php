@@ -39,7 +39,7 @@ class DatabaseManager
         return self::$instance;
     }
 
-    public function create($model, $data, $returnColumnsFromCreatedRows = [])
+    public function create($model, $data, $returnColumns = [])
     {
         try {
         } catch (\PDOException $e) {
@@ -53,7 +53,7 @@ class DatabaseManager
         }
     }
 
-    public function update($model, $conditions, $data)
+    public function update($model, $conditions, $data, $returnColumns = [])
     {
         try {
         } catch (\PDOException $e) {

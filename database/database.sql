@@ -57,6 +57,7 @@ CREATE TABLE IF NOT EXISTS `UserRoles` (
   `is_active` tinyint(1) NOT NULL DEFAULT 1 CHECK (`is_admin` BETWEEN 0 AND 1),
   PRIMARY KEY (`user_roles_id`),
   KEY `FK_UserRoles_Users` (`user_id`),
+  UNIQUE KEY `Unique_user_id` (`user_id`),
   CONSTRAINT `FK_UserRoles_Users` FOREIGN KEY (`user_id`) REFERENCES `Users` (`user_id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 

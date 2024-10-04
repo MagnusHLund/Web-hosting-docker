@@ -4,11 +4,15 @@ namespace MagZilla\Api\Controllers;
 
 use MagZilla\Api\Models\User;
 use MagZilla\Api\Models\OrmModelMapper;
-use MagZilla\Api\Models\DTOs\Users\AddUserResponse;
 use MagZilla\Api\Models\DTOs\Users\AddUserRequest;
+use MagZilla\Api\Models\DTOs\Users\AddUserResponse;
+use MagZilla\Api\Models\DTOs\Users\GetUsersResponse;
 use MagZilla\Api\Models\DTOs\Users\DeleteUserRequest;
 use MagZilla\Api\Models\DTOs\Users\GetSettingsResponse;
 use MagZilla\Api\Models\Exceptions\ControllerException;
+use MagZilla\Api\Models\DTOs\Users\UpdateSettingRequest;
+use MagZilla\Api\Models\DTOs\Users\UpdateSettingResponse;
+use MagZilla\Api\Models\Settings;
 
 class UserController extends BaseController
 {
@@ -100,14 +104,66 @@ class UserController extends BaseController
     public function getUsers()
     {
         try {
+            $requestingUser = User::getUserFromJwt($this->cookieHandler, $this->securityManager);
+
+            if (!$requestingUser->isAdmin($this->database)) {
+                $userData = $requestingUser->getAllUserInfo($this->database);
+            } else {
+                $usersTableData = $this->database->read(
+                    OrmModelMapper::UsersTable->getModel(),
+                    [],
+                    ["user_id", "user_name", "email"]
+                );
+                $userRolesTableData = $this->database->read(
+                    OrmModelMapper::UserRolesTable->getModel(),
+                    [],
+                    ["user_id", "is_admin", "is_active"]
+                );
+
+                $userData = [];
+
+                foreach ($usersTableData as $user) {
+                    $userData[$user['user_id']] = [
+                        'user_name' => $user['user_name'],
+                        'email' => $user['email']
+                    ];
+                }
+
+                foreach ($userRolesTableData as $role) {
+                    if (isset($userData[$role['user_id']])) {
+                        $userData[$role['user_id']]['is_admin'] = $role['is_admin'];
+                        $userData[$role['user_id']]['is_active'] = $role['is_active'];
+                    }
+                }
+            }
+
+            // TODO: This might fail. Maybe fix?
+            $getUsersResponse = new GetUsersResponse($userData);
+            $this->handleSuccess($getUsersResponse);
         } catch (ControllerException $e) {
             $this->handleError($e, $e->getMessage(), $e->getHttpErrorCode());
         }
     }
 
+    public function searchUsers($request) {}
+
     public function updateSetting($request)
     {
         try {
+            $updateSettingRequest = new UpdateSettingRequest($request);
+
+            $user = User::getUserFromJwt($this->cookieHandler, $this->securityManager);
+
+            $updatedSettings = $this->database->update(
+                OrmModelMapper::SettingsTable->getModel(),
+                ["user_id" => $user->id],
+                [$updateSettingRequest->settingName => $updateSettingRequest->settingValue],
+                ["dark_mode", "language"]
+            );
+
+            $userSettings = new Settings($updatedSettings["darkMode"], $updatedSettings["language"]);
+            $updateSettingResponse = new UpdateSettingResponse($userSettings);
+            $this->handleSuccess($updateSettingResponse);
         } catch (ControllerException $e) {
             $this->handleError($e, $e->getMessage(), $e->getHttpErrorCode());
         }
