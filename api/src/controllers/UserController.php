@@ -3,16 +3,18 @@
 namespace MagZilla\Api\Controllers;
 
 use MagZilla\Api\Models\User;
+use MagZilla\Api\Models\Settings;
 use MagZilla\Api\Models\OrmModelMapper;
 use MagZilla\Api\Models\DTOs\Users\AddUserRequest;
 use MagZilla\Api\Models\DTOs\Users\AddUserResponse;
 use MagZilla\Api\Models\DTOs\Users\GetUsersResponse;
 use MagZilla\Api\Models\DTOs\Users\DeleteUserRequest;
+use MagZilla\Api\Models\DTOs\Users\SearchUsersRequest;
+use MagZilla\Api\Models\DTOs\Users\SearchUsersResponse;
 use MagZilla\Api\Models\DTOs\Users\GetSettingsResponse;
 use MagZilla\Api\Models\Exceptions\ControllerException;
 use MagZilla\Api\Models\DTOs\Users\UpdateSettingRequest;
 use MagZilla\Api\Models\DTOs\Users\UpdateSettingResponse;
-use MagZilla\Api\Models\Settings;
 
 class UserController extends BaseController
 {
@@ -145,7 +147,17 @@ class UserController extends BaseController
         }
     }
 
-    public function searchUsers($request) {}
+    public function searchUsers($request)
+    {
+        $searchUsersRequest = new SearchUsersRequest($request);
+
+        // TODO: Some magic that searches multiple columns for $searchUsersRequest->searchInput;
+
+        $usersFromDatabase = array();
+
+        $searchUsersResponse = new SearchUsersResponse($usersFromDatabase);
+        $this->handleSuccess($searchUsersResponse);
+    }
 
     public function updateSetting($request)
     {
