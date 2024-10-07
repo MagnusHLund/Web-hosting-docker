@@ -8,6 +8,7 @@ use MagZilla\Api\Models\OrmModelMapper;
 use MagZilla\Api\Services\ProjectUploadService;
 use MagZilla\Api\Models\Exceptions\ControllerException;
 use MagZilla\Api\Models\DTOs\Services\AddServiceRequest;
+use MagZilla\Api\Models\DTOs\Services\DeleteServiceRequest;
 
 class ServiceController extends BaseController
 {
@@ -88,6 +89,14 @@ class ServiceController extends BaseController
     public function deleteService($request)
     {
         try {
+            $deleteServiceRequest = new DeleteServiceRequest($request);
+
+            $this->database->delete(
+                OrmModelMapper::ServicesTable->getModel(),
+                ["service_id" => $deleteServiceRequest->serviceId]
+            );
+
+            $this->handleSuccess();
         } catch (ControllerException $e) {
             $this->handleError($e, $e->getMessage(), $e->getHttpErrorCode());
         }
