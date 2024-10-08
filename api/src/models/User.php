@@ -9,10 +9,10 @@ use MagZilla\Api\Managers\SecurityManager;
 class User
 {
     public readonly int $id;
-    private string|null $name;
-    private string|null $email;
-    private bool|null $isAdmin;
-    private bool|null $isActive;
+    public string|null $name;
+    public string|null $email;
+    public bool|null $isAdmin;
+    public bool|null $isActive;
 
     public function __construct($userId, $userName = null, $email = null, $isAdmin = null, $isActive = null)
     {
@@ -33,7 +33,7 @@ class User
         return new User($userId);
     }
 
-    public function isAdmin(DatabaseManager $database)
+    public function getIsAdmin(DatabaseManager $database)
     {
         if (!isset($this->isAdmin)) {
             $this->isAdmin = (bool) $database->read( // TODO: Is the casting required here?
@@ -46,7 +46,7 @@ class User
         return $this->isAdmin;
     }
 
-    public function isActive(DatabaseManager $database)
+    public function getIsActive(DatabaseManager $database)
     {
         if (!isset($this->isActive)) {
             $this->isActive = (bool) $database->read( // TODO: Is the casting required here?
@@ -68,7 +68,7 @@ class User
         );
     }
 
-    public function getAllUserInfo(DatabaseManager $database)
+    public function getAllUserInfo(DatabaseManager $database = null)
     {
         if (!isset($this->name, $this->email)) {
             $usersTableData = $database->read(

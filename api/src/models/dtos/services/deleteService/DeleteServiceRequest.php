@@ -2,9 +2,7 @@
 
 namespace MagZilla\Api\Models\DTOs\Services;
 
-use InvalidArgumentException;
 use MagZilla\Api\Models\DTOs\RequestDTO;
-use MagZilla\Api\Models\ServiceType;
 
 class DeleteServiceRequest extends RequestDTO
 {

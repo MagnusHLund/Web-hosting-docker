@@ -9,6 +9,8 @@ use MagZilla\Api\Services\ProjectUploadService;
 use MagZilla\Api\Models\Exceptions\ControllerException;
 use MagZilla\Api\Models\DTOs\Services\AddServiceRequest;
 use MagZilla\Api\Models\DTOs\Services\DeleteServiceRequest;
+use MagZilla\Api\Models\DTOs\Services\GetServiceDetailsRequest;
+use MagZilla\Api\Models\Service;
 
 class ServiceController extends BaseController
 {
@@ -16,6 +18,8 @@ class ServiceController extends BaseController
 
     public function __construct()
     {
+        parent::__construct();
+
         $this->projectUploadService = ProjectUploadService::getInstance();
     }
 
@@ -54,6 +58,14 @@ class ServiceController extends BaseController
                     true
                 );
             }, $addServiceRequest->serviceTypes);
+
+            $this->database->create(
+                OrmModelMapper::UserServiceMappingsTable->getModel(),
+                [
+                    "user_id" => $user->id,
+                    "service_id" => $serviceId
+                ]
+            );
 
             // TODO: Upload project via zip or git
 
@@ -105,6 +117,33 @@ class ServiceController extends BaseController
     public function getServiceDetails($request)
     {
         try {
+            $getServiceDetailsRequest = new GetServiceDetailsRequest($request);
+
+            $usersWithAccessToService = $this->database->read(
+                OrmModelMapper::UserServiceMappingsTable->getModel(),
+                ["service_id" => $getServiceDetailsRequest->serviceId],
+                ["user_id"]
+            );
+
+            $userDoingRequest = User::getUserFromJwt($this->cookieHandler, $this->securityManager);
+
+            if (!in_array($userDoingRequest->id, $usersWithAccessToService)) {
+                throw new ControllerException("Insufficient permissions to get service details", 403);
+            }
+
+            $serviceData = $this->database->read(
+                OrmModelMapper::ServicesTable->getModel(),
+                ["serviceId" => $getServiceDetailsRequest->serviceId],
+                ["service_owner_user_id", "service_name", "git_clone_url", "is_active"]
+            );
+
+            $serviceTypeData = $this->database->read(
+                OrmModelMapper::ServiceTypesTable->getModel(),
+                ["service_id" => $getServiceDetailsRequest->serviceId],
+                ["service_type_id", "type", "startup_location", "env_location", "port"]
+            );
+
+            $service = new Service($getServiceDetailsRequest->serviceId, $serviceData, $serviceTypeData, $usersWithAccessToService); // TODO
         } catch (ControllerException $e) {
             $this->handleError($e, $e->getMessage(), $e->getHttpErrorCode());
         }

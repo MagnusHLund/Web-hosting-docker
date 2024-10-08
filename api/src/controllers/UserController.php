@@ -8,7 +8,9 @@ use MagZilla\Api\Models\OrmModelMapper;
 use MagZilla\Api\Models\DTOs\Users\AddUserRequest;
 use MagZilla\Api\Models\DTOs\Users\AddUserResponse;
 use MagZilla\Api\Models\DTOs\Users\GetUsersResponse;
+use MagZilla\Api\Models\DTOs\Users\UpdateUserRequest;
 use MagZilla\Api\Models\DTOs\Users\DeleteUserRequest;
+use MagZilla\Api\Models\DTOs\users\UpdateUserResponse;
 use MagZilla\Api\Models\DTOs\Users\SearchUsersRequest;
 use MagZilla\Api\Models\DTOs\Users\SearchUsersResponse;
 use MagZilla\Api\Models\DTOs\Users\GetSettingsResponse;
@@ -18,6 +20,11 @@ use MagZilla\Api\Models\DTOs\Users\UpdateSettingResponse;
 
 class UserController extends BaseController
 {
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     public function addUser($request)
     {
         try {
@@ -25,7 +32,7 @@ class UserController extends BaseController
 
             $userAddingNewUser = User::getUserFromJwt($this->cookieHandler, $this->securityManager);
 
-            if (!$userAddingNewUser->isAdmin($this->database)) {
+            if (!$userAddingNewUser->getIsAdmin($this->database)) {
                 throw new ControllerException("Insufficient permissions to create a new user!", 403);
             }
 
@@ -71,7 +78,7 @@ class UserController extends BaseController
 
             $userDeletingUser = User::getUserFromJwt($this->cookieHandler, $this->securityManager);
 
-            if (!$userDeletingUser->isAdmin($this->database)) {
+            if (!$userDeletingUser->getIsAdmin($this->database)) {
                 throw new ControllerException("Insufficient permissions to delete a new user!", 403);
             }
 
@@ -108,7 +115,7 @@ class UserController extends BaseController
         try {
             $requestingUser = User::getUserFromJwt($this->cookieHandler, $this->securityManager);
 
-            if (!$requestingUser->isAdmin($this->database)) {
+            if (!$requestingUser->getIsAdmin($this->database)) {
                 $userData = $requestingUser->getAllUserInfo($this->database);
             } else {
                 $usersTableData = $this->database->read(
@@ -184,6 +191,43 @@ class UserController extends BaseController
     public function updateUser($request)
     {
         try {
+            $updateUserRequest = new UpdateUserRequest($request);
+
+            if (isset($updateUserRequest->isActive, $updateUserRequest->isAdmin)) {
+                $userDoingRequest = User::getUserFromJwt($this->cookieHandler, $this->securityManager);
+                if (!$userDoingRequest->getIsAdmin($this->database)) {
+                    throw new ControllerException("Insufficient permissions to update a user's role!", 403);
+                }
+            }
+
+            $this->database->update(
+                OrmModelMapper::UsersTable->getModel(),
+                ["user_id" => $updateUserRequest->userId],
+                [
+                    "user_name" => $updateUserRequest->name,
+                    "email"     => $updateUserRequest->email
+                ]
+            );
+
+            $this->database->update(
+                OrmModelMapper::UserRolesTable->getModel(),
+                ["user_id" => $updateUserRequest->userId],
+                [
+                    "is_admin" => $updateUserRequest->isAdmin,
+                    "is_active" => $updateUserRequest->isActive
+                ]
+            );
+
+            $updatedUser = new User(
+                $updateUserRequest->userId,
+                $updateUserRequest->name,
+                $updateUserRequest->email,
+                $updateUserRequest->isAdmin,
+                $updateUserRequest->isActive
+            );
+
+            $updateUserResponse = new UpdateUserResponse($updatedUser);
+            $this->handleSuccess($updateUserResponse);
         } catch (ControllerException $e) {
             $this->handleError($e, $e->getMessage(), $e->getHttpErrorCode());
         }
