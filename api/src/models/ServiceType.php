@@ -7,18 +7,18 @@ class ServiceType
     public readonly int|null $id;
     public string $type;
     public string $startupPath;
+    public int|null $port;
     public string|null $dotEnvPath;
     public string|null $dotEnvFile;
-    public int|null $port;
 
-    public function __construct($serviceTypeId, $type, $startupPath, $dotEnvPath = null, $dotEnvFile = null, $port = null)
+    public function __construct($serviceTypeId, $type, $startupPath, $port = null, $dotEnvPath = null, $dotEnvFile = null)
     {
         $this->id          = $serviceTypeId;
         $this->type        = $type;
         $this->startupPath = $startupPath;
+        $this->port        = $port;
         $this->dotEnvPath  = $dotEnvPath;
         $this->$dotEnvFile = $dotEnvFile;
-        $this->port        = $port;
     }
 
     public function toArray()
@@ -26,10 +26,10 @@ class ServiceType
         return array(
             "serviceTypeId" => $this->id,
             "type"          => $this->type,
+            "port"          => $this->port,
             "startupPath"   => $this->startupPath,
             "dotEnvPath"    => $this->dotEnvPath,
             "dotEnvFile"    => $this->dotEnvFile,
-            "port"          => $this->port,
         );
     }
 }

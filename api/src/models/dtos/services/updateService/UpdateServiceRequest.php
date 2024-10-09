@@ -3,16 +3,17 @@
 namespace MagZilla\Api\Models\DTOs\Services;
 
 use MagZilla\Api\Models\DTOs\RequestDTO;
+use MagZilla\Api\Models\Service;
 
-class GetServicesRequest extends RequestDTO
+class UpdateServiceRequest extends RequestDTO
 {
-    public readonly string $x;
+    public readonly Service $service;
 
     public function __construct(array $data)
     {
         parent::__construct();
 
-        $this->x = $data['x'];
+        $this->service = new Service($data['serviceId'], null, null, null, null, $data['isActive']);
 
         $this->validate($this->toArray());
     }

@@ -154,18 +154,6 @@ class UserController extends BaseController
         }
     }
 
-    public function searchUsers($request)
-    {
-        $searchUsersRequest = new SearchUsersRequest($request);
-
-        // TODO: Some magic that searches multiple columns for $searchUsersRequest->searchInput;
-
-        $usersFromDatabase = array();
-
-        $searchUsersResponse = new SearchUsersResponse($usersFromDatabase);
-        $this->handleSuccess($searchUsersResponse);
-    }
-
     public function updateSetting($request)
     {
         try {

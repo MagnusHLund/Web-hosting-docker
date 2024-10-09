@@ -10,6 +10,8 @@ use MagZilla\Api\Models\Exceptions\ControllerException;
 use MagZilla\Api\Models\DTOs\Services\AddServiceRequest;
 use MagZilla\Api\Models\DTOs\Services\DeleteServiceRequest;
 use MagZilla\Api\Models\DTOs\Services\GetServiceDetailsRequest;
+use MagZilla\Api\Models\DTOs\Services\UpdateServiceRequest;
+use MagZilla\Api\Models\DTOs\Users\SearchUsersRequest;
 use MagZilla\Api\Models\Service;
 
 class ServiceController extends BaseController
@@ -152,14 +154,24 @@ class ServiceController extends BaseController
     public function getServices()
     {
         try {
-        } catch (ControllerException $e) {
-            $this->handleError($e, $e->getMessage(), $e->getHttpErrorCode());
-        }
-    }
+            $userDoingRequest = User::getUserFromJwt($this->cookieHandler, $this->securityManager);
 
-    public function searchServices($request)
-    {
-        try {
+            $conditions = [];
+
+            if (!$userDoingRequest->getIsAdmin($this->database)) {
+                $conditions = ["user_id" => $userDoingRequest->id];
+            }
+
+            $serviceIds = $this->database->read(
+                OrmModelMapper::UserServiceMappingsTable->getModel(),
+                $conditions,
+                ["service_id"]
+            );
+
+            $services = []; // TODO: database magic that takes multiple data as conditions for the same row, to avoid spamming database->read over and over in a loop
+
+            // TODO
+
         } catch (ControllerException $e) {
             $this->handleError($e, $e->getMessage(), $e->getHttpErrorCode());
         }
@@ -168,10 +180,15 @@ class ServiceController extends BaseController
     public function updateService($request)
     {
         try {
+            $updateServiceRequest = new UpdateServiceRequest($request);
+
+            $this->database->update(OrmModelMapper::ServicesTable->getModel(), [""]);
         } catch (ControllerException $e) {
             $this->handleError($e, $e->getMessage(), $e->getHttpErrorCode());
         }
     }
+
+    public function updateServiceType($request) {}
 
     public function updateServiceSource($request)
     {

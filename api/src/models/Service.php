@@ -2,20 +2,22 @@
 
 namespace MagZilla\Api\Models;
 
-use MagZilla\Api\Handlers\CookieHandler;
-use MagZilla\Api\Managers\DatabaseManager;
-use MagZilla\Api\Managers\SecurityManager;
-
 class Service
 {
     public readonly int $id;
-    public array $serviceTypes; // Array of MagZilla\Api\Models\ServiceType
-    public string $accessToService;
+    public readonly string $serviceName;
+    public readonly array $serviceTypes; // Array of MagZilla\Api\Models\ServiceType
+    public readonly string $accessToService;
+    public readonly string|null $gitCloneUrl;
+    public readonly FileUpload|null $fileUpload;
 
-    public function __construct($serviceId, $, $serviceTypes = null, $accessToService = null)
+    public function __construct($serviceId, $serviceName = null, $serviceTypes = null, $accessToService = null, $gitCloneUrl = null, $fileUpload = null, $isActive = null,)
     {
         $this->id = $serviceId;
+        $this->serviceName = $serviceName;
         $this->serviceTypes = $serviceTypes;
         $this->accessToService = $accessToService;
+        $this->gitCloneUrl = $gitCloneUrl;
+        $this->fileUpload = $fileUpload;
     }
 }

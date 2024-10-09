@@ -25,7 +25,6 @@ class ApiRouter
             ["POST",   "/api/services/addService",          [$serviceController, "addService"]],
             ["GET",    "/api/services/getServiceDetails",   [$serviceController, "getServiceDetails"]],
             ["GET",    "/api/services/getServices",         [$serviceController, "getServices"]],
-            ["GET",    "/api/services/searchServices",      [$serviceController, "searchServices"]],
             ["PUT",    "/api/services/updateService",       [$serviceController, "updateService"]],
             ["PUT",    "/api/services/updateServiceSource", [$serviceController, "updateServiceSource"]],
             ["DELETE", "/api/services/deleteService",       [$serviceController, "deleteService"]],

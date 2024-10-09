@@ -1,6 +1,6 @@
 <?php
 
-namespace MagZilla\Api\Models\DTOs\Users;
+namespace MagZilla\Api\Models\DTOs\Services;
 
 use MagZilla\Api\Models\DTOs\ResponseDTO;
 

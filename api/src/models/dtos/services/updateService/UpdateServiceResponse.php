@@ -4,7 +4,7 @@ namespace MagZilla\Api\Models\DTOs\Services;
 
 use MagZilla\Api\Models\DTOs\ResponseDTO;
 
-class GetServicesResponse extends ResponseDTO
+class UpdateServiceResponse extends ResponseDTO
 {
     public readonly int $x;
 

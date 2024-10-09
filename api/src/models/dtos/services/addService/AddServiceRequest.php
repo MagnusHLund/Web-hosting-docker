@@ -26,10 +26,11 @@ class AddServiceRequest extends RequestDTO
                 new ServiceType(
                     null,
                     $serviceTypeData['type'],
+                    $serviceTypeData['port'],
                     $serviceTypeData['startupPath'],
                     $serviceTypeData['dotEnvPath'],
                     $serviceTypeData['dotEnvFile'],
-                    $serviceTypeData['file']
+                    $serviceTypeData['file'],
                 );
         }, $data['serviceTypes']);
 
