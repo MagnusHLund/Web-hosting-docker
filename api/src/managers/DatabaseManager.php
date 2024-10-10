@@ -42,13 +42,27 @@ class DatabaseManager
     public function create($model, $data, $returnColumns = [])
     {
         try {
+            return $model::create($data);
         } catch (\PDOException $e) {
         }
     }
 
-    public function read($model, $conditions, $columns = null, $limit = null, $rowsToSkip = null)
+    public function read($model, $conditions, array $columns = null, $limit = null)
     {
         try {
+            $query = $model::where($conditions);
+
+            if (isset($columns)) {
+                $query->select($columns);
+            }
+
+            if (isset($limit)) {
+                $query->take($limit);
+            }
+
+            $result = $query->get();
+
+            return $result->toArray();
         } catch (\PDOException $e) {
         }
     }
@@ -56,6 +70,7 @@ class DatabaseManager
     public function update($model, $conditions, $data, $returnColumns = [])
     {
         try {
+            return $model::where($conditions)->update($data);
         } catch (\PDOException $e) {
         }
     }
@@ -63,6 +78,13 @@ class DatabaseManager
     public function delete($model, $conditions)
     {
         try {
+            $deletedRows = $model::where($conditions)->delete();
+
+            if (empty($deletedRows)) {
+                throw new \PDOException();
+            }
+
+            return $deletedRows;
         } catch (\PDOException $e) {
         }
     }
