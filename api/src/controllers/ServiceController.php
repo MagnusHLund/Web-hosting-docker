@@ -12,6 +12,7 @@ use MagZilla\Api\Models\DTOs\Services\DeleteServiceRequest;
 use MagZilla\Api\Models\DTOs\Services\GetServiceDetailsRequest;
 use MagZilla\Api\Models\DTOs\Services\UpdateServiceRequest;
 use MagZilla\Api\Models\DTOs\Users\SearchUsersRequest;
+use MagZilla\Api\Models\DTOs\Users\updateServiceType;
 use MagZilla\Api\Models\Service;
 
 class ServiceController extends BaseController
@@ -188,7 +189,10 @@ class ServiceController extends BaseController
         }
     }
 
-    public function updateServiceType($request) {}
+    public function updateServiceType($request)
+    {
+        $updateServiceType = new updateServiceType($request);
+    }
 
     public function updateServiceSource($request)
     {
