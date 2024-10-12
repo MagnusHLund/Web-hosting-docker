@@ -11,8 +11,6 @@ use MagZilla\Api\Models\DTOs\Users\GetUsersResponse;
 use MagZilla\Api\Models\DTOs\Users\UpdateUserRequest;
 use MagZilla\Api\Models\DTOs\Users\DeleteUserRequest;
 use MagZilla\Api\Models\DTOs\users\UpdateUserResponse;
-use MagZilla\Api\Models\DTOs\Users\SearchUsersRequest;
-use MagZilla\Api\Models\DTOs\Users\SearchUsersResponse;
 use MagZilla\Api\Models\DTOs\Users\GetSettingsResponse;
 use MagZilla\Api\Models\Exceptions\ControllerException;
 use MagZilla\Api\Models\DTOs\Users\UpdateSettingRequest;

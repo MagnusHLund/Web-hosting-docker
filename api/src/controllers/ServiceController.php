@@ -11,7 +11,6 @@ use MagZilla\Api\Models\DTOs\Services\AddServiceRequest;
 use MagZilla\Api\Models\DTOs\Services\DeleteServiceRequest;
 use MagZilla\Api\Models\DTOs\Services\GetServiceDetailsRequest;
 use MagZilla\Api\Models\DTOs\Services\UpdateServiceRequest;
-use MagZilla\Api\Models\DTOs\Users\SearchUsersRequest;
 use MagZilla\Api\Models\DTOs\Users\updateServiceType;
 use MagZilla\Api\Models\Service;
 
