@@ -8,9 +8,10 @@ function Header() {
         <LogoArea />
       </div>
 
-      <div className="header__Options">
-        <div className="header__Options__box">User</div>
-        <div className="header__Options__box">User Role</div>
+      <div className="header__Info">
+        <img className="header__Info__icon" src="/user.svg" />
+        <div className="header__Info__box">User</div>
+        <div className="header__Info__box">User Role</div>
       </div>
     </header>
   );
