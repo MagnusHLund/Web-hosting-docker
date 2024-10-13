@@ -1,14 +1,16 @@
-import "./NotFoundRoute.scss"; // Assuming you have a separate SCSS file for styles
+import "./NotFoundRoute.scss"; // SCSS file for styling
 
 function NotFoundRoute() {
   return (
-    <div className="not-found">
-      <img
-        src=" /SVG-Animation-404-Page.gif"
-        alt="Lost in space"
-        className="lost-in-space"
-      />
-    </div>
+    <main className="not-found">
+      <div className="not-found__content">
+        <p className="not-found__title">404</p>
+        <p className="not-found__message">This route does not exist</p>
+        <div className="not-found__link">
+          <a href="/">Go back to Home </a>
+        </div>
+      </div>
+    </main>
   );
 }
 
