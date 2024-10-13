@@ -9,7 +9,7 @@
   transition: background-color 0.3s ease;
 
   // Responsive styling
-  width: min-content; // Full width on small screens
+  width: max-content; // Full width on small screens
   max-width: 200px; // Limit max width on larger screens
   // margin: 10px auto; // Center the button
 

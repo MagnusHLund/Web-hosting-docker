@@ -35,7 +35,7 @@ function ServicesRoute() {
         <h2 className="Services-route-title">Services</h2>
         <div className="Services-route-header__actions">
           <SearchBar />
-          <Button text="Service++" />
+          <Button text="Add service" />
         </div>
       </div>
       <Table users={users} />

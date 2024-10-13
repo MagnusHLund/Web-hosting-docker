@@ -35,7 +35,7 @@ const UsersRoute: React.FC = () => {
         <h2 className="users-route-title">Users</h2>
         <div className="users-route-header__actions">
           <SearchBar />
-          <Button text="Search"/>
+          <Button text="Add user"/>
         </div>
       </div>
       <Table users={users} />
