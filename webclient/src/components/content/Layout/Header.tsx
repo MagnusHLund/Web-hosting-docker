@@ -9,7 +9,7 @@ function Header() {
       </div>
 
       <div className="header__Info">
-        <img className="header__Info__icon" src="/user.svg" />
+        <img className="header__Info__icon" src="/user.png" />
         <div className="header__Info__box">User Role</div>
       </div>
     </header>
