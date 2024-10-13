@@ -29,9 +29,22 @@
     color: var(--dark-text-color); // Light text color for header
   }
 
+  &__body-cell {
+    // Styles specific to body cells
+    padding: 5px; // Reduced padding for action cells
+    font-size: 14px; // Smaller font size for action cells
+
+    // Add a specific width for the Actions column
+    &:nth-child(5) { // Assuming Actions is the 5th column
+      width: 100px; // Set a fixed width for the Actions column
+      text-align: center; // Center the content for better alignment
+    }
+  }
+
   &__action-icon {
     cursor: pointer; // Show pointer on hover
     color: var(--text-color); // Use text color for icon
+    margin: 0 5px; // Add margin between icons for spacing
 
     &:hover {
       color: var(--primary-color); // Change color on hover
