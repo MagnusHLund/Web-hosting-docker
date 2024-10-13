@@ -16,13 +16,16 @@ const Navbar: React.FC<NavbarProps> = ({ routes }) => {
   return (
     <nav className="navbar">
       <ul className="navbar__list">
-        {routes.map((route, index) => (
-          <li key={index} className="navbar__item">
-            <Link to={route.path} className="navbar__link">
-              {route.name}
-            </Link>
-          </li>
-        ))}
+        {routes.map((route, index) =>
+          // Check if the route name is "Login"
+          route.name === "Login" ? null : (
+            <li key={index} className="navbar__item">
+              <Link to={route.path} className="navbar__link">
+                {route.name}
+              </Link>
+            </li>
+          )
+        )}
       </ul>
     </nav>
   );
