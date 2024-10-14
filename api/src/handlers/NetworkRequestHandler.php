@@ -2,11 +2,18 @@
 
 namespace MagZilla\Api\Handlers;
 
+use GuzzleHttp\Client;
+
 class NetworkRequestHandler
 {
     private static $instance = null;
 
-    private function __construct() {}
+    private $client;
+
+    private function __construct()
+    {
+        $this->client = new Client();
+    }
 
     public static function getInstance()
     {
@@ -16,5 +23,8 @@ class NetworkRequestHandler
         return self::$instance;
     }
 
-    public function sendGetRequest() {}
+    public function sendGetRequest($url)
+    {
+        return $this->client->request("GET", $url);
+    }
 }
