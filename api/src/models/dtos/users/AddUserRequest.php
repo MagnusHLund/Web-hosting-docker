@@ -3,6 +3,7 @@
 namespace MagZilla\Api\Models\DTOs\Users;
 
 use MagZilla\Api\Models\DTOs\RequestDTO;
+use MagZilla\Api\Models\Exceptions\ControllerException;
 
 class AddUserRequest extends RequestDTO
 {
@@ -12,17 +13,21 @@ class AddUserRequest extends RequestDTO
     public readonly int $isAdmin;
     public readonly int $isActive;
 
-    public function __construct(array $data)
+    public function __construct($data)
     {
-        parent::__construct();
+        try {
+            parent::__construct();
 
-        $this->userName = $data['name'];
-        $this->email    = $data['email'];
-        $this->password = $data['password'];
-        $this->isAdmin  = $data['isAdmin'] ?? 0;
-        $this->isActive = $data['isActive'] ?? 0;
+            $this->userName = $data['name'];
+            $this->email    = $data['email'];
+            $this->password = $data['password'];
+            $this->isAdmin  = $data['isAdmin'] ?? 0;
+            $this->isActive = $data['isActive'] ?? 0;
 
-        $this->validate($this->toArray());
+            $this->validate($this->toArray());
+        } catch (\Throwable $e) {
+            throw new ControllerException("fadsgasd", 400);
+        }
     }
 
     public function toArray()

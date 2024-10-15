@@ -18,19 +18,26 @@ class ResponseHandler
 
     public function sendResponse($response, $statusCode)
     {
-        $success = $statusCode < 400;
+        $success = $statusCode > 400;
+
+        $this->addHeaders();
 
         http_response_code($statusCode);
 
-        if ((isset($response))) {
+        if (!empty($response)) {
             echo json_encode([
                 "success" => $success,
-                "result"  => $response->toArray()
+                "result"  => is_array($response) ? $response : $response->toArray()
             ]);
         } else {
             echo json_encode(["success" => $success]);
         }
 
         exit;
+    }
+
+    private function addHeaders()
+    {
+        header('Content-Type: application/json');
     }
 }

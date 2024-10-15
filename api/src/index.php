@@ -37,7 +37,7 @@ class Main
     private function handleMiddleware($path)
     {
         CorsMiddleware::handleCors();
-        AuthenticationMiddleware::validateAuthentication($path);
+        // AuthenticationMiddleware::validateAuthentication($path);
     }
 }
 
