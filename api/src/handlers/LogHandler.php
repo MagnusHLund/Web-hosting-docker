@@ -16,21 +16,33 @@ class LogHandler
         return self::$instance;
     }
 
-    public function writeLog($message)
+    public function writeLog($message, $logFileName = "exception.log")
     {
         try {
-            $logDirectory = __DIR__ . "./../../logs/";
+            $logDirectory = __DIR__ . "/../../logs/";
 
-            $date = date("Y-m-d");
-            $fileName = "exception-$date.log";
-            $logFile = $logDirectory . $fileName;
+            $this->ensureLogDirectoryExists($logDirectory);
 
-            $timeStamp = date("H-i-s");
+            $logFile = $logDirectory . $logFileName;
 
-            $output = "[$timeStamp]: $message";
+            $output = $this->formatMessage($message);
 
             error_log($output, 3, $logFile);
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
+            // Not really much to do here.
         }
+    }
+
+    private function ensureLogDirectoryExists($logDirectory)
+    {
+        if (!is_dir($logDirectory)) {
+            mkdir($logDirectory);
+        }
+    }
+
+    private function formatMessage($message)
+    {
+        $timeStamp = date("H-i-s");
+        return "[$timeStamp]: $message";
     }
 }

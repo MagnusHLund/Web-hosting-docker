@@ -4,6 +4,6 @@ Content-Type: application/json
 Origin: http://localhost:3001
 
 {
-    "email": "magnus@email.com",
-    "password": "password"
+    "email": "shazil@email.com",
+    "password": "verySecure"
 }

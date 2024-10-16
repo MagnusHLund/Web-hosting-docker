@@ -21,6 +21,11 @@ abstract class RequestDTO implements IDTO
     {
         foreach ($this->reflection->getProperties() as $property) {
             $propertyName = $property->getName();
+
+            if ($propertyName === "reflection") {
+                return;
+            }
+
             $propertyType = $property->getType();
 
             if (!isset($data[$propertyName])) {

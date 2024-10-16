@@ -10,8 +10,8 @@ class AddUserRequest extends RequestDTO
     public readonly string $userName;
     public readonly string $email;
     public readonly string $password;
-    public readonly int $isAdmin;
-    public readonly int $isActive;
+    public readonly int|null $isAdmin;
+    public readonly int|null $isActive;
 
     public function __construct($data)
     {
