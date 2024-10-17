@@ -36,8 +36,8 @@ class UserController extends BaseController
 
             $passwordData = $this->securityManager->generateHashedPassword($addUserRequest->password);
 
-            $userId = $this->database->create(
-                OrmModelMapper::UsersTable->getModel(),
+            $databaseResponse = $this->database->create(
+                OrmModelMapper::UsersTable,
                 [
                     "user_name" => $addUserRequest->userName,
                     "email" => $addUserRequest->email,
@@ -48,16 +48,16 @@ class UserController extends BaseController
             );
 
             $this->database->create(
-                OrmModelMapper::UserRolesTable->getModel(),
+                OrmModelMapper::UserRolesTable,
                 [
-                    "user_id" => $userId,
+                    "user_id" => $databaseResponse->user_id,
                     "is_admin" => $addUserRequest->isAdmin,
                     "is_active" => $addUserRequest->isActive
                 ]
             );
 
             $addUserResponse = new AddUserResponse(
-                $userId,
+                $databaseResponse->user_id,
                 $addUserRequest->userName,
                 $addUserRequest->email,
                 $addUserRequest->isAdmin,

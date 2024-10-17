@@ -6,6 +6,6 @@ Origin: http://localhost:3001
 {
     "name": "Shazil",
     "email": "shazil@email.com",
-    "password": "verySecure",
+    "password": "verySecure12",
     "isAdmin": true
 }

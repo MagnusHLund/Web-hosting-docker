@@ -38,7 +38,7 @@ class ServiceController extends BaseController
             $isGitProject = isset($addServiceRequest->gitUrl);
 
             $serviceId = $this->database->create(
-                OrmModelMapper::ServicesTable->getModel(),
+                OrmModelMapper::ServicesTable,
                 [
                     "service_owner_user_id" => $user->id,
                     "service_name"          => $addServiceRequest->serviceName,
@@ -49,7 +49,7 @@ class ServiceController extends BaseController
 
             array_map(function (ServiceType $serviceType) use ($serviceId) {
                 $this->database->create(
-                    OrmModelMapper::ServiceTypesTable->getModel(),
+                    OrmModelMapper::ServiceTypesTable,
                     [
                         "service_id"       => $serviceId,
                         "type"             => $serviceType->type,
@@ -62,7 +62,7 @@ class ServiceController extends BaseController
             }, $addServiceRequest->serviceTypes);
 
             $this->database->create(
-                OrmModelMapper::UserServiceMappingsTable->getModel(),
+                OrmModelMapper::UserServiceMappingsTable,
                 [
                     "user_id" => $user->id,
                     "service_id" => $serviceId

@@ -29,11 +29,6 @@ class Constants
         return $_ENV['ENCRYPTION_KEY'];
     }
 
-    public static function getPepper()
-    {
-        return $_ENV['PEPPER'];
-    }
-
     public static function getJwtSecretKey()
     {
         return $_ENV['JWT_SECRET_KEY'];

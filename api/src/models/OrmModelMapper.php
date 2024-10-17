@@ -2,6 +2,7 @@
 
 namespace MagZilla\Api\Models;
 
+use Illuminate\Database\Eloquent\Model;
 use MagZilla\Api\Models\ORM\ServicesTable;
 use MagZilla\Api\Models\ORM\ServiceTypesTable;
 use MagZilla\Api\Models\ORM\SettingsTable;
@@ -18,8 +19,8 @@ enum OrmModelMapper: string
     case UserServiceMappingsTable = UserServiceMappingsTable::class;
     case UsersTable = UsersTable::class;
 
-    public function getModel()
+    public function getModel(): Model
     {
-        return $this->value;
+        return new $this->value;
     }
 }

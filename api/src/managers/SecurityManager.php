@@ -4,6 +4,7 @@ namespace MagZilla\Api\Managers;
 
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
+use MagZilla\Api\Models\Exceptions\ControllerException;
 use MagZilla\Api\Utils\Constants;
 
 class SecurityManager
@@ -27,7 +28,7 @@ class SecurityManager
     {
         try {
             $options = ['memory_cost' => 1024, 'time_cost' => 2, 'threads' => 2];
-            return password_hash($passwordToHash . $salt . Constants::getPepper(), self::PASSWORD_HASHING_ALGORITHM, $options);
+            return password_hash($passwordToHash . $salt, self::PASSWORD_HASHING_ALGORITHM, $options);
         } catch (\Exception $e) {
             // TODO
         }
@@ -36,7 +37,7 @@ class SecurityManager
     public function verifyHashedPassword($loginPassword, $storedPassword, $salt): bool
     {
         try {
-            return password_verify($loginPassword . $salt . Constants::getPepper(), $storedPassword);
+            return password_verify($loginPassword . $salt, $storedPassword);
         } catch (\Exception $e) {
             // TODO
         }
@@ -74,7 +75,9 @@ class SecurityManager
 
     public function generateHashedPassword($password)
     {
-        $this->verifyNewPassword($password);
+        if (!$this->verifyNewPassword($password)) {
+            throw new ControllerException("Password does not meet requirements", 400);
+        }
 
         $salt = $this->generateSalt();
         $hashedPassword = $this->hashPassword($password, $salt);

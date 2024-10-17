@@ -16,7 +16,7 @@ class LogHandler
         return self::$instance;
     }
 
-    public function writeLog($message, $logFileName = "exception.log")
+    public function writeLog(\Exception $exception, $logFileName = "exception.log")
     {
         try {
             $logDirectory = __DIR__ . "/../../logs/";
@@ -25,7 +25,8 @@ class LogHandler
 
             $logFile = $logDirectory . $logFileName;
 
-            $output = $this->formatMessage($message);
+            $sanitizedMessage = $this->sanitizeLogMessage($exception);
+            $output = $this->formatMessage($sanitizedMessage);
 
             error_log($output, 3, $logFile);
         } catch (\Throwable $e) {
@@ -38,6 +39,12 @@ class LogHandler
         if (!is_dir($logDirectory)) {
             mkdir($logDirectory);
         }
+    }
+
+    private function sanitizeLogMessage(\Exception $exception)
+    {
+        $stackTrace = $exception->getTraceAsString();
+        return preg_replace('/\'[^\']*\'/', '\'string\'', $stackTrace);
     }
 
     private function formatMessage($message)

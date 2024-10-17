@@ -5,6 +5,9 @@ namespace MagZilla\Api\Managers;
 use MagZilla\Api\Utils\Constants;
 use Illuminate\Database\Capsule\Manager as Capsule;
 
+use Illuminate\Support\Facades\DB;
+use MagZilla\Api\Models\OrmModelMapper;
+
 class DatabaseManager
 {
     private static $instance = null;
@@ -39,15 +42,30 @@ class DatabaseManager
         return self::$instance;
     }
 
-    public function create($model, $data, $returnColumns = [])
+    public function create(OrmModelMapper $modelEnum, array $data, $columnsToReturn = [])
     {
         try {
-            return $model::create($data);
+
+            $model = $modelEnum->getModel();
+
+            if (empty($columnsToReturn)) {
+                return $model::create($data);
+            } else {
+                $table = $model->getTable();
+                $primaryKey = $model->getKeyName();
+
+                $tableId = $this->capsule::table($table)->insertGetId($data);
+
+                return $this->capsule::table($table)
+                    ->where($primaryKey, $tableId)
+                    ->select($columnsToReturn)
+                    ->first();
+            }
         } catch (\PDOException $e) {
         }
     }
 
-    public function read($model, $conditions, array $columns = null, $limit = null)
+    public function read($model, array $conditions, array $columns = null, int $limit = null)
     {
         try {
             $query = $model::where($conditions);
@@ -67,15 +85,22 @@ class DatabaseManager
         }
     }
 
-    public function update($model, $conditions, $data, $returnColumns = [])
+    public function update($model, int $id, array $data, $columnsToReturn = [])
     {
         try {
-            return $model::where($conditions)->update($data);
+            $table = $model->getTable();
+            $primaryKey = $model->getKeyName();
+
+            $this->capsule::table($table)->where($primaryKey, $id)->update($data);
+
+            if (!empty($columnsToReturn)) {
+                $this->capsule::table($table)->where($primaryKey, $id)->select($columnsToReturn)->first();
+            }
         } catch (\PDOException $e) {
         }
     }
 
-    public function delete($model, $conditions)
+    public function delete($model, array $conditions)
     {
         try {
             $deletedRows = $model::where($conditions)->delete();

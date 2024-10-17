@@ -18,7 +18,7 @@ class ResponseHandler
 
     public function sendResponse($response, $statusCode)
     {
-        $success = $statusCode > 400;
+        $success = $statusCode < 400;
 
         $this->addHeaders();
 
@@ -27,7 +27,7 @@ class ResponseHandler
         if (!empty($response)) {
             echo json_encode([
                 "success" => $success,
-                "result"  => is_array($response) ? $response : $response->toArray()
+                "result"  => $response
             ]);
         } else {
             echo json_encode(["success" => $success]);

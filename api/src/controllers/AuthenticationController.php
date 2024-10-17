@@ -51,7 +51,7 @@ class AuthenticationController extends BaseController
                 OrmModelMapper::UsersTable->getModel(),
                 ["email" => $loginRequest->email],
                 ["user_id", "password", "salt"],
-            );
+            )[0];
 
             $validPassword = $this->securityManager->verifyHashedPassword(
                 $loginRequest->password,
@@ -59,12 +59,14 @@ class AuthenticationController extends BaseController
                 $userAuthData['salt']
             );
 
-            if ($validPassword) {
-                $jwt = $this->securityManager->encodeJwt($userAuthData['user_id']);
-                $this->cookieHandler->setCookie("jwt", $jwt);
-
-                $this->handleSuccess(null, 204);
+            if (!$validPassword) {
+                throw new ControllerException("Invalid credentials", 401);
             }
+
+            $jwt = $this->securityManager->encodeJwt($userAuthData['user_id']);
+            $this->cookieHandler->setCookie("jwt", $jwt);
+
+            $this->handleSuccess(null, 204);
         } catch (ControllerException $e) {
             $this->handleError($e, $e->getMessage(), $e->getHttpErrorCode());
         }

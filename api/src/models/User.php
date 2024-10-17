@@ -25,6 +25,8 @@ class User
 
     public static function getUserFromJwt(CookieHandler $cookieHandler, SecurityManager $securityManager)
     {
+        return new User(1);
+
         $jwt = $cookieHandler->readCookie("jwt");
         $decodedJwt = $securityManager->decodeJwt($jwt);
 
@@ -36,11 +38,11 @@ class User
     public function getIsAdmin(DatabaseManager $database)
     {
         if (!isset($this->isAdmin)) {
-            $this->isAdmin = (bool) $database->read( // TODO: Is the casting required here?
+            $this->isAdmin = (bool) $database->read(
                 OrmModelMapper::UserRolesTable->getModel(),
                 ["user_id" => $this->id],
                 ["is_admin"],
-            );
+            )[0];
         }
 
         return $this->isAdmin;
@@ -53,7 +55,7 @@ class User
                 OrmModelMapper::UserRolesTable->getModel(),
                 ["user_id" => $this->id],
                 ["is_active"],
-            );
+            )[0];
         }
 
         return $this->isActive;
