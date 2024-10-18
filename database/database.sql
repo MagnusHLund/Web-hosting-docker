@@ -66,7 +66,7 @@ CREATE TABLE IF NOT EXISTS `Users` (
   `user_name` varchar(30) NOT NULL,
   `email` varchar(320) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `salt` varchar(32) NOT NULL,
+  `salt` varchar(64) NOT NULL,
   PRIMARY KEY (`user_id`),
   KEY (`user_name`),
   UNIQUE KEY `Unique_email` (`email`)
