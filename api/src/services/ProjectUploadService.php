@@ -13,7 +13,7 @@ class ProjectUploadService
     public static function getInstance()
     {
         if (self::$instance == null) {
-            self::$instance = new ProjectUploadService();
+            self::$instance = new self();
         }
         return self::$instance;
     }

@@ -4,8 +4,6 @@ namespace MagZilla\Api\Managers;
 
 use MagZilla\Api\Utils\Constants;
 use Illuminate\Database\Capsule\Manager as Capsule;
-
-use Illuminate\Support\Facades\DB;
 use MagZilla\Api\Models\OrmModelMapper;
 
 class DatabaseManager
@@ -37,7 +35,7 @@ class DatabaseManager
     public static function getInstance()
     {
         if (self::$instance == null) {
-            self::$instance = new DatabaseManager();
+            self::$instance = new self();
         }
         return self::$instance;
     }
@@ -65,9 +63,10 @@ class DatabaseManager
         }
     }
 
-    public function read($model, array $conditions, array $columns = null, int $limit = null)
+    public function read(OrmModelMapper $modelEnum, array $conditions, array $columns = null, int $limit = null)
     {
         try {
+            $model = $modelEnum->getModel();
             $query = $model::where($conditions);
 
             if (isset($columns)) {
@@ -83,6 +82,35 @@ class DatabaseManager
             return $result->toArray();
         } catch (\PDOException $e) {
         }
+    }
+
+    public function readMultipleTables(array $modelEnums, array $columns = null, int $limit = null)
+    {
+        $models = array_map(fn($modelEnum) => $modelEnum->getModel(), $modelEnums);
+        $mainModel = $models[0];
+        $mainPrimaryKey = $mainModel->getKeyName();
+        $mainTable = $mainModel->getTable();
+
+        $query = $this->capsule::table($mainTable);
+
+        foreach (array_slice($models, 1) as $model) {
+            $query->join($model->getTable(), "$mainTable.$mainPrimaryKey", '=', "{$model->getTable()}.$mainPrimaryKey");
+        }
+
+        if (!empty($columns)) {
+            if (!in_array($mainPrimaryKey, $columns)) {
+                $columns[] = "$mainTable.$mainPrimaryKey as $mainPrimaryKey";
+            }
+            $query->select($columns);
+        } else {
+            $query->select("$mainTable.*");
+        }
+
+        if (isset($limit)) {
+            $query->take($limit);
+        }
+
+        return $query->get()->toArray();
     }
 
     public function update($model, int $id, array $data, $columnsToReturn = [])

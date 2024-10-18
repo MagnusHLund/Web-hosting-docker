@@ -18,7 +18,7 @@ class ApiRouter
         $userController = $container->get(UserController::class);
 
         $this->routes = [
-            ["POST",   "/api/auth/changePassword",          [$authenticationController, "changePassword"]],
+            ["PUT",   "/api/auth/updatePassword",           [$authenticationController, "updatePassword"]],
             ["POST",   "/api/auth/login",                   [$authenticationController, "login"]],
             ["POST",   "/api/auth/logout",                  [$authenticationController, "logout"]],
 
@@ -34,7 +34,7 @@ class ApiRouter
             ["GET",    "/api/users/getUsers",               [$userController, "getUsers"]],
             ["PUT",    "/api/users/updateSettings",         [$userController, "updateSettings"]],
             ["PUT",    "/api/users/updateUser",             [$userController, "updateUser"]],
-            ["DELETE", "/api/users/deleteUser",             [$userController, "addUser"]],
+            ["DELETE", "/api/users/deleteUser",             [$userController, "deleteUser"]],
         ];
     }
 

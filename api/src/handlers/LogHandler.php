@@ -11,7 +11,7 @@ class LogHandler
     public static function getInstance()
     {
         if (self::$instance == null) {
-            self::$instance = new LogHandler();
+            self::$instance = new self();
         }
         return self::$instance;
     }

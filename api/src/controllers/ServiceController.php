@@ -122,7 +122,7 @@ class ServiceController extends BaseController
             $getServiceDetailsRequest = new GetServiceDetailsRequest($request);
 
             $usersWithAccessToService = $this->database->read(
-                OrmModelMapper::UserServiceMappingsTable->getModel(),
+                OrmModelMapper::UserServiceMappingsTable,
                 ["service_id" => $getServiceDetailsRequest->serviceId],
                 ["user_id"]
             );
@@ -134,13 +134,13 @@ class ServiceController extends BaseController
             }
 
             $serviceData = $this->database->read(
-                OrmModelMapper::ServicesTable->getModel(),
+                OrmModelMapper::ServicesTable,
                 ["serviceId" => $getServiceDetailsRequest->serviceId],
                 ["service_owner_user_id", "service_name", "git_clone_url", "is_active"]
             );
 
             $serviceTypeData = $this->database->read(
-                OrmModelMapper::ServiceTypesTable->getModel(),
+                OrmModelMapper::ServiceTypesTable,
                 ["service_id" => $getServiceDetailsRequest->serviceId],
                 ["service_type_id", "type", "startup_location", "env_location", "port"]
             );
@@ -163,7 +163,7 @@ class ServiceController extends BaseController
             }
 
             $serviceIds = $this->database->read(
-                OrmModelMapper::UserServiceMappingsTable->getModel(),
+                OrmModelMapper::UserServiceMappingsTable,
                 $conditions,
                 ["service_id"]
             );

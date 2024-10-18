@@ -2,6 +2,7 @@
 
 namespace MagZilla\Api\Controllers;
 
+use MagZilla\Api\Handlers\CookieHandler;
 use MagZilla\Api\Models\User;
 use MagZilla\Api\Models\OrmModelMapper;
 use MagZilla\Api\Models\DTOs\Auth\LoginRequest;
@@ -25,11 +26,17 @@ class AuthenticationController extends BaseController
                 $this->securityManager
             );
 
+            if (isset($updatePasswordRequest->userId) && !$user->getIsAdmin($this->database) && $user->id !== $updatePasswordRequest->userId) { // TODO: Test this
+                throw new ControllerException("Can not change password of other users!", 401);
+            }
+
+            $userToUpdate = $updatePasswordRequest->userId ?? $user->id;
+
             $passwordData = $this->securityManager->generateHashedPassword($updatePasswordRequest->newPassword);
 
             $this->database->update(
                 OrmModelMapper::UsersTable->getModel(),
-                ["user_id" => $user->id],
+                $userToUpdate,
                 [
                     "password" => $passwordData["password"],
                     "salt" => $passwordData["salt"]
@@ -48,7 +55,7 @@ class AuthenticationController extends BaseController
             $loginRequest = new LoginRequest($request);
 
             $userAuthData = $this->database->read(
-                OrmModelMapper::UsersTable->getModel(),
+                OrmModelMapper::UsersTable,
                 ["email" => $loginRequest->email],
                 ["user_id", "password", "salt"],
             )[0];
@@ -64,9 +71,9 @@ class AuthenticationController extends BaseController
             }
 
             $jwt = $this->securityManager->encodeJwt($userAuthData['user_id']);
-            $this->cookieHandler->setCookie("jwt", $jwt);
+            $this->cookieHandler->setCookie(CookieHandler::AUTHENTICATION_COOKIE_NAME, $jwt);
 
-            $this->handleSuccess(null, 204);
+            $this->handleSuccess();
         } catch (ControllerException $e) {
             $this->handleError($e, $e->getMessage(), $e->getHttpErrorCode());
         }
@@ -77,7 +84,8 @@ class AuthenticationController extends BaseController
         try {
             // TODO: Add deny list for removed JWTs? Needs new database table
 
-            $this->cookieHandler->removeCookie("jwt");
+            $this->cookieHandler->removeCookie(CookieHandler::AUTHENTICATION_COOKIE_NAME);
+            $this->handleSuccess();
         } catch (ControllerException $e) {
             $this->handleError($e, $e->getMessage(), $e->getHttpErrorCode());
         }

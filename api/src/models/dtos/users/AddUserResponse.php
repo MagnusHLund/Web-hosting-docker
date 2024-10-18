@@ -17,8 +17,8 @@ class AddUserResponse extends ResponseDTO
         $this->userId    = $userId;
         $this->userName  = $userName;
         $this->email     = $email;
-        $this->$isAdmin  = $isAdmin;
-        $this->$isActive = $isActive;
+        $this->isAdmin  = $isAdmin;
+        $this->isActive = $isActive;
     }
 
     public function toArray()

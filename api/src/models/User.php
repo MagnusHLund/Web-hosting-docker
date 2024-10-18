@@ -25,12 +25,10 @@ class User
 
     public static function getUserFromJwt(CookieHandler $cookieHandler, SecurityManager $securityManager)
     {
-        return new User(1);
-
-        $jwt = $cookieHandler->readCookie("jwt");
+        $jwt = $cookieHandler->readCookie(CookieHandler::AUTHENTICATION_COOKIE_NAME);
         $decodedJwt = $securityManager->decodeJwt($jwt);
 
-        $userId = $decodedJwt['sub'];
+        $userId = $decodedJwt->sub;
 
         return new User($userId);
     }
@@ -39,7 +37,7 @@ class User
     {
         if (!isset($this->isAdmin)) {
             $this->isAdmin = (bool) $database->read(
-                OrmModelMapper::UserRolesTable->getModel(),
+                OrmModelMapper::UserRolesTable,
                 ["user_id" => $this->id],
                 ["is_admin"],
             )[0];
@@ -52,7 +50,7 @@ class User
     {
         if (!isset($this->isActive)) {
             $this->isActive = (bool) $database->read( // TODO: Is the casting required here?
-                OrmModelMapper::UserRolesTable->getModel(),
+                OrmModelMapper::UserRolesTable,
                 ["user_id" => $this->id],
                 ["is_active"],
             )[0];
@@ -64,7 +62,7 @@ class User
     public function getName(DatabaseManager $database)
     {
         return $database->read(
-            OrmModelMapper::UsersTable->getModel(),
+            OrmModelMapper::UsersTable,
             ["user_id" => $this->id],
             ["user_name"],
         );
@@ -74,7 +72,7 @@ class User
     {
         if (!isset($this->name, $this->email)) {
             $usersTableData = $database->read(
-                OrmModelMapper::UsersTable->getModel(),
+                OrmModelMapper::UsersTable,
                 ["user_id" => $this->id],
                 ["user_name", "email"]
             );
@@ -85,7 +83,7 @@ class User
 
         if (!isset($this->isAdmin, $this->isActive)) {
             $userRolesTableData = $database->read(
-                OrmModelMapper::UserRolesTable->getModel(),
+                OrmModelMapper::UserRolesTable,
                 ["user_id" => $this->id],
                 ["is_admin", "is_active"]
             );

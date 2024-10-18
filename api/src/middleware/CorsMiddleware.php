@@ -8,13 +8,23 @@ class CorsMiddleware
 {
     private const ALLOWED_NETWORK_METHODS = "POST, GET, PUT, DELETE, OPTIONS";
 
-    public static function handleCors()
+    private static $instance = null;
+
+    public static function getInstance()
     {
-        self::validateOrigin();
-        self::handlePreflightRequest();
+        if (self::$instance == null) {
+            self::$instance = new self();
+        }
+        return self::$instance;
     }
 
-    private static function validateOrigin()
+    public function handleCors()
+    {
+        $this->validateOrigin();
+        $this->handlePreflightRequest();
+    }
+
+    private function validateOrigin()
     {
         // Gets the origin from the request header.
         $origin = $_SERVER['HTTP_ORIGIN'] ?? 'undefined';
@@ -35,7 +45,7 @@ class CorsMiddleware
         }
     }
 
-    private static function handlePreflightRequest()
+    private function handlePreflightRequest()
     {
         // Get the request method type, from the network request
         $requestMethod = $_SERVER['REQUEST_METHOD'] ?? '';

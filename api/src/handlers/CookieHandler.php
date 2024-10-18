@@ -4,6 +4,8 @@ namespace MagZilla\Api\Handlers;
 
 class CookieHandler
 {
+    public const AUTHENTICATION_COOKIE_NAME = "authentication";
+
     private static $instance = null;
 
     private function __construct() {}
@@ -11,7 +13,7 @@ class CookieHandler
     public static function getInstance()
     {
         if (self::$instance == null) {
-            self::$instance = new CookieHandler();
+            self::$instance = new self();
         }
         return self::$instance;
     }
@@ -30,11 +32,27 @@ class CookieHandler
     {
         $expirationTime = 0;
 
-        setcookie($cookieName, "", $expirationTime);
+        setcookie($cookieName, "", $expirationTime, "/", "", false, true);
     }
 
     public function readCookie($cookieName)
     {
+        // TODO? what happens if a cookie does not exist, but is trying to be read? Should use isset()?
         return $_COOKIE[$cookieName];
+    }
+
+    public function isCookieExpired($cookieName)
+    {
+        $remainingCookieLifetimeInSeconds = $this->secondsToCookieExpire($cookieName);
+
+        return $remainingCookieLifetimeInSeconds < 0;
+    }
+
+    public function secondsToCookieExpire($cookieName)
+    {
+        $cookie = json_decode($this->readCookie($cookieName));
+        $expiration = $cookie['expires'];
+
+        return time() - $expiration;
     }
 }

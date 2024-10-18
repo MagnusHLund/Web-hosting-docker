@@ -56,6 +56,17 @@ class UserController extends BaseController
                 ]
             );
 
+            $settings = new Settings(false, "en_US");
+
+            $this->database->create(
+                OrmModelMapper::SettingsTable,
+                [
+                    "user_id" => $databaseResponse->user_id,
+                    "dark_mode" => $settings->darkMode,
+                    "language" => $settings->language
+                ]
+            );
+
             $addUserResponse = new AddUserResponse(
                 $databaseResponse->user_id,
                 $addUserRequest->userName,
@@ -69,6 +80,7 @@ class UserController extends BaseController
         }
     }
 
+    // TODO Bug: returns success if the user did not exist
     public function deleteUser($request)
     {
         try {
@@ -77,7 +89,7 @@ class UserController extends BaseController
             $userDeletingUser = User::getUserFromJwt($this->cookieHandler, $this->securityManager);
 
             if (!$userDeletingUser->getIsAdmin($this->database)) {
-                throw new ControllerException("Insufficient permissions to delete a new user!", 403);
+                throw new ControllerException("Insufficient permissions to delete a user!", 403);
             }
 
             $this->database->delete(
@@ -96,7 +108,11 @@ class UserController extends BaseController
         try {
             $user = User::getUserFromJwt($this->cookieHandler, $this->securityManager);
 
-            $settings = $this->database->read(OrmModelMapper::SettingsTable->getModel(), ["user_id" => $user->id], ["dark_mode", "language"]);
+            $settings = $this->database->read(
+                OrmModelMapper::SettingsTable,
+                ["user_id" => $user->id],
+                ["dark_mode", "language"]
+            )[0];
 
             $getSettingsResponse = new GetSettingsResponse(
                 $settings["dark_mode"],
@@ -116,32 +132,10 @@ class UserController extends BaseController
             if (!$requestingUser->getIsAdmin($this->database)) {
                 $userData = $requestingUser->getAllUserInfo($this->database);
             } else {
-                $usersTableData = $this->database->read(
-                    OrmModelMapper::UsersTable->getModel(),
-                    [],
-                    ["user_id", "user_name", "email"]
+                $userData = $this->database->readMultipleTables(
+                    [OrmModelMapper::UsersTable, OrmModelMapper::UserRolesTable],
+                    ["user_name", "email", "is_admin", "is_active"]
                 );
-                $userRolesTableData = $this->database->read(
-                    OrmModelMapper::UserRolesTable->getModel(),
-                    [],
-                    ["user_id", "is_admin", "is_active"]
-                );
-
-                $userData = [];
-
-                foreach ($usersTableData as $user) {
-                    $userData[$user['user_id']] = [
-                        'user_name' => $user['user_name'],
-                        'email' => $user['email']
-                    ];
-                }
-
-                foreach ($userRolesTableData as $role) {
-                    if (isset($userData[$role['user_id']])) {
-                        $userData[$role['user_id']]['is_admin'] = $role['is_admin'];
-                        $userData[$role['user_id']]['is_active'] = $role['is_active'];
-                    }
-                }
             }
 
             // TODO: This might fail. Maybe fix?
@@ -161,7 +155,7 @@ class UserController extends BaseController
 
             $updatedSettings = $this->database->update(
                 OrmModelMapper::SettingsTable->getModel(),
-                ["user_id" => $user->id],
+                $user->id,
                 [$updateSettingRequest->settingName => $updateSettingRequest->settingValue],
                 ["dark_mode", "language"]
             );
@@ -188,7 +182,7 @@ class UserController extends BaseController
 
             $this->database->update(
                 OrmModelMapper::UsersTable->getModel(),
-                ["user_id" => $updateUserRequest->userId],
+                $updateUserRequest->userId,
                 [
                     "user_name" => $updateUserRequest->name,
                     "email"     => $updateUserRequest->email
@@ -197,7 +191,7 @@ class UserController extends BaseController
 
             $this->database->update(
                 OrmModelMapper::UserRolesTable->getModel(),
-                ["user_id" => $updateUserRequest->userId],
+                $updateUserRequest->userId,
                 [
                     "is_admin" => $updateUserRequest->isAdmin,
                     "is_active" => $updateUserRequest->isActive
