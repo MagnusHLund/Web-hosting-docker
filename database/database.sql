@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `Settings` (
   `dark_mode` tinyint(1) NOT NULL CHECK (`dark_mode` BETWEEN 0 AND 1),
   `language` varchar(5) NOT NULL DEFAULT "en_US",
   PRIMARY KEY (`settings_id`),
-  KEY `FK_Settings_Users` (`user_id`),
+  UNIQUE KEY `FK_Settings_Users` (`user_id`),
   CONSTRAINT `FK_Settings_Users` FOREIGN KEY (`user_id`) REFERENCES `Users` (`user_id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
