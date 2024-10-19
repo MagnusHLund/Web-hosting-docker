@@ -32,7 +32,7 @@ class ApiRouter
             ["POST",   "/api/users/addUser",                [$userController, "addUser"]],
             ["GET",    "/api/users/getSettings",            [$userController, "getSettings"]],
             ["GET",    "/api/users/getUsers",               [$userController, "getUsers"]],
-            ["PUT",    "/api/users/updateSettings",         [$userController, "updateSettings"]],
+            ["PUT",    "/api/users/updateSetting",         [$userController, "updateSetting"]],
             ["PUT",    "/api/users/updateUser",             [$userController, "updateUser"]],
             ["DELETE", "/api/users/deleteUser",             [$userController, "deleteUser"]],
         ];

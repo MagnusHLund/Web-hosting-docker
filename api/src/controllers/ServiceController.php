@@ -3,6 +3,7 @@
 namespace MagZilla\Api\Controllers;
 
 use MagZilla\Api\Models\User;
+use MagZilla\Api\Models\Service;
 use MagZilla\Api\Models\ServiceType;
 use MagZilla\Api\Models\OrmModelMapper;
 use MagZilla\Api\Services\ProjectUploadService;
@@ -12,7 +13,6 @@ use MagZilla\Api\Models\DTOs\Services\DeleteServiceRequest;
 use MagZilla\Api\Models\DTOs\Services\GetServiceDetailsRequest;
 use MagZilla\Api\Models\DTOs\Services\UpdateServiceRequest;
 use MagZilla\Api\Models\DTOs\Users\updateServiceType;
-use MagZilla\Api\Models\Service;
 
 class ServiceController extends BaseController
 {
@@ -182,7 +182,7 @@ class ServiceController extends BaseController
         try {
             $updateServiceRequest = new UpdateServiceRequest($request);
 
-            $this->database->update(OrmModelMapper::ServicesTable->getModel(), [""]);
+            $this->database->update(OrmModelMapper::ServicesTable, [], []);
         } catch (ControllerException $e) {
             $this->handleError($e, $e->getMessage(), $e->getHttpErrorCode());
         }

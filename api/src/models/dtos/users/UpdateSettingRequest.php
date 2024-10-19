@@ -3,18 +3,19 @@
 namespace MagZilla\Api\Models\DTOs\Users;
 
 use MagZilla\Api\Models\DTOs\RequestDTO;
+use MagZilla\Api\Utils\TextCasingUtils;
 
 class UpdateSettingRequest extends RequestDTO
 {
     public readonly string $settingName;
-    public readonly string|int $settingValue;
+    public readonly string $settingValue;
 
     public function __construct(array $data)
     {
         parent::__construct();
 
-        $this->settingName  = $data['settingName'];
-        $this->settingValue = $data['settingValue'];
+        $this->settingName  = TextCasingUtils::camelToSnake($data['setting']);
+        $this->settingValue = $data['value'];
 
         $this->validate($this->toArray());
     }

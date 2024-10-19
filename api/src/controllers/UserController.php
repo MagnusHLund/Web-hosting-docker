@@ -138,7 +138,6 @@ class UserController extends BaseController
                 );
             }
 
-            // TODO: This might fail. Maybe fix?
             $getUsersResponse = new GetUsersResponse($userData);
             $this->handleSuccess($getUsersResponse);
         } catch (ControllerException $e) {
@@ -154,13 +153,13 @@ class UserController extends BaseController
             $user = User::getUserFromJwt($this->cookieHandler, $this->securityManager);
 
             $updatedSettings = $this->database->update(
-                OrmModelMapper::SettingsTable->getModel(),
-                $user->id,
+                OrmModelMapper::SettingsTable,
+                ["user_id" => $user->id],
                 [$updateSettingRequest->settingName => $updateSettingRequest->settingValue],
                 ["dark_mode", "language"]
             );
 
-            $userSettings = new Settings($updatedSettings["darkMode"], $updatedSettings["language"]);
+            $userSettings = new Settings($updatedSettings->dark_mode, $updatedSettings->language);
             $updateSettingResponse = new UpdateSettingResponse($userSettings);
             $this->handleSuccess($updateSettingResponse);
         } catch (ControllerException $e) {
@@ -181,8 +180,8 @@ class UserController extends BaseController
             }
 
             $this->database->update(
-                OrmModelMapper::UsersTable->getModel(),
-                $updateUserRequest->userId,
+                OrmModelMapper::UsersTable,
+                ["user_id" => $updateUserRequest->userId],
                 [
                     "user_name" => $updateUserRequest->name,
                     "email"     => $updateUserRequest->email
@@ -190,8 +189,8 @@ class UserController extends BaseController
             );
 
             $this->database->update(
-                OrmModelMapper::UserRolesTable->getModel(),
-                $updateUserRequest->userId,
+                OrmModelMapper::UserRolesTable,
+                ["user_id" => $updateUserRequest->userId],
                 [
                     "is_admin" => $updateUserRequest->isAdmin,
                     "is_active" => $updateUserRequest->isActive

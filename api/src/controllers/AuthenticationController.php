@@ -35,8 +35,8 @@ class AuthenticationController extends BaseController
             $passwordData = $this->securityManager->generateHashedPassword($updatePasswordRequest->newPassword);
 
             $this->database->update(
-                OrmModelMapper::UsersTable->getModel(),
-                $userToUpdate,
+                OrmModelMapper::UsersTable,
+                ["user_id" => $userToUpdate],
                 [
                     "password" => $passwordData["password"],
                     "salt" => $passwordData["salt"]

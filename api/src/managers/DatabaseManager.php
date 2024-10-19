@@ -4,6 +4,7 @@ namespace MagZilla\Api\Managers;
 
 use MagZilla\Api\Utils\Constants;
 use Illuminate\Database\Capsule\Manager as Capsule;
+use MagZilla\Api\Models\Exceptions\ControllerException;
 use MagZilla\Api\Models\OrmModelMapper;
 
 class DatabaseManager
@@ -60,6 +61,7 @@ class DatabaseManager
                     ->first();
             }
         } catch (\PDOException $e) {
+            $this->handlePDOException();
         }
     }
 
@@ -81,50 +83,59 @@ class DatabaseManager
 
             return $result->toArray();
         } catch (\PDOException $e) {
+            $this->handlePDOException();
         }
     }
 
     public function readMultipleTables(array $modelEnums, array $columns = null, int $limit = null)
     {
-        $models = array_map(fn($modelEnum) => $modelEnum->getModel(), $modelEnums);
-        $mainModel = $models[0];
-        $mainPrimaryKey = $mainModel->getKeyName();
-        $mainTable = $mainModel->getTable();
+        try {
+            $models = array_map(fn($modelEnum) => $modelEnum->getModel(), $modelEnums);
+            $mainModel = $models[0];
+            $mainPrimaryKey = $mainModel->getKeyName();
+            $mainTable = $mainModel->getTable();
 
-        $query = $this->capsule::table($mainTable);
+            $query = $this->capsule::table($mainTable);
 
-        foreach (array_slice($models, 1) as $model) {
-            $query->join($model->getTable(), "$mainTable.$mainPrimaryKey", '=', "{$model->getTable()}.$mainPrimaryKey");
-        }
-
-        if (!empty($columns)) {
-            if (!in_array($mainPrimaryKey, $columns)) {
-                $columns[] = "$mainTable.$mainPrimaryKey as $mainPrimaryKey";
+            foreach (array_slice($models, 1) as $model) {
+                $query->join($model->getTable(), "$mainTable.$mainPrimaryKey", '=', "{$model->getTable()}.$mainPrimaryKey");
             }
-            $query->select($columns);
-        } else {
-            $query->select("$mainTable.*");
-        }
 
-        if (isset($limit)) {
-            $query->take($limit);
-        }
+            if (!empty($columns)) {
+                if (!in_array($mainPrimaryKey, $columns)) {
+                    $columns[] = "$mainTable.$mainPrimaryKey as $mainPrimaryKey";
+                }
+                $query->select($columns);
+            } else {
+                $query->select("$mainTable.*");
+            }
 
-        return $query->get()->toArray();
+            if (isset($limit)) {
+                $query->take($limit);
+            }
+
+            return $query->get()->toArray();
+        } catch (\Exception $e) {
+            $this->handlePDOException();
+        }
     }
 
-    public function update($model, int $id, array $data, $columnsToReturn = [])
+    public function update(OrmModelMapper $modelEnum, array $conditions, array $data, $columnsToReturn = [])
     {
         try {
+            $model = $modelEnum->getModel();
             $table = $model->getTable();
-            $primaryKey = $model->getKeyName();
 
-            $this->capsule::table($table)->where($primaryKey, $id)->update($data);
+            $this->capsule::table($table)->where($conditions)->update($data);
 
             if (!empty($columnsToReturn)) {
-                $this->capsule::table($table)->where($primaryKey, $id)->select($columnsToReturn)->first();
+                return $this->capsule::table($table)
+                    ->where($conditions)
+                    ->select($columnsToReturn)
+                    ->first();
             }
         } catch (\PDOException $e) {
+            $this->handlePDOException();
         }
     }
 
@@ -139,6 +150,12 @@ class DatabaseManager
 
             return $deletedRows;
         } catch (\PDOException $e) {
+            $this->handlePDOException();
         }
+    }
+
+    private function handlePDOException()
+    {
+        throw new ControllerException("An error occured, when interacting with the database", 500);
     }
 }
