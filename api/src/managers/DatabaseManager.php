@@ -6,6 +6,7 @@ use MagZilla\Api\Utils\Constants;
 use Illuminate\Database\Capsule\Manager as Capsule;
 use MagZilla\Api\Models\Exceptions\ControllerException;
 use MagZilla\Api\Models\OrmModelMapper;
+use PDOException;
 
 class DatabaseManager
 {
@@ -60,8 +61,8 @@ class DatabaseManager
                     ->select($columnsToReturn)
                     ->first();
             }
-        } catch (\PDOException $e) {
-            $this->handlePDOException();
+        } catch (PDOException $e) {
+            $this->handlePDOException($e);
         }
     }
 
@@ -82,8 +83,8 @@ class DatabaseManager
             $result = $query->get();
 
             return $result->toArray();
-        } catch (\PDOException $e) {
-            $this->handlePDOException();
+        } catch (PDOException $e) {
+            $this->handlePDOException($e);
         }
     }
 
@@ -116,7 +117,7 @@ class DatabaseManager
 
             return $query->get()->toArray();
         } catch (\Exception $e) {
-            $this->handlePDOException();
+            $this->handlePDOException($e);
         }
     }
 
@@ -134,8 +135,8 @@ class DatabaseManager
                     ->select($columnsToReturn)
                     ->first();
             }
-        } catch (\PDOException $e) {
-            $this->handlePDOException();
+        } catch (PDOException $e) {
+            $this->handlePDOException($e);
         }
     }
 
@@ -145,17 +146,17 @@ class DatabaseManager
             $deletedRows = $model::where($conditions)->delete();
 
             if (empty($deletedRows)) {
-                throw new \PDOException();
+                throw new PDOException();
             }
 
             return $deletedRows;
-        } catch (\PDOException $e) {
-            $this->handlePDOException();
+        } catch (PDOException $e) {
+            $this->handlePDOException($e);
         }
     }
 
-    private function handlePDOException()
+    private function handlePDOException(PDOException $exception)
     {
-        throw new ControllerException("An error occured, when interacting with the database", 500);
+        throw new ControllerException("An error occured, when interacting with the database", 500, $exception);
     }
 }

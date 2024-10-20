@@ -32,7 +32,7 @@ class ApiRouter
             ["POST",   "/api/users/addUser",                [$userController, "addUser"]],
             ["GET",    "/api/users/getSettings",            [$userController, "getSettings"]],
             ["GET",    "/api/users/getUsers",               [$userController, "getUsers"]],
-            ["PUT",    "/api/users/updateSetting",         [$userController, "updateSetting"]],
+            ["PUT",    "/api/users/updateSetting",          [$userController, "updateSetting"]],
             ["PUT",    "/api/users/updateUser",             [$userController, "updateUser"]],
             ["DELETE", "/api/users/deleteUser",             [$userController, "deleteUser"]],
         ];
@@ -42,9 +42,9 @@ class ApiRouter
     {
         foreach ($this->routes as $route) {
             $routeMethod = $route[0];
-            $routePath = $route[1];
-            $handler = $route[2];
-            $params = $route[3] ?? [];
+            $routePath   = $route[1];
+            $handler     = $route[2];
+            $params      = $route[3] ?? [];
 
             if ($method === $routeMethod && $path === $routePath) {
                 call_user_func_array([$handler[0], $handler[1]], [$requestBody, $params]); // TODO: Can this be improved?
