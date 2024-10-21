@@ -10,7 +10,7 @@ class AddServiceRequest extends RequestDTO
 {
     public readonly string $serviceName;
     public readonly string $gitUrl;
-    public readonly string $projectFiles;
+    public readonly string $projectFiles; // TODO: Change name to zipFile? This sounds like garbage
     public readonly array $serviceTypes;
 
     public function __construct(array $data)
@@ -55,7 +55,11 @@ class AddServiceRequest extends RequestDTO
             $propertyType = $property->getType();
 
             if (isset($this->gitUrl) && isset($this->projectFiles)) {
-                throw new InvalidArgumentException("Can not upload using zip and git at the same time");
+                throw new InvalidArgumentException("Can not upload using zip and git at the same time!");
+            }
+
+            if (empty($this->gitUrl) && empty($this->projectFiles)) {
+                throw new InvalidArgumentException("Must upload either git or zip file!");
             }
 
             if (!isset($data[$propertyName])) {

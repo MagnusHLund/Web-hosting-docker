@@ -2,7 +2,7 @@
 
 // TODO: Is this a utils? What is this?
 
-namespace MagZilla\Api\Utils;
+namespace MagZilla\Api\Managers;
 
 use DI\ContainerBuilder;
 use MagZilla\Api\Controllers\AuthenticationController;

@@ -1,10 +1,10 @@
 <?php
 
-namespace MagZilla\Api\Handlers;
+namespace MagZilla\Api\Services;
 
 use GuzzleHttp\Client;
 
-class NetworkRequestHandler
+class NetworkRequestService
 {
     private static $instance = null;
 

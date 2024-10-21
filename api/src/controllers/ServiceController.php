@@ -6,23 +6,23 @@ use MagZilla\Api\Models\User;
 use MagZilla\Api\Models\Service;
 use MagZilla\Api\Models\ServiceType;
 use MagZilla\Api\Models\OrmModelMapper;
-use MagZilla\Api\Services\ProjectUploadService;
+use MagZilla\Api\Managers\ProjectUploadManager;
+use MagZilla\Api\Models\DTOs\Users\updateServiceType;
 use MagZilla\Api\Models\Exceptions\ControllerException;
 use MagZilla\Api\Models\DTOs\Services\AddServiceRequest;
 use MagZilla\Api\Models\DTOs\Services\DeleteServiceRequest;
-use MagZilla\Api\Models\DTOs\Services\GetServiceDetailsRequest;
 use MagZilla\Api\Models\DTOs\Services\UpdateServiceRequest;
-use MagZilla\Api\Models\DTOs\Users\updateServiceType;
+use MagZilla\Api\Models\DTOs\Services\GetServiceDetailsRequest;
 
 class ServiceController extends BaseController
 {
-    private ProjectUploadService $projectUploadService;
+    private ProjectUploadManager $projectUploadManager;
 
     public function __construct()
     {
         parent::__construct();
 
-        $this->projectUploadService = ProjectUploadService::getInstance();
+        $this->projectUploadManager = ProjectUploadManager::getInstance();
     }
 
     public function addService($request)
@@ -31,7 +31,7 @@ class ServiceController extends BaseController
             $addServiceRequest = new AddServiceRequest($request);
 
             $user = User::getUserFromJwt(
-                $this->cookieHandler,
+                $this->cookieService,
                 $this->securityManager
             );
 
@@ -69,20 +69,25 @@ class ServiceController extends BaseController
                 ]
             );
 
-            // TODO: Upload project via zip or git
+            if ($isGitProject) {
+                $this->projectUploadManager->handleGitUpload($user, $this->database, $addServiceRequest->serviceName, $addServiceRequest->gitUrl);
+            } else {
+                $this->projectUploadManager->handleZipUpload($user, $this->database, $addServiceRequest->serviceName, $addServiceRequest->projectFiles);
+            }
 
-            $projectDirectory = $this->projectUploadService->getServiceDirectory(
-                $user->getName($this->database),
+            $projectDirectory = $this->projectUploadManager->getServiceDirectory(
+                $user,
+                $this->database,
                 $addServiceRequest->serviceName
             );
 
             if ($isGitProject) {
-                $this->projectUploadService->extractGitClone(
+                $this->projectUploadManager->extractGitClone(
                     $projectDirectory,
                     $addServiceRequest->gitUrl
                 );
             } else {
-                $this->projectUploadService->extractZipFile(
+                $this->projectUploadManager->extractZipFile(
                     $projectDirectory
                 );
             }
@@ -127,7 +132,7 @@ class ServiceController extends BaseController
                 ["user_id"]
             );
 
-            $userDoingRequest = User::getUserFromJwt($this->cookieHandler, $this->securityManager);
+            $userDoingRequest = User::getUserFromJwt($this->cookieService, $this->securityManager);
 
             if (!in_array($userDoingRequest->id, $usersWithAccessToService)) {
                 throw new ControllerException("Insufficient permissions to get service details", 403);
@@ -154,7 +159,7 @@ class ServiceController extends BaseController
     public function getServices()
     {
         try {
-            $userDoingRequest = User::getUserFromJwt($this->cookieHandler, $this->securityManager);
+            $userDoingRequest = User::getUserFromJwt($this->cookieService, $this->securityManager);
 
             $conditions = [];
 

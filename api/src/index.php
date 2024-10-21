@@ -6,7 +6,7 @@ use Dotenv;
 use MagZilla\Api\Managers\ApiRouter;
 use MagZilla\Api\Middleware\AuthenticationMiddleware;
 use MagZilla\Api\Middleware\CorsMiddleware;
-use MagZilla\Api\Utils\DependencyInjection;
+use MagZilla\Api\Managers\DependencyInjection;
 
 require_once __DIR__ . "/conf.php";
 require_once __DIR__ . '/../vendor/autoload.php';

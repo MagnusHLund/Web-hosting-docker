@@ -2,7 +2,7 @@
 
 namespace MagZilla\Api\Handlers;
 
-class LogHandler
+class Logger
 {
     private static $instance = null;
 

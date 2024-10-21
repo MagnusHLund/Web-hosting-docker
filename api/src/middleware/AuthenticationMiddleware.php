@@ -2,7 +2,7 @@
 
 namespace MagZilla\Api\Middleware;
 
-use MagZilla\Api\Handlers\CookieHandler;
+use MagZilla\Api\Services\CookieService;
 use MagZilla\Api\Managers\DatabaseManager;
 use MagZilla\Api\Managers\SecurityManager;
 use MagZilla\Api\Models\User;
@@ -11,7 +11,7 @@ class AuthenticationMiddleware
 {
     private static $instance = null;
 
-    private CookieHandler $cookieHandler;
+    private CookieService $cookieService;
     private SecurityManager $securityManager;
     private DatabaseManager $database;
 
@@ -19,7 +19,7 @@ class AuthenticationMiddleware
     {
         // TODO: Dependency injection
 
-        $this->cookieHandler = CookieHandler::getInstance();
+        $this->cookieService = CookieService::getInstance();
         $this->securityManager = SecurityManager::getInstance();
         $this->database = DatabaseManager::getInstance();
     }
@@ -36,13 +36,13 @@ class AuthenticationMiddleware
     {
         try {
             if ($path != "/api/auth/login") {
-                $cookieName = CookieHandler::AUTHENTICATION_COOKIE_NAME;
+                $cookieName = CookieService::AUTHENTICATION_COOKIE_NAME;
                 $this->verifyValidAuthCookie($cookieName);
 
-                $jwt = $this->securityManager->decodeJwt($this->cookieHandler->readCookie($cookieName));
+                $jwt = $this->securityManager->decodeJwt($this->cookieService->readCookie($cookieName));
                 $this->verifyRealUser($jwt);
 
-                $user = User::getUserFromJwt($this->cookieHandler, $this->securityManager);
+                $user = User::getUserFromJwt($this->cookieService, $this->securityManager);
                 $this->verifyUserActivated($user);
             }
         } catch (\Exception $e) {
@@ -53,7 +53,7 @@ class AuthenticationMiddleware
 
     private function verifyValidAuthCookie($cookieName)
     {
-        if (!isset($_COOKIE[$cookieName]) || $this->cookieHandler->isCookieExpired($cookieName)) {
+        if (!isset($_COOKIE[$cookieName]) || $this->cookieService->isCookieExpired($cookieName)) {
             throw new \Exception("User is not logged in!");
         }
     }

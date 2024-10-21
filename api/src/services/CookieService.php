@@ -1,8 +1,8 @@
 <?php
 
-namespace MagZilla\Api\Handlers;
+namespace MagZilla\Api\Services;
 
-class CookieHandler
+class CookieService
 {
     public const AUTHENTICATION_COOKIE_NAME = "authentication";
 

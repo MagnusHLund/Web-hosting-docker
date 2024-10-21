@@ -28,7 +28,7 @@ class UserController extends BaseController
         try {
             $addUserRequest = new AddUserRequest($request);
 
-            $userAddingNewUser = User::getUserFromJwt($this->cookieHandler, $this->securityManager);
+            $userAddingNewUser = User::getUserFromJwt($this->cookieService, $this->securityManager);
 
             if (!$userAddingNewUser->getIsAdmin($this->database)) {
                 throw new ControllerException("Insufficient permissions to create a new user!", 403);
@@ -86,7 +86,7 @@ class UserController extends BaseController
         try {
             $deleteUserRequest = new DeleteUserRequest($request);
 
-            $userDeletingUser = User::getUserFromJwt($this->cookieHandler, $this->securityManager);
+            $userDeletingUser = User::getUserFromJwt($this->cookieService, $this->securityManager);
 
             if (!$userDeletingUser->getIsAdmin($this->database)) {
                 throw new ControllerException("Insufficient permissions to delete a user!", 403);
@@ -106,7 +106,7 @@ class UserController extends BaseController
     public function getSettings()
     {
         try {
-            $user = User::getUserFromJwt($this->cookieHandler, $this->securityManager);
+            $user = User::getUserFromJwt($this->cookieService, $this->securityManager);
 
             $settings = $this->database->read(
                 OrmModelMapper::SettingsTable,
@@ -127,7 +127,7 @@ class UserController extends BaseController
     public function getUsers()
     {
         try {
-            $requestingUser = User::getUserFromJwt($this->cookieHandler, $this->securityManager);
+            $requestingUser = User::getUserFromJwt($this->cookieService, $this->securityManager);
 
             if (!$requestingUser->getIsAdmin($this->database)) {
                 $userData = $requestingUser->getAllUserInfo($this->database);
@@ -150,7 +150,7 @@ class UserController extends BaseController
         try {
             $updateSettingRequest = new UpdateSettingRequest($request);
 
-            $user = User::getUserFromJwt($this->cookieHandler, $this->securityManager);
+            $user = User::getUserFromJwt($this->cookieService, $this->securityManager);
 
             $updatedSettings = $this->database->update(
                 OrmModelMapper::SettingsTable,
@@ -173,7 +173,7 @@ class UserController extends BaseController
             $updateUserRequest = new UpdateUserRequest($request);
 
             if (isset($updateUserRequest->isActive, $updateUserRequest->isAdmin)) {
-                $userDoingRequest = User::getUserFromJwt($this->cookieHandler, $this->securityManager);
+                $userDoingRequest = User::getUserFromJwt($this->cookieService, $this->securityManager);
                 if (!$userDoingRequest->getIsAdmin($this->database)) {
                     throw new ControllerException("Insufficient permissions to update a user's role!", 403);
                 }

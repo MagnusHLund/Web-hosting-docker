@@ -2,7 +2,7 @@
 
 namespace MagZilla\Api\Models;
 
-use MagZilla\Api\Handlers\CookieHandler;
+use MagZilla\Api\Services\CookieService;
 use MagZilla\Api\Managers\DatabaseManager;
 use MagZilla\Api\Managers\SecurityManager;
 
@@ -23,9 +23,9 @@ class User
         $this->isActive = $isActive;
     }
 
-    public static function getUserFromJwt(CookieHandler $cookieHandler, SecurityManager $securityManager)
+    public static function getUserFromJwt(CookieService $cookieService, SecurityManager $securityManager)
     {
-        $jwt = $cookieHandler->readCookie(CookieHandler::AUTHENTICATION_COOKIE_NAME);
+        $jwt = $cookieService->readCookie(CookieService::AUTHENTICATION_COOKIE_NAME);
         $decodedJwt = $securityManager->decodeJwt($jwt);
 
         $userId = $decodedJwt->sub;
@@ -61,11 +61,11 @@ class User
 
     public function getName(DatabaseManager $database)
     {
-        return $database->read(
+        return (string) $database->read(
             OrmModelMapper::UsersTable,
             ["user_id" => $this->id],
             ["user_name"],
-        );
+        )[0];
     }
 
     public function getAllUserInfo(DatabaseManager $database = null)

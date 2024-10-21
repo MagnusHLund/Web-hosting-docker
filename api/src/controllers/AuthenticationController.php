@@ -2,7 +2,7 @@
 
 namespace MagZilla\Api\Controllers;
 
-use MagZilla\Api\Handlers\CookieHandler;
+use MagZilla\Api\Services\CookieService;
 use MagZilla\Api\Models\User;
 use MagZilla\Api\Models\OrmModelMapper;
 use MagZilla\Api\Models\DTOs\Auth\LoginRequest;
@@ -22,7 +22,7 @@ class AuthenticationController extends BaseController
             $updatePasswordRequest = new UpdatePasswordRequest($request);
 
             $user = User::getUserFromJwt(
-                $this->cookieHandler,
+                $this->cookieService,
                 $this->securityManager
             );
 
@@ -71,7 +71,7 @@ class AuthenticationController extends BaseController
             }
 
             $jwt = $this->securityManager->encodeJwt($userAuthData['user_id']);
-            $this->cookieHandler->setCookie(CookieHandler::AUTHENTICATION_COOKIE_NAME, $jwt);
+            $this->cookieService->setCookie(CookieService::AUTHENTICATION_COOKIE_NAME, $jwt);
 
             $this->handleSuccess();
         } catch (ControllerException $e) {
@@ -84,7 +84,7 @@ class AuthenticationController extends BaseController
         try {
             // TODO: Add deny list for removed JWTs? Needs new database table
 
-            $this->cookieHandler->removeCookie(CookieHandler::AUTHENTICATION_COOKIE_NAME);
+            $this->cookieService->removeCookie(CookieService::AUTHENTICATION_COOKIE_NAME);
             $this->handleSuccess();
         } catch (ControllerException $e) {
             $this->handleError($e, $e->getMessage(), $e->getHttpErrorCode());
