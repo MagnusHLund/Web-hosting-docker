@@ -9,8 +9,7 @@ use MagZilla\Api\Models\ServiceType;
 class AddServiceRequest extends RequestDTO
 {
     public readonly string $serviceName;
-    public readonly string $gitUrl;
-    public readonly string $projectFiles; // TODO: Change name to zipFile? This sounds like garbage
+    public readonly string $projectFiles; // Handles both GitUrl & ZipFile
     public readonly array $serviceTypes;
 
     public function __construct(array $data)
@@ -18,7 +17,6 @@ class AddServiceRequest extends RequestDTO
         parent::__construct();
 
         $this->serviceName  = $data['serviceName'];
-        $this->gitUrl       = $data['gitUrl'];
         $this->projectFiles = $data['zipFile'];
 
         $this->serviceTypes = array_map(function ($serviceTypeData) {
@@ -42,7 +40,6 @@ class AddServiceRequest extends RequestDTO
     {
         return [
             "serviceName"  => $this->serviceName,
-            "gitUrl"       => $this->gitUrl,
             "zip"          => $this->projectFiles,
             "serviceTypes" => $this->serviceTypes
         ];

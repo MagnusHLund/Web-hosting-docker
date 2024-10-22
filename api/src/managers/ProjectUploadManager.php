@@ -2,6 +2,7 @@
 
 namespace MagZilla\Api\Managers;
 
+use Directory;
 use MagZilla\Api\Helpers\GitService;
 use MagZilla\Api\Models\FileUpload;
 use MagZilla\Api\Models\User;
@@ -21,23 +22,25 @@ class ProjectUploadManager
         return self::$instance;
     }
 
-    public function handleGitUpload(User $user, DatabaseManager $database, string $serviceName, string $gitUrl)
+    public function handleServiceUpload(User $user, DatabaseManager $database, string $serviceName, string $projectFiles, $isGitProject) {}
+
+    private function handleGitUpload(User $user, DatabaseManager $database, string $serviceName, string $gitUrl)
     {
         $serviceDirectory = $this->getServiceDirectory($user, $database, $serviceName);
-        $this->extractGitClone($serviceDirectory, $gitUrl);
+        $this->extractGitClone($gitUrl, $serviceDirectory);
     }
 
-    public function handleZipUpload(User $user, DatabaseManager $database, string $serviceName, string $file) {}
+    private function handleZipUpload(User $user, DatabaseManager $database, string $serviceName, string $file) {}
 
-    public function extractZipFile($directory, $gitUrl)
-    {
-        $gitService = new GitService();
-        $gitRepository = $gitService->GitClone($gitUrl);
-    }
+    public function extractZipFile($directory) {}
 
     public function extractDotEnv($directory) {}
 
-    public function extractGitClone($directory, $gitUrl) {}
+    private function extractGitClone($gitUrl, $directory)
+    {
+        $gitService = new GitService();
+        $gitService->cloneGitRepository($gitUrl, $directory);
+    }
 
     public function getServiceDirectory(User $serviceOwner, DatabaseManager $database, string $serviceName, string $additionalPath = null)
     {

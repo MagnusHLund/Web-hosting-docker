@@ -13,6 +13,7 @@ use MagZilla\Api\Models\DTOs\Services\AddServiceRequest;
 use MagZilla\Api\Models\DTOs\Services\DeleteServiceRequest;
 use MagZilla\Api\Models\DTOs\Services\UpdateServiceRequest;
 use MagZilla\Api\Models\DTOs\Services\GetServiceDetailsRequest;
+use MagZilla\Api\Utils\TextUtils;
 
 class ServiceController extends BaseController
 {
@@ -35,14 +36,14 @@ class ServiceController extends BaseController
                 $this->securityManager
             );
 
-            $isGitProject = isset($addServiceRequest->gitUrl);
+            $isGitProject = TextUtils::isUrl($addServiceRequest->projectFiles);
 
             $serviceId = $this->database->create(
                 OrmModelMapper::ServicesTable,
                 [
                     "service_owner_user_id" => $user->id,
                     "service_name"          => $addServiceRequest->serviceName,
-                    "git_clone_url"         => $isGitProject ? $addServiceRequest->gitUrl : null,
+                    "git_clone_url"         => $isGitProject ? $addServiceRequest->projectFiles : null,
                 ],
                 ["service_id"]
             );
@@ -69,11 +70,8 @@ class ServiceController extends BaseController
                 ]
             );
 
-            if ($isGitProject) {
-                $this->projectUploadManager->handleGitUpload($user, $this->database, $addServiceRequest->serviceName, $addServiceRequest->gitUrl);
-            } else {
-                $this->projectUploadManager->handleZipUpload($user, $this->database, $addServiceRequest->serviceName, $addServiceRequest->projectFiles);
-            }
+            $this->projectUploadManager->handleServiceUpload($user, $this->database, $addServiceRequest->serviceName, $addServiceRequest->gitUrl);
+
 
             $projectDirectory = $this->projectUploadManager->getServiceDirectory(
                 $user,
@@ -82,7 +80,7 @@ class ServiceController extends BaseController
             );
 
             if ($isGitProject) {
-                $this->projectUploadManager->extractGitClone(
+                $this->projectUploadManager->handleGitUpload(
                     $projectDirectory,
                     $addServiceRequest->gitUrl
                 );

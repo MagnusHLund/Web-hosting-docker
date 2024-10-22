@@ -2,7 +2,7 @@
 
 namespace MagZilla\Api\Controllers;
 
-use MagZilla\Api\Handlers\Logger;
+use MagZilla\Api\Managers\Logger;
 use MagZilla\Api\Services\CookieService;
 use MagZilla\Api\Models\DTOs\ResponseDTO;
 use MagZilla\Api\Handlers\ResponseHandler;

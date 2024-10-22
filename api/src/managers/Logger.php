@@ -1,6 +1,6 @@
 <?php
 
-namespace MagZilla\Api\Handlers;
+namespace MagZilla\Api\Managers;
 
 class Logger
 {

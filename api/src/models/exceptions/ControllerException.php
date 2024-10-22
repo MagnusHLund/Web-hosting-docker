@@ -7,7 +7,7 @@ use Exception;
 class ControllerException extends Exception
 {
     private readonly int $httpErrorCode;
-    private readonly Exception $exception;
+    private readonly Exception|null $exception;
 
     public function __construct($message, int $httpErrorCode, Exception $originalException = null)
     {
