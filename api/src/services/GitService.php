@@ -4,12 +4,11 @@ namespace MagZilla\Api\Helpers;
 
 use MagZilla\Api\Models\Exceptions\ControllerException;
 
-// TODO?: Remove this class?
 class GitService
 {
     public function __construct() {}
 
-    public function cloneGitRepository($cloneUrl, $targetDirectory)
+    public function cloneGitRepository(string $cloneUrl, string $targetDirectory)
     {
         try {
             if (!is_dir($targetDirectory)) {

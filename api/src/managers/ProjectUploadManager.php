@@ -5,6 +5,7 @@ namespace MagZilla\Api\Managers;
 use Directory;
 use MagZilla\Api\Helpers\GitService;
 use MagZilla\Api\Models\FileUpload;
+use MagZilla\Api\Models\ServiceType;
 use MagZilla\Api\Models\User;
 use MagZilla\Api\Utils\Constants;
 
@@ -22,31 +23,52 @@ class ProjectUploadManager
         return self::$instance;
     }
 
-    public function handleServiceUpload(User $user, DatabaseManager $database, string $serviceName, string $projectFiles, $isGitProject) {}
-
-    private function handleGitUpload(User $user, DatabaseManager $database, string $serviceName, string $gitUrl)
+    public function handleServiceUpload(User $user, DatabaseManager $database, string $serviceName, string $projectFiles, array $serviceTypes, bool $isGitProject)
     {
-        $serviceDirectory = $this->getServiceDirectory($user, $database, $serviceName);
-        $this->extractGitClone($gitUrl, $serviceDirectory);
+        $serviceDirectory = $this->calculateServiceDirectory($user, $database, $serviceName);
+
+        $isGitProject ? $this->handleGitUpload($user, $database, $serviceName, $serviceDirectory, $projectFiles) :
+            $this->handleProjectZipUpload($user, $database, $serviceName, $serviceDirectory, $projectFiles);
+
+        array_map(function (ServiceType $serviceType) use ($user, $database, $serviceName) {
+            $dotEnvStartupDirectory = $this->calculateServiceDirectory($user, $database, $serviceName, $serviceType->dotEnvPath);
+            $this->extractDotEnv($dotEnvStartupDirectory);
+
+            $this->updateProjectsJson($serviceType->startupPath, $serviceType->type, $serviceType->port);
+        }, $serviceTypes);
     }
 
-    private function handleZipUpload(User $user, DatabaseManager $database, string $serviceName, string $file) {}
+    private function handleGitUpload(User $user, DatabaseManager $database, string $serviceName, string $serviceDirectory, string $gitUrl)
+    {
+        $gitService = new GitService();
+        $gitService->cloneGitRepository($gitUrl, $serviceDirectory);
+    }
 
-    public function extractZipFile($directory) {}
+    private function handleProjectZipUpload(User $user, DatabaseManager $database, string $serviceName, string $serviceDirectory, string $files) {}
+
+    public function extractProjectZipFile($directory) {}
 
     public function extractDotEnv($directory) {}
 
-    private function extractGitClone($gitUrl, $directory)
+    public function calculateServiceDirectory(User $serviceOwner, DatabaseManager $database, string $serviceName, string $additionalPath = null)
     {
-        $gitService = new GitService();
-        $gitService->cloneGitRepository($gitUrl, $directory);
-    }
-
-    public function getServiceDirectory(User $serviceOwner, DatabaseManager $database, string $serviceName, string $additionalPath = null)
-    {
+        $basePath = Constants::getBaseServiceDirectory();
         $serviceOwnerName = $serviceOwner->getName($database);
 
-        $basePath = Constants::getBaseServiceDirectory();
         return "$basePath/$serviceOwnerName/$serviceName/$additionalPath";
     }
+
+    /**
+     * Updates the projects.json file, which is read by the python script that starts the services.
+     *
+     * An example of how the json file looks:
+     *  [
+     *      {
+     *          "path": "/app/src/root/MagZilla/web/",
+     *          "type": "react",
+     *          "port": "3000"
+     *      },
+     *  ]
+     */
+    private function addServiceTypesToStartup($path, $type, $port) {}
 }

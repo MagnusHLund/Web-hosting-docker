@@ -48,8 +48,8 @@ class ServiceController extends BaseController
                 ["service_id"]
             );
 
-            array_map(function (ServiceType $serviceType) use ($serviceId) {
-                $this->database->create(
+            $serviceTypes = array_map(function (ServiceType $serviceType) use ($serviceId) {
+                return $this->database->create(
                     OrmModelMapper::ServiceTypesTable,
                     [
                         "service_id"       => $serviceId,
@@ -58,8 +58,8 @@ class ServiceController extends BaseController
                         "env_location"     => $serviceType->dotEnvPath,
                         "port"             => $serviceType->port
                     ],
-                    true
-                );
+                    ["service_type_id", "type", "startup_location", "env_location", "port"]
+                )[0];
             }, $addServiceRequest->serviceTypes);
 
             $this->database->create(
@@ -70,7 +70,14 @@ class ServiceController extends BaseController
                 ]
             );
 
-            $this->projectUploadManager->handleServiceUpload($user, $this->database, $addServiceRequest->serviceName, $addServiceRequest->gitUrl);
+            $this->projectUploadManager->handleServiceUpload(
+                $user,
+                $this->database,
+                $addServiceRequest->serviceName,
+                $addServiceRequest->projectFiles,
+                $serviceTypes,
+                $isGitProject
+            );
 
 
             $projectDirectory = $this->projectUploadManager->getServiceDirectory(
