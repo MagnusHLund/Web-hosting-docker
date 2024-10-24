@@ -5,7 +5,7 @@ namespace MagZilla\Api\Controllers;
 use MagZilla\Api\Managers\Logger;
 use MagZilla\Api\Services\CookieService;
 use MagZilla\Api\Models\DTOs\ResponseDTO;
-use MagZilla\Api\Handlers\ResponseHandler;
+use MagZilla\Api\Services\ResponseService;
 use MagZilla\Api\Managers\DatabaseManager;
 use MagZilla\Api\Managers\SecurityManager;
 
@@ -16,7 +16,7 @@ abstract class BaseController
     protected readonly CookieService $cookieService;
     protected readonly SecurityManager $securityManager;
 
-    private readonly ResponseHandler $responseHandler;
+    private readonly ResponseService $responseService;
 
     public function __construct()
     {
@@ -24,17 +24,17 @@ abstract class BaseController
         $this->database        = DatabaseManager::getInstance();
         $this->cookieService   = CookieService::getInstance();
         $this->securityManager = SecurityManager::getInstance();
-        $this->responseHandler = ResponseHandler::getInstance();
+        $this->responseService = ResponseService::getInstance();
     }
 
     protected function handleSuccess(ResponseDTO $response = null, $statusCode = 200)
     {
-        $this->responseHandler->sendResponse($response, $statusCode);
+        $this->responseService->sendResponse($response, $statusCode);
     }
 
     protected function handleError(\Exception $exception, $response, $statusCode = 500)
     {
         $this->logger->writeLog($exception);
-        $this->responseHandler->sendResponse($response, $statusCode);
+        $this->responseService->sendResponse($response, $statusCode);
     }
 }

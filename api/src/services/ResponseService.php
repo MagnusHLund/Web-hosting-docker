@@ -1,8 +1,8 @@
 <?php
 
-namespace MagZilla\Api\Handlers;
+namespace MagZilla\Api\Services;
 
-class ResponseHandler
+class ResponseService
 {
     private static $instance = null;
 

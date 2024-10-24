@@ -34,7 +34,7 @@ class ProjectUploadManager
             $dotEnvStartupDirectory = $this->calculateServiceDirectory($user, $database, $serviceName, $serviceType->dotEnvPath);
             $this->extractDotEnv($dotEnvStartupDirectory);
 
-            $this->updateProjectsJson($serviceType->startupPath, $serviceType->type, $serviceType->port);
+            $this->addServiceTypesToStartup($serviceType->startupPath, $serviceType->type, $serviceType->port);
         }, $serviceTypes);
     }
 
