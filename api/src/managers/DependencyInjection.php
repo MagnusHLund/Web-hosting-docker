@@ -1,7 +1,5 @@
 <?php
 
-// TODO: Is this a utils? What is this?
-
 namespace MagZilla\Api\Managers;
 
 use DI\ContainerBuilder;
