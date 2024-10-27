@@ -37,8 +37,11 @@ class CookieService
 
     public function readCookie($cookieName)
     {
-        // TODO? what happens if a cookie does not exist, but is trying to be read? Should use isset()?
-        return $_COOKIE[$cookieName];
+        if (isset($_COOKIE[$cookieName])) {
+            return $_COOKIE[$cookieName];
+        }
+
+        // Throw some exception
     }
 
     public function isCookieExpired($cookieName)
