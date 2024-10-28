@@ -34,7 +34,7 @@ abstract class BaseController
 
     protected function handleError(\Exception $exception, $response, $statusCode = 500)
     {
-        $this->logger->writeLog($exception);
+        $this->logger->writeExceptionLog($exception);
         $this->responseService->sendResponse($response, $statusCode);
     }
 }

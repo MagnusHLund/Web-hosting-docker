@@ -7,7 +7,7 @@ class ServiceType
     public readonly int|null $id;
     public string $type;
     public string $startupPath;
-    public int|null $port;
+    public string|null $port;
     public string|null $dotEnvPath;
     public string|null $dotEnvFile;
 
@@ -24,12 +24,12 @@ class ServiceType
     public function toArray()
     {
         return array(
-            "serviceTypeId" => $this->id,
+            "id"            => $this->id ?? "",
             "type"          => $this->type,
             "port"          => $this->port,
             "startupPath"   => $this->startupPath,
-            "dotEnvPath"    => $this->dotEnvPath,
-            "dotEnvFile"    => $this->dotEnvFile,
+            "dotEnvPath"    => $this->dotEnvPath ?? "",
+            "dotEnvFile"    => $this->dotEnvFile ?? "",
         );
     }
 }

@@ -157,6 +157,6 @@ class DatabaseManager
 
     private function handlePDOException(PDOException $exception)
     {
-        throw new ControllerException("An error occured, when interacting with the database", 500, $exception);
+        throw new ControllerException("An error occurred, while interacting with the database", 500, $exception);
     }
 }

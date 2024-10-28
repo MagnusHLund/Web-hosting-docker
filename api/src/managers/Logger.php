@@ -5,8 +5,12 @@ namespace MagZilla\Api\Managers;
 class Logger
 {
     private static $instance = null;
+    private const LOG_DIRECTORY = __DIR__ . "/../../logs/";
 
-    private function __construct() {}
+    private function __construct()
+    {
+        $this->ensureLogDirectoryExists();
+    }
 
     public static function getInstance()
     {
@@ -16,28 +20,36 @@ class Logger
         return self::$instance;
     }
 
-    public function writeLog(\Exception $exception, $logFileName = "exception.log")
+    public function writeExceptionLog(\Exception $exception)
+    {
+        $logFile = self::LOG_DIRECTORY . "/exception.log";
+
+        $sanitizedMessage = $this->sanitizeLogMessage($exception);
+        $output = $this->formatMessage($sanitizedMessage);
+
+        $this->writeLog($output, $logFile);
+    }
+
+    public function writeSystemLog($message)
+    {
+        $logFile = self::LOG_DIRECTORY . "/system.log";
+        $output = $this->formatMessage($message);
+        $this->writeLog($output, $logFile);
+    }
+
+    private function writeLog($output, $logFile)
     {
         try {
-            $logDirectory = __DIR__ . "/../../logs/";
-
-            $this->ensureLogDirectoryExists($logDirectory);
-
-            $logFile = $logDirectory . $logFileName;
-
-            $sanitizedMessage = $this->sanitizeLogMessage($exception);
-            $output = $this->formatMessage($sanitizedMessage);
-
             error_log($output, 3, $logFile);
         } catch (\Throwable $e) {
             // Not really much to do here.
         }
     }
 
-    private function ensureLogDirectoryExists($logDirectory)
+    private function ensureLogDirectoryExists()
     {
-        if (!is_dir($logDirectory)) {
-            mkdir($logDirectory);
+        if (!is_dir(self::LOG_DIRECTORY)) {
+            mkdir(self::LOG_DIRECTORY);
         }
     }
 
@@ -49,7 +61,7 @@ class Logger
 
     private function formatMessage($message)
     {
-        $timeStamp = date("H-i-s");
-        return "[$timeStamp]: $message";
+        $timeStamp = date("H:i:s");
+        return "[$timeStamp]: $message\n";
     }
 }

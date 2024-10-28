@@ -4,6 +4,7 @@ namespace MagZilla\Api\Controllers;
 
 use MagZilla\Api\Models\User;
 use MagZilla\Api\Models\Service;
+use MagZilla\Api\Utils\TextUtils;
 use MagZilla\Api\Models\ServiceType;
 use MagZilla\Api\Models\OrmModelMapper;
 use MagZilla\Api\Managers\ProjectUploadManager;
@@ -13,7 +14,6 @@ use MagZilla\Api\Models\DTOs\Services\AddServiceRequest;
 use MagZilla\Api\Models\DTOs\Services\DeleteServiceRequest;
 use MagZilla\Api\Models\DTOs\Services\UpdateServiceRequest;
 use MagZilla\Api\Models\DTOs\Services\GetServiceDetailsRequest;
-use MagZilla\Api\Utils\TextUtils;
 
 class ServiceController extends BaseController
 {
@@ -46,7 +46,7 @@ class ServiceController extends BaseController
                     "git_clone_url"         => $isGitProject ? $addServiceRequest->projectFiles : null,
                 ],
                 ["service_id"]
-            );
+            )->service_id;
 
             $serviceTypes = array_map(function (ServiceType $serviceType) use ($serviceId) {
                 return $this->database->create(
@@ -59,7 +59,7 @@ class ServiceController extends BaseController
                         "port"             => $serviceType->port
                     ],
                     ["service_type_id", "type", "startup_location", "env_location", "port"]
-                )[0];
+                );
             }, $addServiceRequest->serviceTypes);
 
             $this->database->create(

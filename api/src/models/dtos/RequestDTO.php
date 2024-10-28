@@ -17,9 +17,11 @@ abstract class RequestDTO implements IDTO
 
     abstract public function toArray();
 
-    protected function validate(array $data)
+    protected function validate(array $data, ReflectionClass $alternativeClass = null)
     {
-        foreach ($this->reflection->getProperties() as $property) {
+        $reflectionClass = $alternativeClass ?? $this->reflection;
+
+        foreach ($reflectionClass->getProperties() as $property) {
             $propertyName = $property->getName();
 
             if ($propertyName === "reflection") {

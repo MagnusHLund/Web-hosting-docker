@@ -2,26 +2,29 @@
 
 namespace MagZilla\Api\Middleware;
 
+use MagZilla\Api\Models\User;
 use MagZilla\Api\Services\CookieService;
 use MagZilla\Api\Managers\DatabaseManager;
 use MagZilla\Api\Managers\SecurityManager;
-use MagZilla\Api\Models\User;
+use MagZilla\Api\Middleware\BaseMiddleware;
 
-class AuthenticationMiddleware
+class AuthenticationMiddleware extends BaseMiddleware
 {
     private static $instance = null;
 
-    private CookieService $cookieService;
-    private SecurityManager $securityManager;
-    private DatabaseManager $database;
+    private readonly DatabaseManager $database;
+    private readonly CookieService $cookieService;
+    private readonly SecurityManager $securityManager;
 
     private function __construct()
     {
+        parent::__construct();
+
         // TODO: Dependency injection
 
+        $this->database = DatabaseManager::getInstance();
         $this->cookieService = CookieService::getInstance();
         $this->securityManager = SecurityManager::getInstance();
-        $this->database = DatabaseManager::getInstance();
     }
 
     public static function getInstance()
@@ -34,41 +37,38 @@ class AuthenticationMiddleware
 
     public function validateAuthentication($path)
     {
-        try {
-            if ($path != "/api/auth/login") {
-                $cookieName = CookieService::AUTHENTICATION_COOKIE_NAME;
-                $this->verifyValidAuthCookie($cookieName);
+        if ($path != "/api/auth/login") {
+            $cookieName = CookieService::AUTHENTICATION_COOKIE_NAME;
+            $this->verifyValidAuthCookie($cookieName);
 
-                $jwt = $this->securityManager->decodeJwt($this->cookieService->readCookie($cookieName));
-                $this->verifyRealUser($jwt);
+            $jwt = $this->securityManager->decodeJwt($this->cookieService->readCookie($cookieName));
+            $this->verifyRealUser($jwt);
 
-                $user = User::getUserFromJwt($this->cookieService, $this->securityManager);
-                $this->verifyUserActivated($user);
-            }
-        } catch (\Exception $e) {
-            // TODO
-            exit;
+            $this->verifyUserActivated();
         }
     }
 
     private function verifyValidAuthCookie($cookieName)
     {
         if (!isset($_COOKIE[$cookieName]) || $this->cookieService->isCookieExpired($cookieName)) {
-            throw new \Exception("User is not logged in!");
+            $this->handleError("User is not logged in");
         }
     }
 
     private function verifyRealUser($jwt)
     {
         if ($jwt === null) {
-            throw new \Exception("User is not real");
+            // TODO: Ban ip temporarily?
+            $this->handleError("User is not real");
         }
     }
 
-    private function verifyUserActivated($user)
+    private function verifyUserActivated()
     {
+        $user = User::getUserFromJwt($this->cookieService, $this->securityManager);
+
         if (!$user->getIsActive($this->database)) {
-            throw new \Exception("User is not active");
+            $this->handleError("User is not active");
         }
     }
 }
