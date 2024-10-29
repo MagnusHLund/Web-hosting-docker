@@ -1,15 +1,13 @@
-import {  useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { HiDotsVertical } from "react-icons/hi";
-import "./HeaderOption.scss";
-import ThemeToggle from "./ThemeToggle";
+import "./HeaderInfo.scss";
 
-const HeaderOption: React.FC = () => {
+const HeaderInfo: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
-
   const [selectedLanguage, setSelectedLanguage] = useState("");
 
-  const toggleOptions = () => {
+  const toggleInfo = () => {
     setIsVisible(!isVisible);
   };
 
@@ -20,21 +18,18 @@ const HeaderOption: React.FC = () => {
   };
 
   return (
-    <div className="header-option">
-      {/* Button to trigger the options div */}
-      <button className="header-option__toggle" onClick={toggleOptions}>
+    <div className="header-info">
+      {/* Button to trigger the info div */}
+      <button className="header-info__toggle" onClick={toggleInfo}>
         <HiDotsVertical />
       </button>
 
-      {/* Conditionally render the options div */}
+      {/* Conditionally render the info div */}
       {isVisible && (
-        <div className="header-option__menu">
-          <div className="header-option__item">
-            <ThemeToggle />
-          </div>
-          <div className="header-option__item">
+        <div className="header-info__menu">
+          <div className="header-info__item">
             <select
-              className="header-option__item__Language-Option"
+              className="header-info__language-option"
               value={selectedLanguage}
               onChange={handleChange}
             >
@@ -45,7 +40,7 @@ const HeaderOption: React.FC = () => {
               <option value="Dansk">Dansk</option>
             </select>
           </div>
-          <Link to="/settings" className="header-option__item">
+          <Link to="/settings" className="header-info__item">
             Settings
           </Link>
         </div>
@@ -54,4 +49,4 @@ const HeaderOption: React.FC = () => {
   );
 };
 
-export default HeaderOption;
+export default HeaderInfo;
