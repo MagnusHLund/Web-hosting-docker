@@ -10,6 +10,7 @@ import UserRoute from "./components/routes/UsersRoute";
 import Header from "./components/content/Layout/Header";
 import { useSelector } from "react-redux";
 import { RootState } from "./redux/Store";
+import Footer from "./components/content/Layout/Footer";
 
 const App: React.FC = () => {
   const theme = useSelector((state: RootState) => state.theme.theme);
@@ -35,6 +36,7 @@ const App: React.FC = () => {
           ))}
           <Route path="*" element={<NotFoundRoute />} />
         </Routes>
+        <Footer />
       </Router>
     </>
   );
