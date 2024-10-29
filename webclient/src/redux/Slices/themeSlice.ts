@@ -1,26 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
+import {
+  saveSettingsToLocalStorage,
+  loadSettingsFromLocalStorage,
+} from "../localStorageHelper";
 
 interface ThemeState {
   theme: "light" | "dark";
-  lastChanged: number; // timestamp of the last theme change
+  expiration: number;
 }
 
+// Load theme settings directly from local storage
+const { theme, expiration } = loadSettingsFromLocalStorage();
 const initialState: ThemeState = {
-  theme: localStorage.getItem("theme") === "dark" ? "dark" : "light",
-  lastChanged: parseInt(localStorage.getItem("lastChanged") || "0", 10),
-};
-
-// Function to reset the theme if 8 hours have passed
-const resetThemeIfExpired = (state: ThemeState) => {
-  const currentTime = Date.now();
-  const eightHoursInMillis = 8 * 60 * 60 * 1000; // 8 hours in milliseconds
-
-  // Check if the last changed time exceeds 8 hours
-  if (currentTime - state.lastChanged > eightHoursInMillis) {
-    state.theme = "light"; // Reset to default
-    localStorage.setItem("theme", "light");
-    localStorage.setItem("lastChanged", currentTime.toString()); // Update last changed time
-  }
+  theme,
+  expiration,
 };
 
 const themeSlice = createSlice({
@@ -28,18 +21,24 @@ const themeSlice = createSlice({
   initialState,
   reducers: {
     toggleTheme: (state) => {
-      resetThemeIfExpired(state); // Check for expiry
+      // Toggle the theme directly on `state.theme`
       state.theme = state.theme === "light" ? "dark" : "light";
-      localStorage.setItem("theme", state.theme);
-      state.lastChanged = Date.now(); // Update last changed time
-      localStorage.setItem("lastChanged", state.lastChanged.toString());
+      state.expiration = Date.now(); // Update expiration
+      saveSettingsToLocalStorage(
+        state.theme,
+        loadSettingsFromLocalStorage().language,
+        state.expiration
+      );
     },
     setTheme: (state, action) => {
-      resetThemeIfExpired(state); // Check for expiry
+      // Set the theme and update expiration directly
       state.theme = action.payload;
-      localStorage.setItem("theme", state.theme);
-      state.lastChanged = Date.now(); // Update last changed time
-      localStorage.setItem("lastChanged", state.lastChanged.toString());
+      state.expiration = Date.now();
+      saveSettingsToLocalStorage(
+        state.theme,
+        loadSettingsFromLocalStorage().language,
+        state.expiration
+      );
     },
   },
 });
