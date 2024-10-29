@@ -29,7 +29,6 @@ const Settings: React.FC = () => {
     <div className="settings">
       <div className="settings__header">
         <h2 className="settings__title">Settings</h2>
-        <SearchBar />
       </div>
       <div className="settings__options">
         <div className="settings__theme">

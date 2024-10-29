@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import "./Navbar.scss";
 
 // Define the type for the routes prop
@@ -20,9 +20,9 @@ const Navbar: React.FC<NavbarProps> = ({ routes }) => {
           // Check if the route name is "Login"
           route.name === "Login" ? null : (
             <li key={index} className="navbar__item">
-              <Link to={route.path} className="navbar__link">
+              <NavLink to={route.path} className="navbar__link">
                 {route.name}
-              </Link>
+              </NavLink>
             </li>
           )
         )}

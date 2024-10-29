@@ -19,7 +19,6 @@
   color: var(--text-color);
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-  z-index: 200; // Ensure it sits above the background
 
   &__header {
     display: flex;
