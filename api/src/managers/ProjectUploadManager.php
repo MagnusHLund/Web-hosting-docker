@@ -2,9 +2,7 @@
 
 namespace MagZilla\Api\Managers;
 
-use Directory;
-use MagZilla\Api\Helpers\GitService;
-use MagZilla\Api\Models\FileUpload;
+use MagZilla\Api\Services\GitService;
 use MagZilla\Api\Models\ServiceType;
 use MagZilla\Api\Models\User;
 use MagZilla\Api\Utils\Constants;
@@ -30,7 +28,7 @@ class ProjectUploadManager
         $isGitProject ? $this->handleGitUpload($user, $database, $serviceName, $serviceDirectory, $projectFiles) :
             $this->handleProjectZipUpload($user, $database, $serviceName, $serviceDirectory, $projectFiles);
 
-        array_map(function (ServiceType $serviceType) use ($user, $database, $serviceName) {
+        array_map(function ($serviceType) use ($user, $database, $serviceName) {
             $dotEnvStartupDirectory = $this->calculateServiceDirectory($user, $database, $serviceName, $serviceType->dotEnvPath);
             $this->extractDotEnv($dotEnvStartupDirectory);
 

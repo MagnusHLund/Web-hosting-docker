@@ -79,30 +79,6 @@ class ServiceController extends BaseController
                 $isGitProject
             );
 
-
-            $projectDirectory = $this->projectUploadManager->getServiceDirectory(
-                $user,
-                $this->database,
-                $addServiceRequest->serviceName
-            );
-
-            if ($isGitProject) {
-                $this->projectUploadManager->handleGitUpload(
-                    $projectDirectory,
-                    $addServiceRequest->gitUrl
-                );
-            } else {
-                $this->projectUploadManager->extractZipFile(
-                    $projectDirectory
-                );
-            }
-
-            array_map(function (ServiceType $serviceType) {
-                if (isset($serviceType->dotEnvPath)) {
-                    // TODO: Upload .env files
-                }
-            }, $addServiceRequest->serviceTypes);
-
             // TODO: Send response, which includes all data related to the new service and service types
             $this->handleSuccess();
         } catch (ControllerException $e) {

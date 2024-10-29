@@ -16,7 +16,6 @@
       "MagZilla\\Api\\": "src/",
       "MagZilla\\Api\\Controllers\\": "src/controllers/",
       "MagZilla\\Api\\Handlers\\": "src/handlers/",
-      "MagZilla\\Api\\Helpers\\": "src/helpers/",
       "MagZilla\\Api\\Interfaces\\": "src/interfaces/",
       "MagZilla\\Api\\Interfaces\\DTOs\\": "src/interfaces/dtos/",
       "MagZilla\\Api\\Managers\\": "src/managers/",

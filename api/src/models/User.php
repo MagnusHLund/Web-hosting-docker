@@ -49,7 +49,7 @@ class User
     public function getIsActive(DatabaseManager $database)
     {
         if (!isset($this->isActive)) {
-            $this->isActive = (bool) $database->read( // TODO: Is the casting required here?
+            $this->isActive = (bool) $database->read(
                 OrmModelMapper::UserRolesTable,
                 ["user_id" => $this->id],
                 ["is_active"],
@@ -61,11 +61,15 @@ class User
 
     public function getName(DatabaseManager $database)
     {
-        return (string) $database->read(
-            OrmModelMapper::UsersTable,
-            ["user_id" => $this->id],
-            ["user_name"],
-        )[0];
+        if (!isset($this->name)) {
+            $this->name = (string) $database->read(
+                OrmModelMapper::UsersTable,
+                ["user_id" => $this->id],
+                ["user_name"],
+            )[0]["user_name"];
+        }
+
+        return $this->name;
     }
 
     public function getAllUserInfo(DatabaseManager $database = null)

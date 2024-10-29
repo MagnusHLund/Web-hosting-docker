@@ -1,13 +1,11 @@
 <?php
 
-namespace MagZilla\Api\Helpers;
+namespace MagZilla\Api\Services;
 
 use MagZilla\Api\Models\Exceptions\ControllerException;
 
 class GitService
 {
-    public function __construct() {}
-
     public function cloneGitRepository(string $cloneUrl, string $targetDirectory)
     {
         try {
