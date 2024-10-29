@@ -30,10 +30,10 @@ function ServicesRoute() {
   ];
 
   return (
-    <div className="Services-route-container">
-      <div className="Services-route-header">
-        <h2 className="Services-route-title">Services</h2>
-        <div className="Services-route-header__actions">
+    <div className="services-route-container">
+      <div className="services-route-header">
+        <h2 className="services-route-title">Services</h2>
+        <div className="services-route-header__actions">
           <SearchBar />
           <Button text="Add service" />
         </div>

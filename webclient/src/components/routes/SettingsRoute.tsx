@@ -1,8 +1,8 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux"; // Import necessary hooks
+import { useDispatch, useSelector } from "react-redux";
 import SearchBar from "../input/SearchBar";
 import Toggle from "../input/Toggle";
-import { changeLanguage, setLanguage } from "../../redux/Slices/LanguageSlice"; // Import actions
+import { changeLanguage, setLanguage } from "../../redux/Slices/LanguageSlice";
 import "./SettingsRoute.scss";
 
 const Settings: React.FC = () => {
@@ -17,29 +17,29 @@ const Settings: React.FC = () => {
   ) => {
     const selectedLanguageIndex = languages.indexOf(event.target.value as any);
     if (selectedLanguageIndex !== -1) {
-      dispatch(setLanguage(selectedLanguageIndex)); // Dispatch action to set selected language
+      dispatch(setLanguage(selectedLanguageIndex));
     }
   };
 
   const handleNextLanguage = () => {
-    dispatch(changeLanguage()); // Cycle to the next language
+    dispatch(changeLanguage());
   };
 
   return (
-    <div className="settings-container">
-      <div className="settings-header">
-        <h2 className="settings-title">Settings</h2>
+    <div className="settings">
+      <div className="settings__header">
+        <h2 className="settings__title">Settings</h2>
         <SearchBar />
       </div>
-      <div className="settings-options">
-        <div className="theme-section">
-          <span className="theme-label">Theme:</span>
+      <div className="settings__options">
+        <div className="settings__theme">
+          <span className="settings__theme-label">Theme:</span>
           <Toggle />
         </div>
-        <div className="language-section">
-          <span className="language-label">Languages:</span>
+        <div className="settings__language">
+          <span className="settings__language-label">Languages:</span>
           <select
-            className="language-select"
+            className="settings__language-select"
             value={languages[currentLanguageIndex]}
             onChange={handleLanguageChange}
           >
@@ -51,7 +51,7 @@ const Settings: React.FC = () => {
           </select>
           <button
             onClick={handleNextLanguage}
-            className="language-change-button"
+            className="settings__language-button"
           >
             Change Language
           </button>
