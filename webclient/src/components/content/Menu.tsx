@@ -12,7 +12,7 @@ const Menu = () => {
 
   return (
     <>
-      {isOpen && <div onClick={toggleMenu} className="backgroundDiv"></div>}
+      {isOpen && <div onClick={toggleMenu} className="menu__background"></div>}
       <div className="menu">
         <div className="menu__icon" onClick={toggleMenu}>
           <FaEllipsisV className="table__action-icon" />
