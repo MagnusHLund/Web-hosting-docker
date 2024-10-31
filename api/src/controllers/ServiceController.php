@@ -79,7 +79,6 @@ class ServiceController extends BaseController
                 $isGitProject
             );
 
-            // TODO: Send response, which includes all data related to the new service and service types
             $this->handleSuccess();
         } catch (ControllerException $e) {
             $this->handleError($e, $e->getMessage(), $e->getHttpErrorCode());

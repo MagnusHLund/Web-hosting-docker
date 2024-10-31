@@ -33,7 +33,6 @@ return array(
     'MagZilla\\Api\\Managers\\' => array($baseDir . '/src/managers'),
     'MagZilla\\Api\\Interfaces\\DTOs\\' => array($baseDir . '/src/interfaces/dtos'),
     'MagZilla\\Api\\Interfaces\\' => array($baseDir . '/src/interfaces'),
-    'MagZilla\\Api\\Helpers\\' => array($baseDir . '/src/helpers'),
     'MagZilla\\Api\\Handlers\\' => array($baseDir . '/src/handlers'),
     'MagZilla\\Api\\Controllers\\' => array($baseDir . '/src/controllers'),
     'MagZilla\\Api\\' => array($baseDir . '/src'),

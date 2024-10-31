@@ -1,7 +1,7 @@
 # MagZilla API
 
 The API is made in PHP, using dependencies from Composer.
-It also followed OOP principles. 
+It also followed OOP principles.
 
 To test the API, host it yourself using the command "npm run api".
 Then refer to the /api/testing/ directory.

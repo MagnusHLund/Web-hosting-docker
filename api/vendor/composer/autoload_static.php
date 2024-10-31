@@ -61,7 +61,6 @@ class ComposerStaticInitf292eb22a1a5fbcbdeb4f78b4125f85a
             'MagZilla\\Api\\Managers\\' => 22,
             'MagZilla\\Api\\Interfaces\\DTOs\\' => 29,
             'MagZilla\\Api\\Interfaces\\' => 24,
-            'MagZilla\\Api\\Helpers\\' => 21,
             'MagZilla\\Api\\Handlers\\' => 22,
             'MagZilla\\Api\\Controllers\\' => 25,
             'MagZilla\\Api\\' => 13,
@@ -215,10 +214,6 @@ class ComposerStaticInitf292eb22a1a5fbcbdeb4f78b4125f85a
         'MagZilla\\Api\\Interfaces\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src/interfaces',
-        ),
-        'MagZilla\\Api\\Helpers\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/src/helpers',
         ),
         'MagZilla\\Api\\Handlers\\' => 
         array (
