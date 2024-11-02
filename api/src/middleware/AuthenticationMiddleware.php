@@ -10,13 +10,11 @@ use MagZilla\Api\Middleware\BaseMiddleware;
 
 class AuthenticationMiddleware extends BaseMiddleware
 {
-    private static $instance = null;
-
     private readonly DatabaseManager $database;
     private readonly CookieService $cookieService;
     private readonly SecurityManager $securityManager;
 
-    private function __construct()
+    public function __construct()
     {
         parent::__construct();
 
@@ -25,14 +23,6 @@ class AuthenticationMiddleware extends BaseMiddleware
         $this->database = DatabaseManager::getInstance();
         $this->cookieService = CookieService::getInstance();
         $this->securityManager = SecurityManager::getInstance();
-    }
-
-    public static function getInstance()
-    {
-        if (self::$instance == null) {
-            self::$instance = new self();
-        }
-        return self::$instance;
     }
 
     public function validateAuthentication($path)
