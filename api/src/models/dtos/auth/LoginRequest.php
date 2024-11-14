@@ -1,17 +1,19 @@
 <?php
 
-namespace MagZilla\Api\Models\DTOs;
+namespace MagZilla\Api\Models\DTOs\Auth;
 
-class PasswordDTO extends BaseDTO
+use MagZilla\Api\Models\DTOs\RequestDTO;
+
+class LoginRequest extends RequestDTO
 {
-    public readonly int $userId;
+    public readonly string $email;
     public readonly string $password;
 
     public function __construct(array $data)
     {
         parent::__construct();
 
-        $this->userId   = $data['userId'];
+        $this->email    = $data['email'];
         $this->password = $data['password'];
 
         $this->validate($this->toArray());
@@ -20,7 +22,7 @@ class PasswordDTO extends BaseDTO
     public function toArray()
     {
         return [
-            "userId"   => $this->userId,
+            "email"    => $this->email,
             "password" => $this->password
         ];
     }

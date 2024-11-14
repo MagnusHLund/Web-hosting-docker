@@ -7,7 +7,7 @@ use illuminate\database\Eloquent\Model;
 class ServicesTable extends Model
 {
     protected $table = 'Services';
-    protected $primaryKey = 'services_id';
+    protected $primaryKey = 'service_id';
     protected $fillable = [
         "service_owner_user_id",
         "service_name",

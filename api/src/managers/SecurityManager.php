@@ -4,6 +4,7 @@ namespace MagZilla\Api\Managers;
 
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
+use MagZilla\Api\Models\Exceptions\ControllerException;
 use MagZilla\Api\Utils\Constants;
 
 class SecurityManager
@@ -18,31 +19,31 @@ class SecurityManager
     public static function getInstance()
     {
         if (self::$instance == null) {
-            self::$instance = new SecurityManager();
+            self::$instance = new self();
         }
         return self::$instance;
     }
 
-    public function hashPassword($passwordToHash, $salt)
+    private function hashPassword($passwordToHash, $salt)
     {
         try {
             $options = ['memory_cost' => 1024, 'time_cost' => 2, 'threads' => 2];
-            return password_hash($passwordToHash . $salt . Constants::getPepper(), self::PASSWORD_HASHING_ALGORITHM, $options);
+            return password_hash($passwordToHash . $salt, self::PASSWORD_HASHING_ALGORITHM, $options);
         } catch (\Exception $e) {
             // TODO
         }
     }
 
-    public function verifyHashedPassword($password, $hashedPassword, $salt): bool
+    public function verifyHashedPassword($loginPassword, $storedPassword, $salt): bool
     {
         try {
-            return password_verify($password . $salt . Constants::getPepper(), $hashedPassword);
+            return password_verify($loginPassword . $salt, $storedPassword);
         } catch (\Exception $e) {
             // TODO
         }
     }
 
-    public function verifyNewPassword($password): bool
+    private function verifyNewPassword($password): bool
     {
         $minimumLength = 6;
         $minimumNumbers = 2;
@@ -66,10 +67,25 @@ class SecurityManager
         return true;
     }
 
-    public function generateSalt()
+    private function generateSalt()
     {
         $randomBytes = random_bytes(32);
         return bin2hex($randomBytes);
+    }
+
+    public function generateHashedPassword($password)
+    {
+        if (!$this->verifyNewPassword($password)) {
+            throw new ControllerException("Password does not meet requirements", 400);
+        }
+
+        $salt = $this->generateSalt();
+        $hashedPassword = $this->hashPassword($password, $salt);
+
+        return [
+            "salt" => $salt,
+            "password" => $hashedPassword
+        ];
     }
 
     public function encodeJwt($userId)

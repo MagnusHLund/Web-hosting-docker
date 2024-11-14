@@ -1,14 +1,16 @@
 <?php
 
-namespace MagZilla\Api\Models\DTOs;
+namespace MagZilla\Api\Models\DTOs\Users;
 
-class UserDTO extends BaseDTO
+use MagZilla\Api\Models\DTOs\RequestDTO;
+
+class UpdateUserRequest extends RequestDTO
 {
-    public readonly null|int $userId;
+    public readonly int $userId;
     public readonly string $name;
     public readonly string $email;
-    public readonly null|bool $isAdmin;
-    public readonly null|bool $isActive;
+    public readonly bool|null $isAdmin;
+    public readonly bool|null $isActive;
 
     public function __construct(array $data)
     {
@@ -30,7 +32,7 @@ class UserDTO extends BaseDTO
             "name"     => $this->name,
             "email"    => $this->email,
             "isAdmin"  => $this->isAdmin,
-            "isActive" => $this->isActive
+            "isActive" => $this->isActive,
         ];
     }
 }

@@ -12,6 +12,7 @@ class ComposerStaticInitf292eb22a1a5fbcbdeb4f78b4125f85a
         '60799491728b879e74601d83e38b2cad' => __DIR__ . '/..' . '/illuminate/collections/helpers.php',
         '2203a247e6fda86070a5e4e07aed533a' => __DIR__ . '/..' . '/symfony/clock/Resources/now.php',
         'a1105708a18b76903365ca1c4aa61b02' => __DIR__ . '/..' . '/symfony/translation/Resources/functions.php',
+        'f625ee536139dfb962a398b200bdb2bd' => __DIR__ . '/..' . '/illuminate/support/functions.php',
         '72579e7bd17821bb1321b87411366eae' => __DIR__ . '/..' . '/illuminate/support/helpers.php',
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -22,10 +23,6 @@ class ComposerStaticInitf292eb22a1a5fbcbdeb4f78b4125f85a
         'v' => 
         array (
             'voku\\' => 5,
-        ),
-        'm' => 
-        array (
-            'magzilla\\Api\\DTOs\\' => 18,
         ),
         'S' => 
         array (
@@ -49,10 +46,16 @@ class ComposerStaticInitf292eb22a1a5fbcbdeb4f78b4125f85a
             'MagZilla\\Api\\Utils\\' => 19,
             'MagZilla\\Api\\Services\\' => 22,
             'MagZilla\\Api\\Models\\ORM\\' => 24,
+            'MagZilla\\Api\\Models\\Exceptions\\' => 31,
+            'MagZilla\\Api\\Models\\DTOs\\Users\\' => 31,
+            'MagZilla\\Api\\Models\\DTOs\\Services\\' => 34,
+            'MagZilla\\Api\\Models\\DTOs\\Auth\\' => 30,
+            'MagZilla\\Api\\Models\\DTOs\\' => 25,
             'MagZilla\\Api\\Models\\' => 20,
             'MagZilla\\Api\\Middleware\\' => 24,
             'MagZilla\\Api\\Managers\\' => 22,
-            'MagZilla\\Api\\Helpers\\' => 21,
+            'MagZilla\\Api\\Interfaces\\DTOs\\' => 29,
+            'MagZilla\\Api\\Interfaces\\' => 24,
             'MagZilla\\Api\\Handlers\\' => 22,
             'MagZilla\\Api\\Controllers\\' => 25,
             'MagZilla\\Api\\' => 13,
@@ -98,10 +101,6 @@ class ComposerStaticInitf292eb22a1a5fbcbdeb4f78b4125f85a
         'voku\\' => 
         array (
             0 => __DIR__ . '/..' . '/voku/portable-ascii/src/voku',
-        ),
-        'magzilla\\Api\\DTOs\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/src/dtos',
         ),
         'Symfony\\Polyfill\\Php83\\' => 
         array (
@@ -159,6 +158,26 @@ class ComposerStaticInitf292eb22a1a5fbcbdeb4f78b4125f85a
         array (
             0 => __DIR__ . '/../..' . '/src/models/orm',
         ),
+        'MagZilla\\Api\\Models\\Exceptions\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/models/exceptions',
+        ),
+        'MagZilla\\Api\\Models\\DTOs\\Users\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/models/dtos/users/addUser',
+        ),
+        'MagZilla\\Api\\Models\\DTOs\\Services\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/models/dtos/services',
+        ),
+        'MagZilla\\Api\\Models\\DTOs\\Auth\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/models/dtos/auth',
+        ),
+        'MagZilla\\Api\\Models\\DTOs\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/models/dtos',
+        ),
         'MagZilla\\Api\\Models\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src/models',
@@ -171,9 +190,13 @@ class ComposerStaticInitf292eb22a1a5fbcbdeb4f78b4125f85a
         array (
             0 => __DIR__ . '/../..' . '/src/managers',
         ),
-        'MagZilla\\Api\\Helpers\\' => 
+        'MagZilla\\Api\\Interfaces\\DTOs\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/src/helpers',
+            0 => __DIR__ . '/../..' . '/src/interfaces/dtos',
+        ),
+        'MagZilla\\Api\\Interfaces\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/interfaces',
         ),
         'MagZilla\\Api\\Handlers\\' => 
         array (

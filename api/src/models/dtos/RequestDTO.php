@@ -4,22 +4,30 @@ namespace MagZilla\Api\Models\DTOs;
 
 use ReflectionClass;
 use InvalidArgumentException;
+use MagZilla\Api\Interfaces\DTOs\IDTO;
 
-abstract class BaseDTO
+abstract class RequestDTO implements IDTO
 {
-    private readonly ReflectionClass $reflection;
+    protected readonly ReflectionClass $reflection;
 
     public function __construct()
     {
         $this->reflection = new \ReflectionClass($this);
     }
 
-    abstract protected function toArray();
+    abstract public function toArray();
 
-    protected function validate(array $data)
+    protected function validate(array $data, ReflectionClass $alternativeClass = null)
     {
-        foreach ($this->reflection->getProperties() as $property) {
+        $reflectionClass = $alternativeClass ?? $this->reflection;
+
+        foreach ($reflectionClass->getProperties() as $property) {
             $propertyName = $property->getName();
+
+            if ($propertyName === "reflection") {
+                return;
+            }
+
             $propertyType = $property->getType();
 
             if (!isset($data[$propertyName])) {
@@ -32,12 +40,11 @@ abstract class BaseDTO
         }
     }
 
-    private function isValidType($value, \ReflectionNamedType $propertyType): bool
+    protected function isValidType($value, \ReflectionNamedType $propertyType): bool
     {
-        $typeName = $propertyType->getName();
         $allowsNull = $propertyType->allowsNull();
 
-        if ($allowsNull && is_null($value)) {
+        if ($allowsNull) {
             return true;
         }
 

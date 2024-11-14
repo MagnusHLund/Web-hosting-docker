@@ -5,7 +5,7 @@ Origin: http://localhost:3001
 
 {
     "serviceName": "ExampleService",
-    "projectFiles": "gitUrl",
+    "projectFiles": "https://github.com/MagnusHLund/Web-hosting-docker.git",
     "serviceTypes": 
     [
         {
@@ -13,14 +13,14 @@ Origin: http://localhost:3001
             "startupPath": "web/",
             "dotEnvPath": "web/",
             "dotEnvFile": "file",
-            "port": 1234
+            "port": 3123
         }, 
         {
             "type": "php",
             "startupPath": "api/",
             "dotEnvPath": "api/",
             "dotEnvFile": "file",
-            "port": 4321
+            "port": 3321
         }
     ]
 }

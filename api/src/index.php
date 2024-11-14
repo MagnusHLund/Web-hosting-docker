@@ -6,8 +6,9 @@ use Dotenv;
 use MagZilla\Api\Managers\ApiRouter;
 use MagZilla\Api\Middleware\AuthenticationMiddleware;
 use MagZilla\Api\Middleware\CorsMiddleware;
-use MagZilla\Api\Utils\DependencyInjection;
+use MagZilla\Api\Managers\DependencyInjection;
 
+require_once __DIR__ . "/conf.php";
 require_once __DIR__ . '/../vendor/autoload.php';
 $dotenv = Dotenv\Dotenv::createUnsafeImmutable(__DIR__);
 $dotenv->load();
@@ -36,8 +37,8 @@ class Main
 
     private function handleMiddleware($path)
     {
-        CorsMiddleware::handleCors();
-        AuthenticationMiddleware::validateAuthentication($path);
+        (new CorsMiddleware)->handleCors();
+        (new AuthenticationMiddleware)->validateAuthentication($path);
     }
 }
 

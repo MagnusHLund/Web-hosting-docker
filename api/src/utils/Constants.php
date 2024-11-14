@@ -29,13 +29,18 @@ class Constants
         return $_ENV['ENCRYPTION_KEY'];
     }
 
-    public static function getPepper()
-    {
-        return $_ENV['PEPPER'];
-    }
-
     public static function getJwtSecretKey()
     {
         return $_ENV['JWT_SECRET_KEY'];
+    }
+
+    public static function getBaseServiceDirectory()
+    {
+        return $_ENV['BASE_SERVICE_DIRECTORY'];
+    }
+
+    public static function getBaseConfigDirectory()
+    {
+        return $_ENV['BASE_CONFIG_DIRECTORY'];
     }
 }
