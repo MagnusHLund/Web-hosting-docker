@@ -1,0 +1,25 @@
+.search-bar {
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+
+  .search-input {
+    padding: 10px;
+    border: 1px solid var(--text-color);
+    border-radius: 5px;
+    width: 100%;
+    max-width: 400px; // Make it responsive
+    font-size: 16px;
+    color: var(--text-color);
+    background-color: var(--background-color);
+
+    &:focus {
+      border-color: var(--text-color);
+      outline: none;
+    }
+
+    @media (max-width: 600px) {
+      width: 90%; // Adjust width on smaller screens
+    }
+  }
+}

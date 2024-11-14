@@ -1,0 +1,29 @@
+.responsive-button {
+  padding: 10px 20px;
+  border: 1px solid var(--text-color);
+  border-radius: 5px;
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  // Responsive styling
+  width: max-content; // Full width on small screens
+  max-width: 200px; // Limit max width on larger screens
+  // margin: 10px auto; // Center the button
+
+  &:hover {
+    background-color: (var(--text-color)); // Darken on hover
+    color: var(--background-color);
+  }
+
+  &:focus {
+    outline: none; // Remove default focus outline
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5); // Add custom focus ring
+  }
+
+  @media (max-width: 600px) {
+    font-size: 14px; // Adjust font size for smaller screens
+  }
+}

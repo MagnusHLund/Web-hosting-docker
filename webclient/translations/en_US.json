@@ -1,0 +1,104 @@
+{
+  "common": {
+    "general": {
+      "services": "Services",
+      "settings": "Settings",
+      "users": "Users"
+    },
+    "dashboard": {
+      "search": "Search",
+      "status": "Status",
+      "active": "Active",
+      "inactive": "Inactive"
+    },
+    "edit": {
+      "save": "Save"
+    },
+    "user": {
+      "change password": "Change password",
+      "log out": "Log out"
+    }
+  },
+  "footer": {
+    "docs": "Docs",
+    "github": "Github"
+  },
+  "services": {
+    "common": {
+      "add service": "Add service",
+      "edit service": "Edit service",
+      "port": "Port",
+      "type": "Type",
+      "email": "Email",
+      "name": "Name"
+    },
+    "dashboard": {
+      "user": "User"
+    },
+    "menu": {
+      "git pull": "Git pull",
+      "edit": "Edit",
+      "disable": "Disable",
+      "delete": "Delete"
+    },
+    "edit": {
+      "common": {
+        "upload project": "Upload project",
+        "configure service type": "Configure service type"
+      },
+      "placeholder": {
+        "name": "Service name",
+        "type": "Select type",
+        "startup path": "Directory that allows for starting your service type, using the CLI",
+        "dotenv location": "Directory containing the service type's .env file"
+      },
+      "upload project": {
+        "add type": "Add type",
+        "git url": "Git HTTPS url",
+        "or": "or",
+        "upload zip file": "Upload zip file",
+        "select zip file": "Select zip file"
+      },
+      "configure type": {
+        "startup path": "Startup path",
+        "dotenv location": ".env location",
+        "upload dotenv file": "Upload .env file"
+      }
+    }
+  },
+  "users": {
+    "common": {
+      "add user": "Add user",
+      "name": "Name",
+      "admin": "Admin"
+    },
+    "dashboard": {
+      "role": "Role"
+    },
+    "edit": {
+      "roles": "Roles",
+      "delete": "Delete user"
+    },
+    "change password": {
+      "new password": "New password",
+      "repeat password": "Repeat password"
+    }
+  },
+  "settings": {
+    "general": {
+      "dark mode": "Dark mode",
+      "language": "Language"
+    },
+    "language": {
+      "english": "English",
+      "danish": "Danish"
+    }
+  },
+  "login": {
+    "password": "Password",
+    "forgot password": "Forgot password?",
+    "login": "Login",
+    "send code": "Send code",
+    "code": "Code"
+  }
+}
