@@ -1,32 +1,29 @@
+import React from "react";
 import "./Table.scss";
-import User from "./User";
 
 interface TableProps {
-  users: Array<{
-    id: number;
-    name: string;
-    email: string;
-    role: string;
-    status: string;
-  }>;
+  headers: string[];
+  rows: Array<React.ReactNode>;
 }
 
-const Table: React.FC<TableProps> = ({ users }) => {
+const Table: React.FC<TableProps> = ({ headers, rows }) => {
   return (
     <div className="table-container">
       <table className="table">
         <thead className="table__header">
           <tr className="table__header-row">
-            <th className="table__header-cell">Name</th>
-            <th className="table__header-cell">Email</th>
-            <th className="table__header-cell">Role</th>
-            <th className="table__header-cell">Status</th>
-            <th className="table__header-cell">Actions</th>
+            {headers.map((header, index) => (
+              <th key={index} className="table__header-cell">
+                {header}
+              </th>
+            ))}
           </tr>
         </thead>
         <tbody className="table__body">
-          {users.map((user) => (
-            <User key={user.id} user={user} />
+          {rows.map((row, index) => (
+            <tr key={index} className="table__body-row">
+              {row}
+            </tr>
           ))}
         </tbody>
       </table>

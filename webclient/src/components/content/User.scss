@@ -1,5 +1,7 @@
 .table__body-row {
-  background-color: transparent;
+  background-color: RED;
+  justify-content: space-between;
+  width: 100%;
 
   &:hover {
     background-color: var(--light-background); // Customize hover effect

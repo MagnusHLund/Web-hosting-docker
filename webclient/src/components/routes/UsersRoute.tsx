@@ -1,46 +1,49 @@
-import SearchBar from "../input/SearchBar";
-import "./UsersRoute.scss";
-import Table from "../content/Table"; // Import the new Table component
-import Button from "../input/Button";
+import Table from "../content/Table";
+import User from "../content/User";
 
-const UsersRoute: React.FC = () => {
-  // Example users data
-  const users = [
-    {
-      id: 1,
-      name: "John Doe",
-      email: "john.doe@example.com",
-      role: "Admin",
-      status: "Active",
-    },
-    {
-      id: 2,
-      name: "Jane Smith",
-      email: "jane.smith@example.com",
-      role: "Editor",
-      status: "Inactive",
-    },
-    {
-      id: 2,
-      name: "Jane Smith",
-      email: "jane.smith@example.com",
-      role: "Editor",
-      status: "Inactive",
-    },
-  ];
+const dummyUsers = [
+  {
+    id: 1,
+    name: "Alice Smith",
+    email: "alice@example.com",
+    role: "Admin",
+    status: "Active",
+  },
+  {
+    id: 2,
+    name: "Bob Johnson",
+    email: "bob@example.com",
+    role: "User",
+    status: "Inactive",
+  },
+  {
+    id: 3,
+    name: "Charlie Brown",
+    email: "charlie@example.com",
+    role: "User",
+    status: "Active",
+  },
+  {
+    id: 4,
+    name: "Diana Prince",
+    email: "diana@example.com",
+    role: "Admin",
+    status: "Active",
+  },
+  {
+    id: 5,
+    name: "Ethan Hunt",
+    email: "ethan@example.com",
+    role: "User",
+    status: "Inactive",
+  },
+];
 
-  return (
-    <div className="users-route-container">
-      <div className="users-route-header">
-        <h2 className="users-route-title">Users</h2>
-        <div className="users-route-header__actions">
-          <SearchBar />
-          <Button text="Add user"/>
-        </div>
-      </div>
-      <Table users={users} />
-    </div>
-  );
+const UsersRoute = () => {
+  const headers = ["Name", "Email", "Role", "Status"];
+  const rows = dummyUsers.map((user) => <User key={user.id} user={user} />);
+
+  return <Table headers={headers} rows={rows} />;
 };
 
 export default UsersRoute;

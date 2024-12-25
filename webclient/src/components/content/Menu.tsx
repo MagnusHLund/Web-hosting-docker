@@ -3,7 +3,7 @@ import { useState } from "react";
 import "./Menu.scss";
 import Button from "../input/Button";
 
-const Menu = () => {
+const Menu: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -11,51 +11,49 @@ const Menu = () => {
   };
 
   return (
-    <>
-      {isOpen && <div onClick={toggleMenu} className="menu__background"></div>}
-      <div className="menu">
-        <div className="menu__icon" onClick={toggleMenu}>
-          <FaEllipsisV className="table__action-icon" />
-          {isOpen && (
-            <ul className="menu__list">
-              <li className="menu__item">
-                <Button
-                  text="Git pull"
-                  onClick={() => {
-                    /* Handle Git pull action */
-                  }}
-                />
-              </li>
-              <li className="menu__item">
-                <Button
-                  text="Edit"
-                  onClick={() => {
-                    /* Handle Edit action */
-                  }}
-                />
-              </li>
-              <li className="menu__item">
-                <Button
-                  text="Disable"
-                  onClick={() => {
-                    /* Handle Disable action */
-                  }}
-                />
-              </li>
-              <li className="menu__item menu__item--delete">
-                <Button
-                  text="Delete"
-                  onClick={() => {
-                    /* Handle Delete action */
-                  }}
-                  backgroundColor="red"
-                />
-              </li>
-            </ul>
-          )}
-        </div>
+    <div className="menu">
+      {isOpen && <div onClick={toggleMenu} className="menu__background" />}
+      <div className="menu__icon" onClick={toggleMenu}>
+        <FaEllipsisV className="menu__icon-svg" />
       </div>
-    </>
+      {isOpen && (
+        <ul className="menu__list">
+          <li className="menu__item">
+            <Button
+              text="Git pull"
+              onClick={() => {
+                /* Handle Git pull action */
+              }}
+            />
+          </li>
+          <li className="menu__item">
+            <Button
+              text="Edit"
+              onClick={() => {
+                /* Handle Edit action */
+              }}
+            />
+          </li>
+          <li className="menu__item">
+            <Button
+              text="Disable"
+              onClick={() => {
+                /* Handle Disable action */
+              }}
+            />
+          </li>
+          <li className="menu__item menu__item--delete">
+            <Button
+              text="Delete"
+              onClick={() => {
+                /* Handle Delete action */
+              }}
+              backgroundColor="red"
+            />
+          </li>
+        </ul>
+      )}
+    </div>
   );
 };
 

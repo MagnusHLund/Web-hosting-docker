@@ -1,33 +1,54 @@
 import Table from "../content/Table";
+import User from "../content/User";
 import Button from "../input/Button";
 import SearchBar from "../input/SearchBar";
 import "./ServicesRoute.scss";
 
 function ServicesRoute() {
-  // Example users data
-  const users = [
+  const dummyData = [
     {
       id: 1,
-      name: "John Doe",
-      email: "john.doe@example.com",
-      role: "Admin",
-      status: "Active",
+      user: "#",
+      name: "",
+      port: 3030,
+      type: "",
+      status: "",
     },
     {
       id: 2,
-      name: "Jane Smith",
-      email: "jane.smith@example.com",
-      role: "Editor",
-      status: "Inactive",
+      user: "#",
+      name: "",
+      port: 3030,
+      type: "",
+      status: "",
     },
     {
-      id: 2,
-      name: "Jane Smith",
-      email: "jane.smith@example.com",
-      role: "Editor",
-      status: "Inactive",
+      id: 3,
+      user: "#",
+      name: "",
+      port: 3030,
+      type: "",
+      status: "",
+    },
+    {
+      id: 4,
+      user: "#",
+      name: "",
+      port: 3030,
+      type: "",
+      status: "",
+    },
+    {
+      id: 5,
+      user: "#",
+      name: "",
+      port: 3030,
+      type: "",
+      status: "",
     },
   ];
+  const headers = ["Name", "Email", "Role", "Status"];
+  const rows = dummyData.map((user) => <User key={user.id} user={user} />);
 
   return (
     <div className="services-route-container">
@@ -38,7 +59,8 @@ function ServicesRoute() {
           <Button text="Add service" />
         </div>
       </div>
-      <Table users={users} />
+
+      <Table headers={headers} rows={rows} />
     </div>
   );
 }

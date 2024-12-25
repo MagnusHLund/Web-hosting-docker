@@ -1,54 +1,43 @@
 .table-container {
-  overflow-x: auto; // Allow horizontal scrolling on small screens
+  width: 100%; // Full width for the container
+  overflow-x: auto; // Allow horizontal scroll if needed
 }
 
 .table {
-  width: 100%;
-  border-collapse: collapse; // Collapse borders
+  width: 100%; // Full width for the table
+  border-collapse: collapse; // Merge borders
+}
 
-  &__header-row,
-  &__body-row {
-    background-color: transparent; // Transparent background for rows
+.table__header {
+  background-color: var(--primary-color); // Header background color
+}
+
+.table__header-row {
+  height: 50px; // Adjust header height as needed;
+}
+
+.table__header-cell {
+  padding: 10px; // Padding for header cells
+  text-align: left; // Align text to the left
+  border-bottom: 2px solid var(--text-color); // Bottom border for header
+}
+
+.table__body {
+  background-color: var(--background-color); // Background color for body
+}
+
+.table__body-row {
+  height: 40px; // Row height for body
+  &:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0.05); // Light grey for alternate rows
   }
+}
 
-  &__header-cell,
-  &__body-cell {
-    padding: 10px;
-    border: 1px solid var(--primary-color); // Border for each cell
-    text-align: left;
-    color: var(--text-color); // Ensure text color is readable
+.table__body-cell {
+  padding: 10px; // Padding for body cells
+  border-bottom: 1px solid var(--text-color); // Bottom border for body cells
+}
 
-    // Responsive styles
-    @media (max-width: 600px) {
-      font-size: 1rem; // Adjust font size for smaller screens
-    }
-  }
-
-  &__header-cell {
-    background-color: var(--dark-primary-color); // Darker color for header
-    color: var(--dark-text-color); // Light text color for header
-  }
-
-  &__body-cell {
-    // Styles specific to body cells
-    padding: 5px; // Reduced padding for action cells
-    font-size: 1rem; // Smaller font size for action cells
-
-    // Add a specific width for the Actions column
-    &:nth-child(5) {
-      // Assuming Actions is the 5th column
-      width: 100px; // Set a fixed width for the Actions column
-      text-align: center; // Center the content for better alignment
-    }
-  }
-
-  &__action-icon {
-    cursor: pointer; // Show pointer on hover
-    color: var(--text-color); // Use text color for icon
-    margin: 0 5px; // Add margin between icons for spacing
-
-    &:hover {
-      color: var(--primary-color); // Change color on hover
-    }
-  }
+.table__body-row:hover {
+  background-color: rgba(0, 0, 0, 0.1); // Hover effect
 }
